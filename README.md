@@ -1,4 +1,4 @@
-# <div align="center"> SSS:Square,Square,Square!!! </div>
+# <div align="center"> SSS: Square Square Square!!! </div>
 ## <div align="center"> Vivimos en una sociedad de cuadrados </div>
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/logo.jpg)
 
