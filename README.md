@@ -10,9 +10,9 @@ En los siguientes puntos, trataremos los apartados de ‘declaración del concep
 ‘SSS: Square Square Square!!!’ es un videojuego donde cada jugador toma el papel de un cuadrado, y tiene por objetivo saltar sobre otros cuadrados (otros jugadores), al mismo tiempo que esquiva triángulos y usa círculos para impulsarse por el escenario.
 El único objetivo existente es saltar sobre tus enemigos o engañarlos para destruirlos usando el entorno a tu favor. De esta forma, el jugador puede imponerse a sí mismo unos ‘subobjetivos’, como conseguir conducir a un enemigo al extremo de una plataforma para dejarle sin espacio para huir o saltar. No será necesario un tutorial, puesto no es un gameplay muy complejo, aunque se le proporcionará un apartado con instrucciones.  
 El juego se sustenta en las siguientes características:
-  -Diseño sencillo, basado en formas geométricas simples que permiten ofrecer al jugador una experiencia directa de su objetivo principal. 
-  -Dinamismo, pues la sensación de tensión y la necesidad de victoria son transmitidas al jugador desde el primer momento.
-  -Capacidad de albergar a varios jugadores (multijugador), dada la naturaleza competitiva.
+  - Diseño sencillo, basado en formas geométricas simples que permiten ofrecer al jugador una experiencia directa de su objetivo principal. 
+  - Dinamismo, pues la sensación de tensión y la necesidad de victoria son transmitidas al jugador desde el primer momento.
+  - Capacidad de albergar a varios jugadores (multijugador), dada la naturaleza competitiva.
 #### Público objetivo:
 ‘SSS: Square Square Square!!!’ está dirigido a cualquier público (aunque enfocado a jóvenes debido a su estética cartoon y minimalista), optando por transmitir experiencias divertidas por medio de la simbología de formas y colores.  
 #### Plataforma(s), Tecnología, y Alcance:
@@ -21,10 +21,9 @@ Es un juego pensado para pc, queremos centrarnos en la experiencia multijugador 
 Como mencionamos anteriormente, en ‘SSS: Square Square Square!!!’ el jugador es un cuadrado que debe derrotar a otros cuadrados. El usuario sentirá tensión ya que debe de planear cómo derrotar a sus enemigos al mismo tiempo que huye o esquiva a los mismos. De esta forma el participante debe pasar toda la partida en constante movimiento, finalizando esta una vez que quede solo un cuadrado. Al ser una partida relativamente corta, el usuario sentirá el deseo de seguir jugando.
 El juego se desarrollará por rondas, y en cuanto termine una con un ganador, se le otorgará un punto e inmediatamente se pasará al siguiente nivel. Cuando un jugador llegue al número de victorias necesarias, el juego terminará, entonces el jugador podrá ver su puntuación final. Se mostrará un mensaje de victoria o derrota, dando la opción de volver a jugar o salir.
 El juego incluirá las siguientes mecánicas:
-  -Movimiento: El jugador tendrá a su disposición la posibilidad de moverse a la izquierda y la derecha. Puede agacharse con el fin de disminuir su hitbox, o bajar a una plataforma inferior si pulsa el botón de salto. Con el salto, el usuario puede situarse sobre plataformas, esquivar trampas y aplastar a los otros cuadrados.
-  -Rebotes: El usuario podrá impulsarse al colisionar con círculos (objetos sólidos que estarán repartidos a lo largo del nivel), saliendo el jugador impulsado en el lado contrario en donde esté el círculo situado.
-
-  -Pinchos: Dentro de cada nivel existen unos objetos que actúan como trampa y hacen daño a los cuadrados. Se trata de los triángulos, cuya función consiste en eliminar a cualquier cuadrado que colisione con ellos. Son estáticos, por lo que la única forma de que un cuadrado choque con ellos es por accidente. 
+  - Movimiento: El jugador tendrá a su disposición la posibilidad de moverse a la izquierda y la derecha. Puede agacharse con el fin de disminuir su hitbox, o bajar a una plataforma inferior si pulsa el botón de salto. Con el salto, el usuario puede situarse sobre plataformas, esquivar trampas y aplastar a los otros cuadrados.
+  - Rebotes: El usuario podrá impulsarse al colisionar con círculos (objetos sólidos que estarán repartidos a lo largo del nivel), saliendo el jugador impulsado en el lado contrario en donde esté el círculo situado.
+  - Pinchos: Dentro de cada nivel existen unos objetos que actúan como trampa y hacen daño a los cuadrados. Se trata de los triángulos, cuya función consiste en eliminar a cualquier cuadrado que colisione con ellos. Son estáticos, por lo que la única forma de que un cuadrado choque con ellos es por accidente. 
 
 Al iniciar una partida, el mapa en el que se juega se elegirá aleatoriamente. Si el jugador gana, se pasará al siguiente nivel, cuyo mapa será diferente  y, por tanto, los objetos distribuidos a lo largo del mismo también lo serán. Al generarse sin ninguna pauta, el nivel de dificultad de los escenarios no será ascendente. Sin embargo, el jugador no sentirá estar jugando a lo mismo siempre, ya que no jugará siempre en un escenario con el mismo diseño.
 #### Arte:
