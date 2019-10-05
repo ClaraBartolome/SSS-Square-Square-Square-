@@ -30,9 +30,9 @@ Al iniciar una partida, el mapa en el que se juega se elegirá aleatoriamente. S
 ‘SSS: Square Square Square!!!’ precisa, como se mencionó anteriormente, de un estilo artístico muy sencillo, optando por incluir formas de colores planos y geometría simple. Es necesario conocer y visualizar bien los obstáculos y jugadores, por eso se optó por figuras básicas. Sin embargo, se les ha dotado de un estilo cartoon para dar una estética más amigable y familiar. De esta forma no se recarga la pantalla con elementos innecesarios y el jugador puede asignar las distintas formas a los distintos elementos de la pantalla de una forma más sencilla y casi inconsciente.
 Por otro lado, los niveles del juego estarán en contraposición con los colores llamativos de los personajes, optando por fondos en tonalidades de escalas de grises para que se diferencie muy bien la utilidad de cada cosa.
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/triangulo.png = 256x256)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/triangulo.png)
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/circulo.png= 256x256)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/circulo.png)
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/cuadrado.png= 256x256)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/cuadrado.png)
 
