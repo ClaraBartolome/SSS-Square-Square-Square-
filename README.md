@@ -16,7 +16,7 @@ El juego se sustenta en las siguientes características:
 #### Público objetivo:
 ‘SSS: Square Square Square!!!’ está dirigido a cualquier público (aunque enfocado a jóvenes debido a su estética cartoon y minimalista), optando por transmitir experiencias divertidas por medio de la simbología de formas y colores.  
 #### Plataforma(s), Tecnología, y Alcance:
-Es un juego pensado para pc, queremos centrarnos en la experiencia multijugador típica de los juegos de ordenador de los 90, como Quake 3 Arena o Unreal Tournament, cada uno en su propia máquina jugando por LAN, pero también, aprovechando la simpleza de los controles, y la cantidad de botones del teclado, existe la posibilidad de juego local en un solo cliente. Se usarán solo elementos 2D, por lo que tendrá un peso lo suficientemente bajo para que se pueda jugar en la mayoría de ordenadores. Lo haremos con Javascript, ya que el juego es muy sencillo y no son necesarios grandes requisitos de PC. Así cualquiera puede unirse al juego, sin importar sus especificaciones.
+Es un juego pensado para pc, queremos centrarnos en la experiencia multijugador típica de los juegos de ordenador de los 90, como Quake 3 Arena o Unreal Tournament, cada uno en su propia máquina jugando por LAN, pero también, aprovechando la simpleza de los controles, y la cantidad de botones del teclado, existe la posibilidad de juego local en un solo cliente. Se usarán solo elementos 2D, por lo que tendrá un peso lo suficientemente bajo para que se pueda jugar en la mayoría de ordenadores. Lo haremos con Javascript, ya que el juego es muy sencillo y no son necesarios grandes requisitos de PC. Así cualquiera puede unirse al juego, sin importar sus especificaciones. Haremos uso de las librerías de físicas de Phaser 3, con ello conseguiremos animaciones suaves para el confort del jugador, sin tener que dedicar mucho tiempo de desarrollo.
 #### Mecánicas y flujo del juego:
 Como mencionamos anteriormente, en ‘SSS: Square Square Square!!!’ el jugador es un cuadrado que debe derrotar a otros cuadrados. El usuario sentirá tensión ya que debe de planear cómo derrotar a sus enemigos al mismo tiempo que huye o esquiva a los mismos. De esta forma el participante debe pasar toda la partida en constante movimiento, finalizando esta una vez que quede solo un cuadrado. Al ser una partida relativamente corta, el usuario sentirá el deseo de seguir jugando.
 El juego se desarrollará por rondas, y en cuanto termine una con un ganador, se le otorgará un punto e inmediatamente se pasará al siguiente nivel. Cuando un jugador llegue al número de victorias necesarias, el juego terminará, entonces el jugador podrá ver su puntuación final. Se mostrará un mensaje de victoria o derrota, dando la opción de volver a jugar o salir.
@@ -36,3 +36,10 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/cuadrado.png)
 
+Miembros:
+  - Clara Bartolomé Pereira: c.bartolome.2017@alumnos.urjc.es
+  - Fernando Doménech Martínez: f.domenech.2017@alumnos.urjc.es
+  - Javier Morales López: j.morales.2017@alumnos.urjc.es
+  - Elena Rosal del Rey: e.rosal.2017@alumnos.urjc.es
+  
+Trello: https://trello.com/b/cj1rszAa/sss-square-square-square
