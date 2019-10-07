@@ -37,9 +37,9 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/cuadrado.png)
 
 Miembros:
-  - Clara Bartolomé Pereira: c.bartolome.2017@alumnos.urjc.es
-  - Fernando Doménech Martínez: f.domenech.2017@alumnos.urjc.es
-  - Javier Morales López: j.morales.2017@alumnos.urjc.es
-  - Elena Rosal del Rey: e.rosal.2017@alumnos.urjc.es
+  - Clara Bartolomé Pereira: c.bartolome.2017@alumnos.urjc.es Github: ClaraMegalovania
+  - Fernando Doménech Martínez: f.domenech.2017@alumnos.urjc.es Github: Ferdom-M
+  - Javier Morales López: j.morales.2017@alumnos.urjc.es Github:
+  - Elena Rosal del Rey: e.rosal.2017@alumnos.urjc.es Github:
   
 Trello: https://trello.com/b/cj1rszAa/sss-square-square-square
