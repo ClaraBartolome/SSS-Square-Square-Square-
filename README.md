@@ -1,6 +1,6 @@
 # <div align="center"> SSS: Square Square Square!!! </div>
 ## <div align="center"> Vivimos en una sociedad de cuadrados </div>
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/logo.jpg)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/logo.jpg)
 
 ## Game Design Document
 #### Introducción:
@@ -31,21 +31,21 @@ Al iniciar una partida, el mapa en el que se juega se elegirá aleatoriamente. S
 Por otro lado, los niveles del juego estarán en contraposición con los colores llamativos de los personajes, optando por fondos en tonalidades de escalas de grises para que se diferencie muy bien la utilidad de cada cosa.
 
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/triangulo.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/triangulo.png)
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/circulo.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/circulo.png)
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/cuadrado.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/cuadrado.png)
 
 #### Skins
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Squaremma.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Squaremma.png)
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Cuadralewis.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadralewis.png)
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/squaredio.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/squaredio.png)
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/cuadrathorton.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/cuadrathorton.png)
 
 Miembros:
   - Clara Bartolomé Pereira: c.bartolome.2017@alumnos.urjc.es Github: ClaraMegalovania
