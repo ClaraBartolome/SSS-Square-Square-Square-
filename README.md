@@ -41,6 +41,12 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Squaremma.png)
 
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Cuadralewis.png)
+
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Squaredio.png)
+
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/cuadrathorton.png)
+
 Miembros:
   - Clara Bartolomé Pereira: c.bartolome.2017@alumnos.urjc.es Github: ClaraMegalovania
   - Fernando Doménech Martínez: f.domenech.2017@alumnos.urjc.es Github: Ferdom-M
