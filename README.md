@@ -43,7 +43,7 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Cuadralewis.png)
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Squaredio.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/squaredio.pngg)
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/cuadrathorton.png)
 
