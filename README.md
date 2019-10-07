@@ -39,7 +39,7 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 Miembros:
   - Clara Bartolomé Pereira: c.bartolome.2017@alumnos.urjc.es Github: ClaraMegalovania
   - Fernando Doménech Martínez: f.domenech.2017@alumnos.urjc.es Github: Ferdom-M
-  - Javier Morales López: j.morales.2017@alumnos.urjc.es Github:
-  - Elena Rosal del Rey: e.rosal.2017@alumnos.urjc.es Github:
+  - Javier Morales López: j.morales.2017@alumnos.urjc.es Github: JavierMegalovania
+  - Elena Rosal del Rey: e.rosal.2017@alumnos.urjc.es Github: ElenaRoRey
   
 Trello: https://trello.com/b/cj1rszAa/sss-square-square-square
