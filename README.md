@@ -39,6 +39,8 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 
 #### Skins
 
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Squaremma.png)
+
 Miembros:
   - Clara Bartolomé Pereira: c.bartolome.2017@alumnos.urjc.es Github: ClaraMegalovania
   - Fernando Doménech Martínez: f.domenech.2017@alumnos.urjc.es Github: Ferdom-M
