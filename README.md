@@ -47,7 +47,7 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/cuadrathorton.png)
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Mas skins xd.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Mas skins xd.jpeg)
 
 Miembros:
   - Clara Bartolomé Pereira: c.bartolome.2017@alumnos.urjc.es Github: ClaraMegalovania
