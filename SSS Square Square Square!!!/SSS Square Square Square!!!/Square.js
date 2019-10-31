@@ -56,7 +56,7 @@ function create() {
 
     circulos.create(500, 420, 'circulo');
 
-    circulos.create(700, 300, 'circulo');
+    triangulos.create(700, 300, 'triangulo');
 
     //triangulos.create(700, 300, 'triangulo');
 
@@ -91,7 +91,7 @@ function create() {
     this.physics.add.collider(player, platforms);
     this.physics.add.collider(player2, platforms);
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    this.physics.add.collider(player, player2);
+    this.physics.add.collider(player, player2, comprobacionPisacion);
     this.physics.add.collider(player, circulos, colisionCirculo);
     this.physics.add.collider(player2, circulos, colisionCirculo);
 
@@ -124,8 +124,14 @@ function update() {
         }
 
     } else {
-        player.setAccelerationX(0);
-        player.body.velocity.x = 0;
+        if (player.body.velocity.x > 20) {
+            player.setAccelerationX(-1400);
+        } else if (player.body.velocity.x < -20) {
+            player.setAccelerationX(1400);
+        } else {
+            player.setAccelerationX(0);
+            player.body.velocity.x = 0;
+        }
     }
 
     if (cursors.up.isDown && player.body.touching.down) {
@@ -139,7 +145,7 @@ function update() {
         player2.body.velocity.x = 320;
 
     }
-    else {
+    else if(player2.body.touching.down){
         if (player2.body.velocity.x > 20) {
             player2.setAccelerationX(-800);
         } else if (player2.body.velocity.x < -20) {
@@ -149,6 +155,15 @@ function update() {
             player2.body.velocity.x = 0;
         }
 
+    } else {
+        if (player2.body.velocity.x > 20) {
+            player2.setAccelerationX(-1400);
+        } else if (player2.body.velocity.x < -20) {
+            player2.setAccelerationX(1400);
+        } else {
+            player2.setAccelerationX(0);
+            player2.body.velocity.x = 0;
+        }
     }
 
     if (cursors2.up.isDown && player2.body.touching.down) {
@@ -162,5 +177,13 @@ function colisionCirculo(player, circulos) {
 }
 
 function colisionTriangulo(player, triangulos) {
-    
+    console.log("Oh no he rip");
+}
+
+function comprobacionPisacion(player, player2) {
+    if (player2.body.touching.up) {
+        console.log("Oh no soy el jugador 2 y he muerto");
+    } else if (player.body.touching.up) {
+        console.log("Oh no soy el jugador 1 y he muerto");
+    }
 }
