@@ -17,13 +17,27 @@ var config = {
         update: update
     }
 };
+/*
+var player = {
+    sprite: "",
+    muerte: false
+};
+*/
+class Jugador {
+    constructor(sprite, muerte) {
+        this.sprite = sprite;
+        this.muerte = muerte;
+    }
+}
 
-var player;
-var player2;
+var numJugadores = 2;
+var jugadores = new Array (numJugadores);
+jugadores[0] = new Jugador;
+jugadores[1] = new Jugador;
 var circulos;
 var triangulos;
 var platforms;
-var cursors;
+var cursors = new Array(numJugadores);
 var gameOver = false;
 var game = new Phaser.Game(config);
 
@@ -32,8 +46,8 @@ function preload() {
     this.load.image('ground', 'assets/platformN.png');
     this.load.image('cuadrencio', 'assets/cuadrencio.png', { frameWidth: 32, frameHeight: 32 });
     this.load.image('dio', 'assets/dio.png', { frameWidth: 32, frameHeight: 32 });
-    this.load.image('circulo', 'assets/cuadrado_verde.png', { frameWidth: 32, frameHeight: 32 });
-    this.load.image('triangulo', 'assets/cuadrado_verde.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.image('circulo', 'assets/circulo.png', { frameWidth: 32, frameHeight: 32 });
+    this.load.image('triangulo', 'assets/triangulo.png', { frameWidth: 32, frameHeight: 32 });
 }
 
 function create() {
@@ -54,27 +68,29 @@ function create() {
     platforms.create(50, 400, 'ground');
     platforms.create(750, 350, 'ground');
 
-    circulos.create(500, 420, 'circulo');
+    circulos.create(500, 418, 'circulo');
 
-    triangulos.create(700, 300, 'triangulo');
+    triangulos.create(700, 318, 'triangulo');
 
     //triangulos.create(700, 300, 'triangulo');
 
     // The player and its settings
-    player = this.physics.add.sprite(100, 450, 'cuadrencio');
-    player2 = this.physics.add.sprite(200, 450, 'dio');
+    jugadores[0].sprite = this.physics.add.sprite(100, 450, 'cuadrencio');
+    jugadores[0].sprite.name = 1;
+    jugadores[1].sprite = this.physics.add.sprite(200, 450, 'dio');
+    jugadores[1].sprite.name = 2;
 
 
     //  Player physics properties. Give the little guy a slight bounce.
-    player.setBounce(0.3);
-    player.setCollideWorldBounds(true);
-    player2.setBounce(0.3);
-    player2.setCollideWorldBounds(true);
+    jugadores[0].sprite.setBounce(0.3);
+    jugadores[0].sprite.setCollideWorldBounds(true);
+    jugadores[1].sprite.setBounce(0.3);
+    jugadores[1].sprite.setCollideWorldBounds(true);
 
     //  Input Events
-    cursors = this.input.keyboard.createCursorKeys();
+    cursors[0] = this.input.keyboard.createCursorKeys();
 
-    cursors2 = this.input.keyboard.addKeys(
+    cursors[1] = this.input.keyboard.addKeys(
         {
             up: Phaser.Input.Keyboard.KeyCodes.W,
             down: Phaser.Input.Keyboard.KeyCodes.S,
@@ -88,102 +104,118 @@ function create() {
     scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
 
     //  Collide the player and the stars with the platforms
-    this.physics.add.collider(player, platforms);
-    this.physics.add.collider(player2, platforms);
+    this.physics.add.collider(jugadores[0].sprite, platforms);
+    this.physics.add.collider(jugadores[1].sprite, platforms);
     //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
-    this.physics.add.collider(player, player2, comprobacionPisacion);
-    this.physics.add.collider(player, circulos, colisionCirculo);
-    this.physics.add.collider(player2, circulos, colisionCirculo);
+    this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
+    this.physics.add.collider(jugadores[0].sprite, circulos, colisionCirculo);
+    this.physics.add.collider(jugadores[1].sprite, circulos, colisionCirculo);
 
-    this.physics.add.collider(player, triangulos, colisionTriangulo);
-    this.physics.add.collider(player2, triangulos, colisionTriangulo);
+    this.physics.add.collider(jugadores[0].sprite, triangulos, colisionTriangulo);
+    this.physics.add.collider(jugadores[1].sprite, triangulos, colisionTriangulo);
 }
 
 
 function update() {
-    if (gameOver) {
-        return;
-    }
+    for (var i = 0; i < numJugadores; i++) {
+        if (cursors[i].left.isDown) {
+            jugadores[i].sprite.body.velocity.x = -320;
 
-    if (cursors.left.isDown) {
-        player.body.velocity.x = -320;
+        }
+        else if (cursors[i].right.isDown) {
+            jugadores[i].sprite.body.velocity.x = 320;
 
-    }
-    else if (cursors.right.isDown) {
-        player.body.velocity.x = 320;
+        }
+        else if (jugadores[i].sprite.body.touching.down) {
+            if (jugadores[i].sprite.body.velocity.x > 20) {
+                jugadores[i].sprite.setAccelerationX(-800);
+            } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                jugadores[i].sprite.setAccelerationX(800);
+            } else {
+                jugadores[i].sprite.setAccelerationX(0);
+                jugadores[i].sprite.body.velocity.x = 0;
+            }
 
-    }
-    else if (player.body.touching.down) {
-        if (player.body.velocity.x > 20) {
-            player.setAccelerationX(-800);
-        } else if (player.body.velocity.x < -20) {
-            player.setAccelerationX(800);
         } else {
-            player.setAccelerationX(0);
-            player.body.velocity.x = 0;
+            if (jugadores[i].sprite.body.velocity.x > 20) {
+                jugadores[i].sprite.setAccelerationX(-1400);
+            } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                jugadores[i].sprite.setAccelerationX(1400);
+            } else {
+                jugadores[i].sprite.setAccelerationX(0);
+                jugadores[i].sprite.body.velocity.x = 0;
+            }
         }
 
-    } else {
-        if (player.body.velocity.x > 20) {
-            player.setAccelerationX(-1400);
-        } else if (player.body.velocity.x < -20) {
-            player.setAccelerationX(1400);
-        } else {
-            player.setAccelerationX(0);
-            player.body.velocity.x = 0;
+        if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
+            jugadores[i].sprite.body.velocity.y = -600;
         }
     }
-
-    if (cursors.up.isDown && player.body.touching.down) {
-        player.body.velocity.y = -600;
-    }
-
+   
+    /*
     if (cursors2.left.isDown) {
-        player2.body.velocity.x = -320;
+        jugadores[1].sprite.body.velocity.x = -320;
     }
     else if (cursors2.right.isDown) {
-        player2.body.velocity.x = 320;
+        jugadores[1].sprite.body.velocity.x = 320;
 
     }
-    else if(player2.body.touching.down){
-        if (player2.body.velocity.x > 20) {
-            player2.setAccelerationX(-800);
-        } else if (player2.body.velocity.x < -20) {
-            player2.setAccelerationX(800);
+    else if (jugadores[1].sprite.body.touching.down){
+        if (jugadores[1].sprite.body.velocity.x > 20) {
+            jugadores[1].sprite.setAccelerationX(-800);
+        } else if (jugadores[1].sprite.body.velocity.x < -20) {
+            jugadores[1].sprite.setAccelerationX(800);
         } else {
-            player2.setAccelerationX(0);
-            player2.body.velocity.x = 0;
+            jugadores[1].sprite.setAccelerationX(0);
+            jugadores[1].sprite.body.velocity.x = 0;
         }
 
     } else {
-        if (player2.body.velocity.x > 20) {
-            player2.setAccelerationX(-1400);
-        } else if (player2.body.velocity.x < -20) {
-            player2.setAccelerationX(1400);
+        if (jugadores[1].sprite.body.velocity.x > 20) {
+            jugadores[1].sprite.setAccelerationX(-1400);
+        } else if (jugadores[1].sprite.body.velocity.x < -20) {
+            jugadores[1].sprite.setAccelerationX(1400);
         } else {
-            player2.setAccelerationX(0);
-            player2.body.velocity.x = 0;
+            jugadores[1].sprite.setAccelerationX(0);
+            jugadores[1].sprite.body.velocity.x = 0;
         }
     }
 
-    if (cursors2.up.isDown && player2.body.touching.down) {
-        player2.body.velocity.y = -600;
+    if (cursors2.up.isDown && jugadores[1].sprite.body.touching.down) {
+        jugadores[1].sprite.body.velocity.y = -600;
     }
-
+    */
 }
 
 function colisionCirculo(player, circulos) {
     player.body.velocity.y = -1000;
 }
 
-function colisionTriangulo(player, triangulos) {
+function colisionTriangulo(sprite, triangulos) {
     console.log("Oh no he rip");
+    if (sprite.name == 1) {
+        morir(jugadores[0]);
+    } else {
+        morir(jugadores[1]);
+    }
+    
 }
 
-function comprobacionPisacion(player, player2) {
-    if (player2.body.touching.up) {
+function comprobacionPisacion(sprite, sprite2) {
+    if (sprite2.body.touching.up) {
         console.log("Oh no soy el jugador 2 y he muerto");
-    } else if (player.body.touching.up) {
+        morir(jugadores[1]);
+    } if (sprite.body.touching.up) {
         console.log("Oh no soy el jugador 1 y he muerto");
+        morir(jugadores[0]);
     }
+}
+
+function morir(player) {
+    console.log(player.muerte);
+    player.muerte = true;
+}
+
+function terminarRonda(ganador) {
+
 }
