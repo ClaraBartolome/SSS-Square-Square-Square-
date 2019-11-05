@@ -17,26 +17,26 @@ var config = {
         update: update
     }
 };
-/*
-var player = {
-    sprite: "",
-    muerte: false
-};
-*/
+
 class Jugador {
-    constructor(sprite, muerte) {
+    constructor(sprite, muerte, puntuacion) {
         this.sprite = sprite;
         this.muerte = muerte;
+        this.puntuacion = puntuacion;
     }
 }
 
 var numJugadores = 2;
-var jugadores = new Array (numJugadores);
-jugadores[0] = new Jugador;
-jugadores[1] = new Jugador;
+var jugadores = new Array(numJugadores);
+for (var i = 0; i < numJugadores; i++) {
+    jugadores[i] = new Jugador;
+    jugadores[i].muerte = false;
+    jugadores[i].puntuacion = 0;
+}
 var circulos;
 var triangulos;
 var platforms;
+var muertesTotales = 0;
 var cursors = new Array(numJugadores);
 var gameOver = false;
 var game = new Phaser.Game(config);
@@ -72,20 +72,10 @@ function create() {
 
     triangulos.create(700, 318, 'triangulo');
 
-    //triangulos.create(700, 300, 'triangulo');
-
     // The player and its settings
     jugadores[0].sprite = this.physics.add.sprite(100, 450, 'cuadrencio');
-    jugadores[0].sprite.name = 1;
+    
     jugadores[1].sprite = this.physics.add.sprite(200, 450, 'dio');
-    jugadores[1].sprite.name = 2;
-
-
-    //  Player physics properties. Give the little guy a slight bounce.
-    jugadores[0].sprite.setBounce(0.3);
-    jugadores[0].sprite.setCollideWorldBounds(true);
-    jugadores[1].sprite.setBounce(0.3);
-    jugadores[1].sprite.setCollideWorldBounds(true);
 
     //  Input Events
     cursors[0] = this.input.keyboard.createCursorKeys();
@@ -97,22 +87,22 @@ function create() {
             left: Phaser.Input.Keyboard.KeyCodes.A,
             right: Phaser.Input.Keyboard.KeyCodes.D
         });
-    //  Some stars to collect, 12 in total, evenly spaced 70 pixels apart along the x axis
 
+    for (var i = 0; i < numJugadores; i++) {
+        jugadores[i].sprite.name = i;
 
-    //  The score
-    scoreText = this.add.text(16, 16, 'score: 0', { fontSize: '32px', fill: '#000' });
+        jugadores[i].sprite.setBounce(0.3);
+        jugadores[i].sprite.setCollideWorldBounds(true);
 
-    //  Collide the player and the stars with the platforms
-    this.physics.add.collider(jugadores[0].sprite, platforms);
-    this.physics.add.collider(jugadores[1].sprite, platforms);
-    //  Checks to see if the player overlaps with any of the stars, if he does call the collectStar function
+        this.physics.add.collider(jugadores[i].sprite, platforms);
+
+        this.physics.add.collider(jugadores[i].sprite, circulos, colisionCirculo);
+
+        this.physics.add.collider(jugadores[i].sprite, triangulos, colisionTriangulo);
+    }
+
     this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
-    this.physics.add.collider(jugadores[0].sprite, circulos, colisionCirculo);
-    this.physics.add.collider(jugadores[1].sprite, circulos, colisionCirculo);
-
-    this.physics.add.collider(jugadores[0].sprite, triangulos, colisionTriangulo);
-    this.physics.add.collider(jugadores[1].sprite, triangulos, colisionTriangulo);
+    
 }
 
 
@@ -151,40 +141,6 @@ function update() {
             jugadores[i].sprite.body.velocity.y = -600;
         }
     }
-   
-    /*
-    if (cursors2.left.isDown) {
-        jugadores[1].sprite.body.velocity.x = -320;
-    }
-    else if (cursors2.right.isDown) {
-        jugadores[1].sprite.body.velocity.x = 320;
-
-    }
-    else if (jugadores[1].sprite.body.touching.down){
-        if (jugadores[1].sprite.body.velocity.x > 20) {
-            jugadores[1].sprite.setAccelerationX(-800);
-        } else if (jugadores[1].sprite.body.velocity.x < -20) {
-            jugadores[1].sprite.setAccelerationX(800);
-        } else {
-            jugadores[1].sprite.setAccelerationX(0);
-            jugadores[1].sprite.body.velocity.x = 0;
-        }
-
-    } else {
-        if (jugadores[1].sprite.body.velocity.x > 20) {
-            jugadores[1].sprite.setAccelerationX(-1400);
-        } else if (jugadores[1].sprite.body.velocity.x < -20) {
-            jugadores[1].sprite.setAccelerationX(1400);
-        } else {
-            jugadores[1].sprite.setAccelerationX(0);
-            jugadores[1].sprite.body.velocity.x = 0;
-        }
-    }
-
-    if (cursors2.up.isDown && jugadores[1].sprite.body.touching.down) {
-        jugadores[1].sprite.body.velocity.y = -600;
-    }
-    */
 }
 
 function colisionCirculo(player, circulos) {
@@ -193,29 +149,42 @@ function colisionCirculo(player, circulos) {
 
 function colisionTriangulo(sprite, triangulos) {
     console.log("Oh no he rip");
-    if (sprite.name == 1) {
-        morir(jugadores[0]);
-    } else {
-        morir(jugadores[1]);
-    }
+    morir(jugadores[sprite.name]);
     
 }
 
 function comprobacionPisacion(sprite, sprite2) {
     if (sprite2.body.touching.up) {
-        console.log("Oh no soy el jugador 2 y he muerto");
-        morir(jugadores[1]);
+        console.log("Oh no soy el jugador " + (sprite2.name + 1) + " y he muerto");
+        morir(jugadores[sprite2.name]);
     } if (sprite.body.touching.up) {
-        console.log("Oh no soy el jugador 1 y he muerto");
-        morir(jugadores[0]);
+        console.log("Oh no soy el jugador " + (sprite.name + 1) + " y he muerto");
+        morir(jugadores[sprite.name]);
     }
 }
 
 function morir(player) {
     console.log(player.muerte);
     player.muerte = true;
+    muertesTotales++;
+    comprobarJugadores();
+}
+
+function comprobarJugadores() {
+    if (muertesTotales == (numJugadores - 1)) {
+        var i = 0;
+        while (jugadores[i].muerte) {
+            i++;
+        }
+        terminarRonda(jugadores[i]);
+    }
 }
 
 function terminarRonda(ganador) {
+    console.log("Soy el jugador " + (ganador.sprite.name + 1) + " y he ganado, toma ya");
+    ganador.puntuacion++;
+}
+
+function cargarNuevoEscenario() {
 
 }
