@@ -16,8 +16,10 @@ class menu extends Phaser.Scene {
         this.buttonJugar.on('pointerdown', llamarEscena(that));
     }
     
-    llamarEscena(that) {
-        that.scene.start('Escena');
-    }
     
+    
+}
+
+function llamarEscena(that) {
+    that.scene.start('Escena');
 }

@@ -10,11 +10,7 @@ class Jugador {
 
 var numJugadores = 2;
 var jugadores = new Array(numJugadores);
-for (var i = 0; i < numJugadores; i++) {
-    jugadores[i] = new Jugador;
-    jugadores[i].muerte = false;
-    jugadores[i].puntuacion = 0;
-}
+
 var circulosArriba;
 var circulosIzq;
 var circulosDcha;
@@ -46,7 +42,13 @@ class Escena extends Phaser.Scene {
         this.load.image('triangulo', 'assets/triangulo.png', { frameWidth: 32, frameHeight: 32 });
     }
 
-     create() {
+    create() {
+        for (var i = 0; i < numJugadores; i++) {
+            jugadores[i] = new Jugador;
+            jugadores[i].muerte = false;
+            jugadores[i].puntuacion = 0;
+        }
+
         //  A simple background for our game
         this.add.image(400, 300, 'sky');
 
@@ -147,7 +149,15 @@ class Escena extends Phaser.Scene {
             if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
                 jugadores[i].sprite.body.velocity.y = -600;
             }
-        }
+         }
+         if (muertesTotales == (numJugadores - 1)) {
+             var i = 0;
+             muertesTotales = 0;
+             while (jugadores[i].muerte) {
+                 i++;
+             }
+             this.scene.start('Escena');
+         }
     }
 
   
@@ -174,9 +184,10 @@ function colisionCirculoAbajo(player, circulos) {
 }
 
 function colisionTriangulo(sprite, triangulos) {
-    console.log("Oh no he rip");
-    morir(jugadores[sprite.name]);
-
+    if (triangulos.body.touching.up) {
+        console.log("Oh no he rip");
+        morir(jugadores[sprite.name]);
+    }
 }
 
 function comprobacionPisacion(sprite, sprite2) {
@@ -192,10 +203,10 @@ function comprobacionPisacion(sprite, sprite2) {
 function morir(player) {
     console.log(player.muerte);
     player.muerte = true;
-    player.sprite.x = 1000000;
-    player.sprite.y = 1000000;
+    player.sprite.x = 10000;
+    player.sprite.y = 10000;
     muertesTotales++;
-    comprobarJugadores();
+    //comprobarJugadores();
 }
 
 function comprobarJugadores() {
