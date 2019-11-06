@@ -206,7 +206,7 @@ function morir(player) {
     player.sprite.x = 10000;
     player.sprite.y = 10000;
     muertesTotales++;
-    //comprobarJugadores();
+    comprobarJugadores();
 }
 
 function comprobarJugadores() {
