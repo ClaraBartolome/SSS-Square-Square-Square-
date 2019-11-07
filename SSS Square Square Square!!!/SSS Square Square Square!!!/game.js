@@ -1,8 +1,13 @@
 // JavaScript source code
 var config = {
     type: Phaser.AUTO,
-    width: 800,
-    height: 600,
+    scale: {
+        mode: Phaser.Scale.FIT,
+        parent: 'phaser-example',
+        autoCenter: Phaser.Scale.CENTER_BOTH,
+        width: 1280,
+        height: 720
+    },
     physics: {
         default: 'arcade',
         arcade: {
@@ -10,7 +15,7 @@ var config = {
             debug: false
         }
     },
-    scene: [menu, Escena]
+    scene: [menu, Escena0, Escena1, Escena2]
 };
 
 var game = new Phaser.Game(config);
