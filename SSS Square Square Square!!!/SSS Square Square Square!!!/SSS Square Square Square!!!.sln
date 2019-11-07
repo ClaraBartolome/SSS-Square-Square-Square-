@@ -5,7 +5,9 @@ VisualStudioVersion = 16.0.29306.81
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{A9FC976F-1A5C-4A48-89CF-EB6E30A11083}"
 	ProjectSection(SolutionItems) = preProject
-		main.html = main.html
+		game.js = game.js
+		index.html = index.html
+		menu.js = menu.js
 		ScenePruebas.js = ScenePruebas.js
 		Square.js = Square.js
 	EndProjectSection

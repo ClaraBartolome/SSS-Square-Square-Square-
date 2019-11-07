@@ -109,7 +109,6 @@ class Escena extends Phaser.Scene {
         }
 
         this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
-
     }
 
 
