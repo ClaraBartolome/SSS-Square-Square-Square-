@@ -10,7 +10,11 @@ class Jugador {
 
 var numJugadores = 2;
 var jugadores = new Array(numJugadores);
-
+for (var i = 0; i < numJugadores; i++) {
+    jugadores[i] = new Jugador;
+    jugadores[i].muerte = false;
+    jugadores[i].puntuacion = 0;
+}
 var circulosArriba;
 var circulosIzq;
 var circulosDcha;
@@ -45,11 +49,9 @@ class Escena0 extends Phaser.Scene {
 
     create() {
         for (var i = 0; i < numJugadores; i++) {
-            jugadores[i] = new Jugador;
+            jugadores[i].sprite = "";
             jugadores[i].muerte = false;
-            jugadores[i].puntuacion = 0;
         }
-
         //  A simple background for our game
         this.add.image(640, 360, 'sky').setScale(1);
 
@@ -184,7 +186,6 @@ class Escena0 extends Phaser.Scene {
   
 }
 
-
 class Escena1 extends Phaser.Scene {
 
     constructor() {
@@ -208,11 +209,9 @@ class Escena1 extends Phaser.Scene {
 
     create() {
         for (var i = 0; i < numJugadores; i++) {
-            jugadores[i] = new Jugador;
+            jugadores[i].sprite = "";
             jugadores[i].muerte = false;
-            jugadores[i].puntuacion = 0;
         }
-
         //  A simple background for our game
         this.add.image(640, 360, 'sky').setScale(1);
 
@@ -366,11 +365,9 @@ class Escena2 extends Phaser.Scene {
 
     create() {
         for (var i = 0; i < numJugadores; i++) {
-            jugadores[i] = new Jugador;
+            jugadores[i].sprite = "";
             jugadores[i].muerte = false;
-            jugadores[i].puntuacion = 0;
         }
-
         //  A simple background for our game
         this.add.image(640, 360, 'sky').setScale(1);
 
@@ -543,6 +540,7 @@ function terminarRonda(ganador, that) {
     console.log("Soy el jugador " + (ganador.sprite.name + 1) + " y he ganado, toma ya");
 
     ganador.puntuacion++;
+    console.log("Tengo " + ganador.puntuacion + " bro.");
     idEscenario++;
     if (idEscenario == 3) idEscenario = 0;
     switch (idEscenario) {
