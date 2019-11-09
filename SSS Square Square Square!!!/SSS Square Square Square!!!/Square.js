@@ -197,6 +197,7 @@ class Escena1 extends Phaser.Scene {
     preload() {
         this.load.image('sky', 'assets/sky.jpeg');
         this.load.image('ground', 'assets/platformN.png');
+		 this.load.image('wall', 'assets/paredN.png');
         this.load.image('cuadrencio', 'assets/cuadrado_verde.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('dio', 'assets/dio.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloArriba', 'assets/circulo_arriba.png', { frameWidth: 32, frameHeight: 32 });
@@ -204,6 +205,9 @@ class Escena1 extends Phaser.Scene {
         this.load.image('circuloDcha', 'assets/circulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloAbajo', 'assets/circulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('triangulo', 'assets/triangulo.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloAbajo', 'assets/triangulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloDcha', 'assets/triangulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloIzq', 'assets/triangulo_izda.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('tripletriangulo', 'assets/tripletriangulo.png', { frameWidth: 96, frameHeight: 32 });
     }
 
@@ -225,26 +229,37 @@ class Escena1 extends Phaser.Scene {
 
         //Plataformas
         platforms.create(640, 720, 'ground').setScale(5).refreshBody();
-        platforms.create(100, 550, 'ground');
-        platforms.create(700, 500, 'ground');
-        platforms.create(1200, 450, 'ground');
-        platforms.create(450, 200, 'ground');
-        platforms.create(-50, 300, 'ground');
+		platforms.create(640, 0, 'ground').setScale(5).refreshBody();
+        platforms.create(1200, 550, 'ground');
+        platforms.create(600, 500, 'ground');
+        platforms.create(1100, 350, 'ground');
+        platforms.create(-20, 200, 'ground');
+		platforms.create(1100, 150, 'ground');
+        platforms.create(30, 400, 'ground');
         platforms.create(750, 16, 'ground');
 
-        triangulos.create(200, 518, 'tripletriangulo');
-        triangulos.create(600, 624, 'triangulo');
+		platforms.create(1263,150,'wall');
+		platforms.create(1263,360,'wall');
 
+        triangulos.create(150, 623, 'tripletriangulo');
+        triangulos.create(900, 624, 'triangulo');
+		triangulos.create(50,232,'trianguloAbajo');//Implementar colision triangulo abajo
+		triangulos.create(500,98,'trianguloAbajo');//Implementar colision triangulo abajo
+		triangulos.create(700,98,'trianguloAbajo');//Implementar colision triangulo abajo
+		triangulos.create(1231,450,'trianguloDcha');//Implementar colision triangulo dcha
 
-        circulosIzq.create(1272, 553, 'circuloIzq');
-
-        circulosAbajo.create(1200, 474, 'circuloAbajo');
-        circulosAbajo.create(650, 40, 'circuloAbajo');
+        circulosIzq.create(1239, 242, 'circuloIzq');
+		circulosArriba.create(1100, 325, 'circuloArriba');
+		circulosArriba.create(500, 476, 'circuloArriba');
+		circulosArriba.create(700, 476, 'circuloArriba');
+        circulosAbajo.create(1200, 175, 'circuloAbajo');
+        circulosAbajo.create(1000, 175, 'circuloAbajo');
+		circulosAbajo.create(100, 225, 'circuloAbajo');
 
         // The player and its settings
-        jugadores[0].sprite = this.physics.add.sprite(100, 268, 'cuadrencio');
+        jugadores[0].sprite = this.physics.add.sprite(100, 300, 'cuadrencio');
 
-        jugadores[1].sprite = this.physics.add.sprite(600, 450, 'dio');
+        jugadores[1].sprite = this.physics.add.sprite(1180, 520, 'dio');
 
         //  Input Events
         cursors[0] = this.input.keyboard.createCursorKeys();
@@ -353,6 +368,7 @@ class Escena2 extends Phaser.Scene {
     preload() {
         this.load.image('sky', 'assets/sky.jpeg');
         this.load.image('ground', 'assets/platformN.png');
+		 this.load.image('ground2', 'assets/platform2N.png');
         this.load.image('cuadrencio', 'assets/cuadrado_verde.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('dio', 'assets/dio.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloArriba', 'assets/circulo_arriba.png', { frameWidth: 32, frameHeight: 32 });
@@ -379,22 +395,241 @@ class Escena2 extends Phaser.Scene {
         circulosAbajo = this.physics.add.staticGroup();
         triangulos = this.physics.add.staticGroup();
 
-        //Plataformas
-        platforms.create(640, 720, 'ground').setScale(5).refreshBody();
-        platforms.create(100, 550, 'ground');
-        platforms.create(700, 500, 'ground');
-        platforms.create(1200, 450, 'ground');
-        platforms.create(450, 200, 'ground');
-        platforms.create(-50, 300, 'ground');
-        platforms.create(750, 16, 'ground');
+       //SUELO Y PAREDES
+        platforms.create(640, 720, 'ground').setScale(5).refreshBody(); //SUELO
+        platforms.create(0, 720, 'wall').setScale(5).refreshBody(); //PARED IZDA
+        platforms.create(1280, 720, 'wall').setScale(5).refreshBody(); //PARED DCHA
 
-        triangulos.create(200, 518, 'tripletriangulo');
-        triangulos.create(600, 624, 'triangulo');
+        //PLATAFORMAS
+
+        platforms.create(640, 550, 'ground'); //medio abajo
+
+        platforms.create(230, 350, 'ground2'); //Arriba izda
+        platforms.create(1050, 350, 'ground2'); //Arriba dcha
+
+        //Circulos plat abajo
+        circulosArriba.create(460, 526, 'circuloArriba');
+        circulosArriba.create(650, 526, 'circuloArriba');
+        circulosArriba.create(600, 526, 'circuloArriba');
+        circulosArriba.create(700, 526, 'circuloArriba');
+        circulosArriba.create(750, 526, 'circuloArriba');
+        circulosArriba.create(550, 526, 'circuloArriba');
+        circulosArriba.create(500, 526, 'circuloArriba');
+        circulosArriba.create(800, 526, 'circuloArriba');
+
+        //circulos lado dcho
+        circulosIzq.create(1191, 170, 'circuloIzq');
+        circulosIzq.create(1191, 220, 'circuloIzq');
+        circulosIzq.create(1191, 270, 'circuloIzq');
+        circulosIzq.create(1191, 320, 'circuloIzq');
+
+        //circulos lado izdo
+        circulosDcha.create(89, 170, 'circuloDcha');
+        circulosDcha.create(89, 220, 'circuloDcha');
+        circulosDcha.create(89, 270, 'circuloDcha');
+        circulosDcha.create(89, 320, 'circuloDcha');
+
+        //TRIANGULOS
+
+        triangulos.create(150, 624, 'tripletriangulo');
+        triangulos.create(250, 624, 'tripletriangulo');
+        triangulos.create(350, 624, 'tripletriangulo');
+
+        triangulos.create(930, 624, 'tripletriangulo');
+        triangulos.create(1030, 624, 'tripletriangulo');
+        triangulos.create(1130, 624, 'tripletriangulo');
+
+
+
 
         // The player and its settings
-        jugadores[0].sprite = this.physics.add.sprite(100, 268, 'cuadrencio');
+           jugadores[0].sprite = this.physics.add.sprite(250, 250, 'cuadrencio');
 
-        jugadores[1].sprite = this.physics.add.sprite(600, 450, 'dio');
+        jugadores[1].sprite = this.physics.add.sprite(1050, 250, 'dio');
+
+        //  Input Events
+        cursors[0] = this.input.keyboard.createCursorKeys();
+
+        cursors[1] = this.input.keyboard.addKeys(
+            {
+                up: Phaser.Input.Keyboard.KeyCodes.W,
+                down: Phaser.Input.Keyboard.KeyCodes.S,
+                left: Phaser.Input.Keyboard.KeyCodes.A,
+                right: Phaser.Input.Keyboard.KeyCodes.D
+            });
+
+        for (var i = 0; i < numJugadores; i++) {
+            jugadores[i].sprite.name = i;
+
+            jugadores[i].sprite.setBounce(0.3);
+            jugadores[i].sprite.setCollideWorldBounds(true);
+
+            this.physics.add.collider(jugadores[i].sprite, platforms);
+
+            this.physics.add.collider(jugadores[i].sprite, circulosArriba, colisionCirculoArriba);
+            this.physics.add.collider(jugadores[i].sprite, circulosIzq, colisionCirculoIzq);
+            this.physics.add.collider(jugadores[i].sprite, circulosDcha, colisionCirculoDcha);
+            this.physics.add.collider(jugadores[i].sprite, circulosAbajo, colisionCirculoAbajo);
+
+            this.physics.add.collider(jugadores[i].sprite, triangulos, colisionTriangulo);
+        }
+
+        this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
+
+        var FKey = this.input.keyboard.addKey('F');
+
+        FKey.on('down', function () {
+
+            if (this.scale.isFullscreen) {
+                this.scale.stopFullscreen();
+            }
+            else {
+                this.scale.startFullscreen();
+            }
+
+        }, this);
+    }
+
+
+    update() {
+        for (var i = 0; i < numJugadores; i++) {
+            if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
+                if (cursors[i].left.isDown) {
+                    jugadores[i].sprite.body.velocity.x = -320;
+
+                }
+                else if (cursors[i].right.isDown) {
+                    jugadores[i].sprite.body.velocity.x = 320;
+
+                }
+            }
+            if (jugadores[i].sprite.body.touching.down) {
+                if (jugadores[i].sprite.body.velocity.x > 20) {
+                    jugadores[i].sprite.setAccelerationX(-800);
+                } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                    jugadores[i].sprite.setAccelerationX(800);
+                } else {
+                    jugadores[i].sprite.setAccelerationX(0);
+                    jugadores[i].sprite.body.velocity.x = 0;
+                }
+
+            } else {
+                if (jugadores[i].sprite.body.velocity.x > 20) {
+                    jugadores[i].sprite.setAccelerationX(-1400);
+                } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                    jugadores[i].sprite.setAccelerationX(1400);
+                } else {
+                    jugadores[i].sprite.setAccelerationX(0);
+                    jugadores[i].sprite.body.velocity.x = 0;
+                }
+            }
+
+            if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
+                jugadores[i].sprite.body.velocity.y = -600;
+            }
+        }
+        if (muertesTotales == (numJugadores - 1)) {
+            var i = 0;
+            muertesTotales = 0;
+            while (jugadores[i].muerte) {
+                i++;
+            }
+            var that = this;
+            terminarRonda(jugadores[i], that);
+        }
+    }
+
+
+}
+class Escena3 extends Phaser.Scene {
+
+    constructor() {
+        super("Escena3");
+    }
+
+
+
+    preload() {
+        this.load.image('sky', 'assets/sky.jpeg');
+        this.load.image('ground', 'assets/platformN.png');
+		 this.load.image('ground2', 'assets/platform2N.png');
+        this.load.image('cuadrencio', 'assets/cuadrado_verde.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('dio', 'assets/dio.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('circuloArriba', 'assets/circulo_arriba.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('circuloIzq', 'assets/circulo_izq.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('circuloDcha', 'assets/circulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('circuloAbajo', 'assets/circulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('triangulo', 'assets/triangulo.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('tripletriangulo', 'assets/tripletriangulo.png', { frameWidth: 96, frameHeight: 32 });
+    }
+
+    create() {
+        for (var i = 0; i < numJugadores; i++) {
+            jugadores[i].sprite = "";
+            jugadores[i].muerte = false;
+        }
+        //  A simple background for our game
+        this.add.image(640, 360, 'sky').setScale(1);
+
+        //  The platforms group contains the ground and the 2 ledges we can jump on
+        platforms = this.physics.add.staticGroup();
+        circulosArriba = this.physics.add.staticGroup();
+        circulosIzq = this.physics.add.staticGroup();
+        circulosDcha = this.physics.add.staticGroup();
+        circulosAbajo = this.physics.add.staticGroup();
+        triangulos = this.physics.add.staticGroup();
+
+       //SUELO Y PAREDES
+        platforms.create(640, 720, 'ground').setScale(5).refreshBody(); //SUELO
+        platforms.create(0, 720, 'wall').setScale(5).refreshBody(); //PARED IZDA
+        platforms.create(1280, 720, 'wall').setScale(5).refreshBody(); //PARED DCHA
+
+        //PLATAFORMAS
+
+        platforms.create(1000, 550, 'ground'); //medio abajo
+
+        platforms.create(230, 350, 'ground2'); //Arriba izda
+        platforms.create(1050, 350, 'ground2'); //Arriba dcha
+
+        //Circulos plat abajo
+        circulosArriba.create(460, 526, 'circuloArriba');
+        circulosArriba.create(650, 526, 'circuloArriba');
+        circulosArriba.create(600, 526, 'circuloArriba');
+        circulosArriba.create(700, 526, 'circuloArriba');
+        circulosArriba.create(750, 526, 'circuloArriba');
+        circulosArriba.create(550, 526, 'circuloArriba');
+        circulosArriba.create(500, 526, 'circuloArriba');
+        circulosArriba.create(800, 526, 'circuloArriba');
+
+        //circulos lado dcho
+      /*  circulosIzq.create(1191, 170, 'circuloIzq');
+        circulosIzq.create(1191, 220, 'circuloIzq');
+        circulosIzq.create(1191, 270, 'circuloIzq');
+        circulosIzq.create(1191, 320, 'circuloIzq');
+
+        //circulos lado izdo
+        circulosDcha.create(89, 170, 'circuloDcha');
+        circulosDcha.create(89, 220, 'circuloDcha');
+        circulosDcha.create(89, 270, 'circuloDcha');
+        circulosDcha.create(89, 320, 'circuloDcha');
+
+        //TRIANGULOS
+
+        triangulos.create(150, 624, 'tripletriangulo');
+        triangulos.create(250, 624, 'tripletriangulo');
+        triangulos.create(350, 624, 'tripletriangulo');
+
+        triangulos.create(930, 624, 'tripletriangulo');
+        triangulos.create(1030, 624, 'tripletriangulo');
+        triangulos.create(1130, 624, 'tripletriangulo');
+
+		*/
+
+
+        // The player and its settings
+           jugadores[0].sprite = this.physics.add.sprite(250, 250, 'cuadrencio');
+
+        jugadores[1].sprite = this.physics.add.sprite(1050, 250, 'dio');
 
         //  Input Events
         cursors[0] = this.input.keyboard.createCursorKeys();
@@ -491,6 +726,7 @@ class Escena2 extends Phaser.Scene {
 
 }
 
+
 function colisionCirculoArriba(player, circulos) {
     console.log("Arriba");
     player.body.velocity.y = -1000;
@@ -542,7 +778,7 @@ function terminarRonda(ganador, that) {
     ganador.puntuacion++;
     console.log("Tengo " + ganador.puntuacion + " bro.");
     idEscenario++;
-    if (idEscenario == 3) idEscenario = 0;
+    if (idEscenario == 4) idEscenario = 0;
     switch (idEscenario) {
         case (0):
             that.scene.start("Escena0");
@@ -552,6 +788,9 @@ function terminarRonda(ganador, that) {
             break;
         case (2):
             that.scene.start("Escena2");
+            break;
+		case (3):
+            that.scene.start("Escena3");
             break;
     }
 }
