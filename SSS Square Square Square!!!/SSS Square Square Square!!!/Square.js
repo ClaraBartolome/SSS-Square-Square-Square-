@@ -44,6 +44,9 @@ class Escena0 extends Phaser.Scene {
         this.load.image('circuloDcha', 'assets/circulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloAbajo', 'assets/circulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('triangulo', 'assets/triangulo.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloAbajo', 'assets/triangulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloDcha', 'assets/triangulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloIzq', 'assets/triangulo_izda.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('tripletriangulo', 'assets/tripletriangulo.png', { frameWidth: 96, frameHeight: 32 });
     }
 
@@ -116,6 +119,9 @@ class Escena0 extends Phaser.Scene {
             this.physics.add.collider(jugadores[i].sprite, circulosAbajo, colisionCirculoAbajo);
 
             this.physics.add.collider(jugadores[i].sprite, triangulos, colisionTriangulo);
+			this.physics.add.collider(jugadores[i].sprite, triangulosAbajo, colisionTrianguloAbajo);
+			this.physics.add.collider(jugadores[i].sprite, triangulosDcha, colisionTrianguloDcha);
+			this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzq);
         }
 
         this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
@@ -226,6 +232,9 @@ class Escena1 extends Phaser.Scene {
         circulosDcha = this.physics.add.staticGroup();
         circulosAbajo = this.physics.add.staticGroup();
         triangulos = this.physics.add.staticGroup();
+		triangulosAbajo = this.physics.add.staticGroup();
+		triangulosIzq = this.physics.add.staticGroup();
+		triangulosDcha = this.physics.add.staticGroup();
 
         //Plataformas
         platforms.create(640, 720, 'ground').setScale(5).refreshBody();
@@ -243,10 +252,10 @@ class Escena1 extends Phaser.Scene {
 
         triangulos.create(150, 623, 'tripletriangulo');
         triangulos.create(900, 624, 'triangulo');
-		triangulos.create(50,232,'trianguloAbajo');//Implementar colision triangulo abajo
-		triangulos.create(500,98,'trianguloAbajo');//Implementar colision triangulo abajo
-		triangulos.create(700,98,'trianguloAbajo');//Implementar colision triangulo abajo
-		triangulos.create(1231,450,'trianguloDcha');//Implementar colision triangulo dcha
+		triangulosAbajo.create(50,232,'trianguloAbajo');//Implementar colision triangulo abajo
+		triangulosAbajo.create(500,98,'trianguloAbajo');//Implementar colision triangulo abajo
+		triangulosAbajo.create(700,98,'trianguloAbajo');//Implementar colision triangulo abajo
+		triangulosDcha.create(1231,450,'trianguloDcha');//Implementar colision triangulo dcha
 
         circulosIzq.create(1239, 242, 'circuloIzq');
 		circulosArriba.create(1100, 325, 'circuloArriba');
@@ -286,6 +295,9 @@ class Escena1 extends Phaser.Scene {
             this.physics.add.collider(jugadores[i].sprite, circulosAbajo, colisionCirculoAbajo);
 
             this.physics.add.collider(jugadores[i].sprite, triangulos, colisionTriangulo);
+			this.physics.add.collider(jugadores[i].sprite, triangulosAbajo, colisionTrianguloAbajo);
+			this.physics.add.collider(jugadores[i].sprite, triangulosDcha, colisionTrianguloDcha);
+			this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzq);
         }
 
         this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
@@ -376,6 +388,9 @@ class Escena2 extends Phaser.Scene {
         this.load.image('circuloDcha', 'assets/circulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloAbajo', 'assets/circulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('triangulo', 'assets/triangulo.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloAbajo', 'assets/triangulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloDcha', 'assets/triangulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloIzq', 'assets/triangulo_izda.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('tripletriangulo', 'assets/tripletriangulo.png', { frameWidth: 96, frameHeight: 32 });
     }
 
@@ -394,6 +409,9 @@ class Escena2 extends Phaser.Scene {
         circulosDcha = this.physics.add.staticGroup();
         circulosAbajo = this.physics.add.staticGroup();
         triangulos = this.physics.add.staticGroup();
+		triangulosAbajo = this.physics.add.staticGroup();
+		triangulosIzq = this.physics.add.staticGroup();
+		triangulosDcha = this.physics.add.staticGroup();
 
        //SUELO Y PAREDES
         platforms.create(640, 720, 'ground').setScale(5).refreshBody(); //SUELO
@@ -472,6 +490,9 @@ class Escena2 extends Phaser.Scene {
             this.physics.add.collider(jugadores[i].sprite, circulosAbajo, colisionCirculoAbajo);
 
             this.physics.add.collider(jugadores[i].sprite, triangulos, colisionTriangulo);
+			this.physics.add.collider(jugadores[i].sprite, triangulosAbajo, colisionTrianguloAbajo);
+			this.physics.add.collider(jugadores[i].sprite, triangulosDcha, colisionTrianguloDcha);
+			this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzq);
         }
 
         this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
@@ -552,7 +573,7 @@ class Escena3 extends Phaser.Scene {
     preload() {
         this.load.image('sky', 'assets/sky.jpeg');
         this.load.image('ground', 'assets/platformN.png');
-		 this.load.image('ground2', 'assets/platform2N.png');
+		this.load.image('ground2', 'assets/platform2N.png');
         this.load.image('cuadrencio', 'assets/cuadrado_verde.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('dio', 'assets/dio.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloArriba', 'assets/circulo_arriba.png', { frameWidth: 32, frameHeight: 32 });
@@ -560,6 +581,9 @@ class Escena3 extends Phaser.Scene {
         this.load.image('circuloDcha', 'assets/circulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloAbajo', 'assets/circulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('triangulo', 'assets/triangulo.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloAbajo', 'assets/triangulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloDcha', 'assets/triangulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloIzq', 'assets/triangulo_izda.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('tripletriangulo', 'assets/tripletriangulo.png', { frameWidth: 96, frameHeight: 32 });
     }
 
@@ -578,7 +602,10 @@ class Escena3 extends Phaser.Scene {
         circulosDcha = this.physics.add.staticGroup();
         circulosAbajo = this.physics.add.staticGroup();
         triangulos = this.physics.add.staticGroup();
-
+		triangulosAbajo = this.physics.add.staticGroup();
+		triangulosIzq = this.physics.add.staticGroup();
+		triangulosDcha = this.physics.add.staticGroup();
+		
        //SUELO Y PAREDES
         platforms.create(640, 720, 'ground').setScale(5).refreshBody(); //SUELO
         platforms.create(0, 720, 'wall').setScale(5).refreshBody(); //PARED IZDA
@@ -656,6 +683,9 @@ class Escena3 extends Phaser.Scene {
             this.physics.add.collider(jugadores[i].sprite, circulosAbajo, colisionCirculoAbajo);
 
             this.physics.add.collider(jugadores[i].sprite, triangulos, colisionTriangulo);
+			this.physics.add.collider(jugadores[i].sprite, triangulosAbajo, colisionTrianguloAbajo);
+			this.physics.add.collider(jugadores[i].sprite, triangulosDcha, colisionTrianguloDcha);
+			this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzq);
         }
 
         this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
@@ -749,6 +779,27 @@ function colisionCirculoAbajo(player, circulos) {
 
 function colisionTriangulo(sprite, triangulos) {
     if (triangulos.body.touching.up) {
+        console.log("Oh no he rip");
+        morir(jugadores[sprite.name]);
+    }
+}
+
+function colisionTrianguloAbajo(sprite, triangulos) {
+    if (triangulos.body.touching.down) {
+        console.log("Oh no he rip");
+        morir(jugadores[sprite.name]);
+    }
+}
+
+function colisionTrianguloDcha(sprite, triangulos) {
+    if (triangulos.body.touching.right) {
+        console.log("Oh no he rip");
+        morir(jugadores[sprite.name]);
+    }
+}
+
+function colisionTrianguloIzq(sprite, triangulos) {
+    if (triangulos.body.touching.left) {
         console.log("Oh no he rip");
         morir(jugadores[sprite.name]);
     }
