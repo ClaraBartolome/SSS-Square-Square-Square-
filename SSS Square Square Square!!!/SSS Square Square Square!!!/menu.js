@@ -20,13 +20,13 @@ class menu extends Phaser.Scene {
 
         this.buttonJugar = this.add.sprite(250, 250, 'jugar').setScale(0.5).setInteractive();
         this.buttonJugar.on('pointerdown', () => this.clickButtonJugar());
-        this.buttonJugar.on('pointerover', () => this.changeSpriteJugar_pulsado());
+        this.buttonJugar.on('pointerover', () => this.changeSpriteJugarPulsado());
         this.buttonJugar.on('pointerup', () => this.changeSpriteJugar());
 
 
         this.buttonCreditos = this.add.sprite(250, 400, 'creditos').setScale(0.5).setInteractive();
         this.buttonCreditos.on('pointerdown', () => this.clickButtonCreditos());
-        this.buttonCreditos.on('pointerover', () => this.changeSpriteCreditos_pulsado());
+        this.buttonCreditos.on('pointerover', () => this.changeSpriteCreditosPulsado());
         this.buttonCreditos.on('pointerup', () => this.changeSpriteCreditos());
 
     }
@@ -55,11 +55,11 @@ class menu extends Phaser.Scene {
     clickButtonCreditos() {
         console.log("SQUARE SQUARE SQUARE!!");
     }
-    changeSpriteJugar_pulsado() {
+
+    changeSpriteJugarPulsado() {
         this.buttonJugar.destroy();
         this.buttonJugar = this.add.sprite(250, 250, 'jugar_pulsado').setScale(0.5).setInteractive();
         this.buttonJugar.on('pointerdown', () => this.clickButtonJugar());
-        this.buttonJugar.on('pointerdown', () => this.clickButtonJugar_pulsado());
         this.buttonJugar.on('pointerout', () => this.changeSpriteJugar());
 
     }
@@ -67,15 +67,14 @@ class menu extends Phaser.Scene {
         this.buttonJugar.destroy();
         this.buttonJugar = this.add.sprite(250, 250, 'jugar').setScale(0.5).setInteractive();
         this.buttonJugar.on('pointerdown', () => this.clickButtonJugar());
-        this.buttonJugar.on('pointerover', () => this.changeSpriteJugar_pulsado());
+        this.buttonJugar.on('pointerover', () => this.changeSpriteJugarPulsado());
         this.buttonJugar.on('pointerup', () => this.changeSpriteJugar());
 
     }
-    changeSpriteCreditos_pulsado() {
+    changeSpriteCreditosPulsado() {
         this.buttonCreditos.destroy();
         this.buttonCreditos = this.add.sprite(250, 400, 'creditos_pulsado').setScale(0.5).setInteractive();
         this.buttonCreditos.on('pointerdown', () => this.clickButtonCreditos());
-        this.buttonCreditos.on('pointerdown', () => this.changeSpriteCreditos_pulsado());
         this.buttonCreditos.on('pointerout', () => this.changeSpriteCreditos());
 
     }
@@ -83,7 +82,7 @@ class menu extends Phaser.Scene {
         this.buttonCreditos.destroy();
         this.buttonCreditos = this.add.sprite(250, 400, 'creditos').setScale(0.5).setInteractive();
         this.buttonCreditos.on('pointerdown', () => this.clickButtonCreditos());
-        this.buttonCreditos.on('pointerover', () => this.changeSpriteCreditos_pulsado());
+        this.buttonCreditos.on('pointerover', () => this.changeSpriteCreditosPulsado());
         this.buttonCreditos.on('pointerup', () => this.changeSpriteJugar());
 
     }
