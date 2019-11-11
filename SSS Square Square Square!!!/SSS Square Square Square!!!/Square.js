@@ -149,7 +149,9 @@ class Escena0 extends Phaser.Scene {
     }
 
 
-     update() {
+    update() {
+        
+
         for (var i = 0; i < numJugadores; i++) {
             if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
                 if (cursors[i].left.isDown) {
@@ -313,6 +315,8 @@ class Escena1 extends Phaser.Scene {
 
 
     update() {
+        
+
         for (var i = 0; i < numJugadores; i++) {
             if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
                 if (cursors[i].left.isDown) {
@@ -494,6 +498,8 @@ class Escena2 extends Phaser.Scene {
 
 
     update() {
+        
+
         for (var i = 0; i < numJugadores; i++) {
             if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
                 if (cursors[i].left.isDown) {
@@ -571,10 +577,10 @@ class Escena3 extends Phaser.Scene {
         circulosDcha = this.physics.add.staticGroup();
         circulosAbajo = this.physics.add.staticGroup();
         triangulos = this.physics.add.staticGroup();
-		triangulosAbajo = this.physics.add.staticGroup();
-		triangulosIzq = this.physics.add.staticGroup();
-		triangulosDcha = this.physics.add.staticGroup();
-		
+        triangulosAbajo = this.physics.add.staticGroup();
+        triangulosIzq = this.physics.add.staticGroup();
+        triangulosDcha = this.physics.add.staticGroup();
+
         platforms.create(640, 720, 'ground').setScale(5).refreshBody();
         platforms.create(640, 0, 'ground').setScale(5).refreshBody();
         platforms.create(1200, 500, 'ground');
@@ -635,9 +641,9 @@ class Escena3 extends Phaser.Scene {
             this.physics.add.collider(jugadores[i].sprite, circulosAbajo, colisionCirculoAbajo);
 
             this.physics.add.collider(jugadores[i].sprite, triangulos, colisionTriangulo);
-			this.physics.add.collider(jugadores[i].sprite, triangulosAbajo, colisionTrianguloAbajo);
-			this.physics.add.collider(jugadores[i].sprite, triangulosDcha, colisionTrianguloDcha);
-			this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzq);
+            this.physics.add.collider(jugadores[i].sprite, triangulosAbajo, colisionTrianguloAbajo);
+            this.physics.add.collider(jugadores[i].sprite, triangulosDcha, colisionTrianguloDcha);
+            this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzq);
         }
 
         this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
@@ -658,6 +664,8 @@ class Escena3 extends Phaser.Scene {
 
 
     update() {
+       
+
         for (var i = 0; i < numJugadores; i++) {
             if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
                 if (cursors[i].left.isDown) {
@@ -714,51 +722,197 @@ class Escena3 extends Phaser.Scene {
 
 }
 
+class resultados extends Phaser.Scene {
+
+    constructor() {
+        super("resultados");
+    }
+    preload() {
+        this.load.image('volver', 'assets/boton_volver.png');
+        this.load.image('volver_pulsado', 'assets/boton_volver_pulsado.png');
+    }
+
+    create() {
+        this.add.image(640, 360, 'sky').setScale(1);
+
+       
+        
+        //  A simple background for our game
+        
+
+        //  The platforms group contains the ground and the 2 ledges we can jump on
+        platforms = this.physics.add.staticGroup();
+
+        platforms.create(640, 720, 'ground').setScale(5).refreshBody();
+        platforms.create(640, 0, 'ground').setScale(5).refreshBody();
+        platforms.create(1200, 500, 'ground');
+        platforms.create(600, 400, 'ground');
+        platforms.create(100, 300, 'ground');
+        //platforms.create(750, 16, 'ground');
+
+        this.buttonVolver = this.add.sprite(250, 40, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerup', () => this.changeSpriteVolver());
+
+
+        // The player and its settings
+        if (jugadores[0].puntuacion > jugadores[1].puntuacion) {
+            jugadores[0].sprite = this.physics.add.sprite(150, 250, 'cuadrencio');
+
+            jugadores[1].sprite = this.physics.add.sprite(1100, 250, 'dio');
+        } else {
+            jugadores[0].sprite = this.physics.add.sprite(1100, 250, 'cuadrencio');
+
+            jugadores[1].sprite = this.physics.add.sprite(150, 250, 'dio');
+        }
+        
+        for (var i = 0; i < numJugadores; i++) {
+            jugadores[i].puntuacion = 0;
+            jugadores[i].muerte = false;
+        }
+        idEscenario = 0;
+        muertesTotales = 0;
+
+        //  Input Events
+        cursors[1] = this.input.keyboard.createCursorKeys();
+
+        cursors[0] = this.input.keyboard.addKeys(
+            {
+                up: Phaser.Input.Keyboard.KeyCodes.W,
+                down: Phaser.Input.Keyboard.KeyCodes.S,
+                left: Phaser.Input.Keyboard.KeyCodes.A,
+                right: Phaser.Input.Keyboard.KeyCodes.D
+            });
+
+        for (var i = 0; i < numJugadores; i++) {
+            jugadores[i].sprite.setBounce(0.3);
+            jugadores[i].sprite.setCollideWorldBounds(true);
+
+            this.physics.add.collider(jugadores[i].sprite, platforms);
+        }
+
+        this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite);
+
+        var FKey = this.input.keyboard.addKey('F');
+
+        FKey.on('down', function () {
+
+            if (this.scale.isFullscreen) {
+                this.scale.stopFullscreen();
+            }
+            else {
+                this.scale.startFullscreen();
+            }
+
+        }, this);
+
+        
+    }
+
+
+    update() {
+        
+
+        for (var i = 0; i < numJugadores; i++) {
+            if (cursors[i].left.isDown) {
+                jugadores[i].sprite.body.velocity.x = -320;
+
+            }
+            else if (cursors[i].right.isDown) {
+                jugadores[i].sprite.body.velocity.x = 320;
+
+            }
+
+            if (jugadores[i].sprite.body.touching.down) {
+                if (jugadores[i].sprite.body.velocity.x > 20) {
+                    jugadores[i].sprite.setAccelerationX(-800);
+                } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                    jugadores[i].sprite.setAccelerationX(800);
+                } else {
+                    jugadores[i].sprite.setAccelerationX(0);
+                    jugadores[i].sprite.body.velocity.x = 0;
+                }
+
+            } else {
+                if (jugadores[i].sprite.body.velocity.x > 20) {
+                    jugadores[i].sprite.setAccelerationX(-1400);
+                } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                    jugadores[i].sprite.setAccelerationX(1400);
+                } else {
+                    jugadores[i].sprite.setAccelerationX(0);
+                    jugadores[i].sprite.body.velocity.x = 0;
+                }
+            }
+
+            if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
+                jugadores[i].sprite.body.velocity.y = -600;
+            }
+        }
+
+    }
+
+    clickButtonVolver() {
+
+        this.scene.switch("Mainmenu");
+
+    }
+
+    changeSpriteVolverPulsado() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 40, 'volver_pulsado').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.changeSpriteVolver());
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
+
+    }
+    changeSpriteVolver() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 40, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+
+    }
+
+}
+
 
 function colisionCirculoArriba(player, circulos) {
-    console.log("Arriba");
     player.body.velocity.y = -1000;
 }
 
 function colisionCirculoIzq(player, circulos) {
-    console.log("Izq");
     player.body.velocity.x = -1000;
 }
 
 function colisionCirculoDcha(player, circulos) {
-    console.log("Dcha");
     player.body.velocity.x = 1000;
 }
 
 function colisionCirculoAbajo(player, circulos) {
-    console.log("Abajo");
     player.body.velocity.y = 1000;
 }
 
 function colisionTriangulo(sprite, triangulo) {
     if (triangulo.body.touching.up) {
-        console.log("Oh no he rip");
         morir(jugadores[sprite.name]);
     }
 }
 
 function colisionTrianguloAbajo(sprite, triangulo) {
     if (triangulo.body.touching.down) {
-        console.log("Oh no he rip");
         morir(jugadores[sprite.name]);
     }
 }
 
 function colisionTrianguloDcha(sprite, triangulo) {
     if (triangulo.body.touching.right) {
-        console.log("Oh no he rip");
         morir(jugadores[sprite.name]);
     }
 }
 
 function colisionTrianguloIzq(sprite, triangulo) {
     if (triangulo.body.touching.left) {
-        console.log("Oh no he rip");
         morir(jugadores[sprite.name]);
     }
 }
@@ -776,7 +930,6 @@ function comprobacionPisacion(sprite, sprite2) {
 }
 
 function morir(player) {
-    console.log(player.muerte);
     player.sprite.setTint(0x9c9c9c);
     player.muerte = true;
     player.sprite.x = 10000;
@@ -786,14 +939,14 @@ function morir(player) {
 
 function terminarRonda(ganador, that) {
     if (ganador != undefined) { 
-        console.log("Soy el jugador " + (ganador.sprite.name + 1) + " y he ganado, toma ya");
-
         ganador.puntuacion++;
-        console.log("Tengo " + ganador.puntuacion + " bro.");
     }
     idEscenario++;
+    if (ganador.puntuacion == 10) {
+        idEscenario = 5;
+    }
+    
     if (idEscenario == 4) { idEscenario = 0; }
-    console.log(idEscenario);
     switch (idEscenario) {
         case (0):
             that.scene.start("Escena0");
@@ -806,6 +959,9 @@ function terminarRonda(ganador, that) {
             break;
 		case (3):
             that.scene.start("Escena3");
+            break;
+        case (5):
+            that.scene.start("resultados");
             break;
     }
 }
