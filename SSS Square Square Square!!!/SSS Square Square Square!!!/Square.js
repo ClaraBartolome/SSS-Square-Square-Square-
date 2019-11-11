@@ -51,7 +51,7 @@ class Escena0 extends Phaser.Scene {
         this.load.image('triangulo', 'assets/triangulo.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.image('trianguloAbajo', 'assets/triangulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.image('trianguloDcha', 'assets/triangulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
-		this.load.image('trianguloIzq', 'assets/triangulo_izda.png', { frameWidth: 32, frameHeight: 32 });
+		this.load.image('trianguloIzq', 'assets/triangulo_izq.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('tripletriangulo', 'assets/tripletriangulo.png', { frameWidth: 96, frameHeight: 32 });
     }
 
@@ -103,9 +103,9 @@ class Escena0 extends Phaser.Scene {
         jugadores[1].sprite = this.physics.add.sprite(1100, 418, 'dio');
 
         //  Input Events
-        cursors[0] = this.input.keyboard.createCursorKeys();
+        cursors[1] = this.input.keyboard.createCursorKeys();
 
-        cursors[1] = this.input.keyboard.addKeys(
+        cursors[0] = this.input.keyboard.addKeys(
             {
                 up: Phaser.Input.Keyboard.KeyCodes.W,
                 down: Phaser.Input.Keyboard.KeyCodes.S,
@@ -194,6 +194,12 @@ class Escena0 extends Phaser.Scene {
              }
              var that = this;
              terminarRonda(jugadores[i], that);
+         } else if (muertesTotales == numJugadores) {
+             muertesTotales = 0;
+             console.log("empato xd");
+             var empato;
+             var that = this;
+             terminarRonda(empato, this);
          }
     }
 
@@ -244,7 +250,7 @@ class Escena1 extends Phaser.Scene {
 		triangulosAbajo.create(50,232,'trianguloAbajo');//Implementar colision triangulo abajo
 		triangulosAbajo.create(500,98,'trianguloAbajo');//Implementar colision triangulo abajo
 		triangulosAbajo.create(700,98,'trianguloAbajo');//Implementar colision triangulo abajo
-		triangulosDcha.create(1231,450,'trianguloDcha');//Implementar colision triangulo dcha
+		triangulosIzq.create(1231,450,'trianguloIzq');//Implementar colision triangulo dcha
 
         circulosIzq.create(1239, 242, 'circuloIzq');
 		circulosArriba.create(1100, 325, 'circuloArriba');
@@ -260,9 +266,9 @@ class Escena1 extends Phaser.Scene {
         jugadores[1].sprite = this.physics.add.sprite(1180, 520, 'dio');
 
         //  Input Events
-        cursors[0] = this.input.keyboard.createCursorKeys();
+        cursors[1] = this.input.keyboard.createCursorKeys();
 
-        cursors[1] = this.input.keyboard.addKeys(
+        cursors[0] = this.input.keyboard.addKeys(
             {
                 up: Phaser.Input.Keyboard.KeyCodes.W,
                 down: Phaser.Input.Keyboard.KeyCodes.S,
@@ -351,6 +357,12 @@ class Escena1 extends Phaser.Scene {
             }
             var that = this;
             terminarRonda(jugadores[i], that);
+        } else if (muertesTotales == numJugadores) {
+            muertesTotales = 0;
+            console.log("empato xd");
+            var empato;
+            var that = this;
+            terminarRonda(empato, this);
         }
     }
 
@@ -435,9 +447,9 @@ class Escena2 extends Phaser.Scene {
         jugadores[1].sprite = this.physics.add.sprite(1050, 318, 'dio');
 
         //  Input Events
-        cursors[0] = this.input.keyboard.createCursorKeys();
+        cursors[1] = this.input.keyboard.createCursorKeys();
 
-        cursors[1] = this.input.keyboard.addKeys(
+        cursors[0] = this.input.keyboard.addKeys(
             {
                 up: Phaser.Input.Keyboard.KeyCodes.W,
                 down: Phaser.Input.Keyboard.KeyCodes.S,
@@ -526,6 +538,12 @@ class Escena2 extends Phaser.Scene {
             }
             var that = this;
             terminarRonda(jugadores[i], that);
+        } else if (muertesTotales == numJugadores) {
+            muertesTotales = 0;
+            console.log("empato xd");
+            var empato;
+            var that = this;
+            terminarRonda(empato, this);
         }
     }
 
@@ -593,9 +611,9 @@ class Escena3 extends Phaser.Scene {
         jugadores[1].sprite = this.physics.add.sprite(1100, 250, 'dio');
 
         //  Input Events
-        cursors[0] = this.input.keyboard.createCursorKeys();
+        cursors[1] = this.input.keyboard.createCursorKeys();
 
-        cursors[1] = this.input.keyboard.addKeys(
+        cursors[0] = this.input.keyboard.addKeys(
             {
                 up: Phaser.Input.Keyboard.KeyCodes.W,
                 down: Phaser.Input.Keyboard.KeyCodes.S,
@@ -684,6 +702,12 @@ class Escena3 extends Phaser.Scene {
             }
             var that = this;
             terminarRonda(jugadores[i], that);
+        } else if (muertesTotales == numJugadores) {
+            muertesTotales = 0;
+            console.log("empato xd");
+            var empato;
+            var that = this;
+            terminarRonda(empato, this);
         }
     }
 
@@ -711,46 +735,49 @@ function colisionCirculoAbajo(player, circulos) {
     player.body.velocity.y = 1000;
 }
 
-function colisionTriangulo(sprite, triangulos) {
-    if (triangulos.body.touching.up) {
+function colisionTriangulo(sprite, triangulo) {
+    if (triangulo.body.touching.up) {
         console.log("Oh no he rip");
         morir(jugadores[sprite.name]);
     }
 }
 
-function colisionTrianguloAbajo(sprite, triangulos) {
-    if (triangulos.body.touching.down) {
+function colisionTrianguloAbajo(sprite, triangulo) {
+    if (triangulo.body.touching.down) {
         console.log("Oh no he rip");
         morir(jugadores[sprite.name]);
     }
 }
 
-function colisionTrianguloDcha(sprite, triangulos) {
-    if (triangulos.body.touching.right) {
+function colisionTrianguloDcha(sprite, triangulo) {
+    if (triangulo.body.touching.right) {
         console.log("Oh no he rip");
         morir(jugadores[sprite.name]);
     }
 }
 
-function colisionTrianguloIzq(sprite, triangulos) {
-    if (triangulos.body.touching.left) {
+function colisionTrianguloIzq(sprite, triangulo) {
+    if (triangulo.body.touching.left) {
         console.log("Oh no he rip");
         morir(jugadores[sprite.name]);
     }
 }
 
 function comprobacionPisacion(sprite, sprite2) {
-    if (sprite2.body.touching.up) {
-        console.log("Oh no soy el jugador " + (sprite2.name + 1) + " y he muerto");
-        morir(jugadores[sprite2.name]);
-    } if (sprite.body.touching.up) {
-        console.log("Oh no soy el jugador " + (sprite.name + 1) + " y he muerto");
-        morir(jugadores[sprite.name]);
-    }
+
+        if (sprite2.body.touching.up) {
+            console.log("Oh no soy el jugador " + (sprite2.name + 1) + " y he muerto");
+            morir(jugadores[sprite2.name]);
+        } if (sprite.body.touching.up) {
+            console.log("Oh no soy el jugador " + (sprite.name + 1) + " y he muerto");
+            morir(jugadores[sprite.name]);
+        }
+    
 }
 
 function morir(player) {
     console.log(player.muerte);
+    player.sprite.setTint(0x9c9c9c);
     player.muerte = true;
     player.sprite.x = 10000;
     player.sprite.y = 10000;
@@ -758,10 +785,12 @@ function morir(player) {
 }
 
 function terminarRonda(ganador, that) {
-    console.log("Soy el jugador " + (ganador.sprite.name + 1) + " y he ganado, toma ya");
+    if (ganador != undefined) { 
+        console.log("Soy el jugador " + (ganador.sprite.name + 1) + " y he ganado, toma ya");
 
-    ganador.puntuacion++;
-    console.log("Tengo " + ganador.puntuacion + " bro.");
+        ganador.puntuacion++;
+        console.log("Tengo " + ganador.puntuacion + " bro.");
+    }
     idEscenario++;
     if (idEscenario == 4) { idEscenario = 0; }
     console.log(idEscenario);
