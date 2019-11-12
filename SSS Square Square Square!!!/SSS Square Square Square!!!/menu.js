@@ -71,12 +71,6 @@ class Mainmenu extends Phaser.Scene {
         }, this);
     }
 
-    update() {
-
-
-        
-    }
-
     clickButtonJugar() {
         muerteSonido.play();
         this.scene.switch("Escena0");
@@ -160,7 +154,6 @@ class creditos extends Phaser.Scene {
             '   -Javier Morales López'
         ];
 
-        
         this.add.image(640, 360, 'fondo2');
 
         var texto = this.add.text(100, 400, info, { font: '32px Courier', fill: '#ffffff' });
@@ -181,11 +174,6 @@ class creditos extends Phaser.Scene {
             }
 
         }, this);
-    }
-
-    update() {
-
-        
     }
 
     clickButtonVolver() {
@@ -331,8 +319,6 @@ class ComoJugar extends Phaser.Scene {
     }
 
     update() {
-        
-
         for (var i = 0; i < numJugadores; i++) {
             if (cursors[i].left.isDown) {
                 jugadores[i].sprite.body.velocity.x = -320;
@@ -373,7 +359,6 @@ class ComoJugar extends Phaser.Scene {
     clickButtonVolver() {
         muerteSonido.play();
         this.scene.start("Mainmenu");
-
     }
 
     changeSpriteVolverPulsado() {
