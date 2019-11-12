@@ -348,12 +348,6 @@ class resultados extends Phaser.Scene {
     create() {
         this.add.image(640, 360, 'sky').setScale(1);
 
-
-        
-        //  A simple background for our game
-        
-
-        //  The platforms group contains the ground and the 2 ledges we can jump on
         platforms = this.physics.add.staticGroup();
 
         platforms.create(640, 720, 'ground').setScale(5).refreshBody();
@@ -363,14 +357,11 @@ class resultados extends Phaser.Scene {
         platforms.create(640, 568, 'caja1');
         platforms.create(704, 608, 'caja2');
 
-
         this.buttonVolver = this.add.sprite(250, 40, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerup', () => this.changeSpriteVolver());
 
-
-        // The player and its settings
         if (jugadores[0].puntuacion > jugadores[1].puntuacion) {
             jugadores[0].sprite = this.physics.add.sprite(640, 520, 'cuadrencio');
 
@@ -388,7 +379,6 @@ class resultados extends Phaser.Scene {
         idEscenario = 0;
         muertesTotales = 0;
 
-        //  Input Events
         cursors[1] = this.input.keyboard.createCursorKeys();
 
         cursors[0] = this.input.keyboard.addKeys(
@@ -420,24 +410,17 @@ class resultados extends Phaser.Scene {
             }
 
         }, this);
-
-        
     }
 
 
     update() {
-        
-
         for (var i = 0; i < numJugadores; i++) {
             if (cursors[i].left.isDown) {
                 jugadores[i].sprite.body.velocity.x = -320;
-
             }
             else if (cursors[i].right.isDown) {
                 jugadores[i].sprite.body.velocity.x = 320;
-
             }
-
             if (jugadores[i].sprite.body.touching.down) {
                 if (jugadores[i].sprite.body.velocity.x > 20) {
                     jugadores[i].sprite.setAccelerationX(-800);
@@ -447,7 +430,6 @@ class resultados extends Phaser.Scene {
                     jugadores[i].sprite.setAccelerationX(0);
                     jugadores[i].sprite.body.velocity.x = 0;
                 }
-
             } else {
                 if (jugadores[i].sprite.body.velocity.x > 20) {
                     jugadores[i].sprite.setAccelerationX(-1400);
@@ -458,19 +440,15 @@ class resultados extends Phaser.Scene {
                     jugadores[i].sprite.body.velocity.x = 0;
                 }
             }
-
             if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
                 jugadores[i].sprite.body.velocity.y = -600;
                 salto.play();
             }
         }
-
     }
 
     clickButtonVolver() {
-
         this.scene.start("Mainmenu");
-
     }
 
     changeSpriteVolverPulsado() {
@@ -479,14 +457,12 @@ class resultados extends Phaser.Scene {
         this.buttonVolver.on('pointerdown', () => this.changeSpriteVolver());
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
-
     }
     changeSpriteVolver() {
         this.buttonVolver.destroy();
         this.buttonVolver = this.add.sprite(250, 40, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
-
     }
 
 }
@@ -511,12 +487,10 @@ class menuPausa extends Phaser.Scene {
         var NKey = this.input.keyboard.addKey('N');
         NKey.on('down', quit, this);
 
-        // And finally the method that handels the pause menu
         function play() {
             musica.volume = 0.2;
             this.scene.resume("Escena0");
             this.scene.stop("menuPausa");
-
         };
 
         function quit() {
@@ -630,6 +604,4 @@ function terminarRonda(ganador, that) {
     }else {
         that.scene.start("Escena0");
     }
-            
-
 }
