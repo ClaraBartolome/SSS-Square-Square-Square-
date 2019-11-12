@@ -2,6 +2,7 @@
 
 let muerteSonido;
 let salto;
+
 class Mainmenu extends Phaser.Scene {
 
     constructor() {
@@ -159,10 +160,10 @@ class creditos extends Phaser.Scene {
             '   -Javier Morales López'
         ];
 
-        var texto = this.add.text(100, 400, info, { font: '32px Courier', fill: '#ffffff' });
-        texto.setText(info);
-        texto.setDepth(999)
+        
         this.add.image(640, 360, 'fondo2');
+
+        var texto = this.add.text(100, 400, info, { font: '32px Courier', fill: '#ffffff' });
 
         this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
@@ -248,11 +249,6 @@ class ComoJugar extends Phaser.Scene {
         platforms.create(825, 240, 'wall').setScale(0.7);
         platforms.create(1105, 240, 'wall').setScale(0.7); 
 
-        jugadores[0].sprite = "";
-
-        jugadores[1].sprite = "";
-
-
         jugadores[0].sprite = this.physics.add.sprite(315, 340, 'cuadrencio');
 
         jugadores[1].sprite = this.physics.add.sprite(965, 340, 'dio');
@@ -268,8 +264,6 @@ class ComoJugar extends Phaser.Scene {
             });
 
         for (var i = 0; i < numJugadores; i++) {
-            jugadores[i].sprite.name = i;
-
             jugadores[i].sprite.setBounce(0.15);
             jugadores[i].sprite.setCollideWorldBounds(true);
 
@@ -311,28 +305,16 @@ class ComoJugar extends Phaser.Scene {
         ];
 
         var textoJugador1 = this.add.text(100, 420, jugador1, { font: '32px Courier', fill: '#ffffff' });
-        textoJugador1.setText(jugador1);
-        textoJugador1.setDepth(999)
 
         var textoJugador2 = this.add.text(700, 420, jugador2, { font: '32px Courier', fill: '#ffffff' });
-        textoJugador2.setText(jugador2);
-        textoJugador2.setDepth(999)
 
         var textoCirculos = this.add.text(50, 575, circulos, { font: '32px Courier', fill: '#ffffff' });
-        textoCirculos.setText(circulos);
-        textoCirculos.setDepth(999)
 
         var textoTriangulos = this.add.text(450, 575, triangulos, { font: '32px Courier', fill: '#ffffff' });
-        textoTriangulos.setText(triangulos);
-        textoTriangulos.setDepth(999)
 
         var textoCuadrados = this.add.text(850, 575, cuadrados, { font: '32px Courier', fill: '#ffffff' });
-        textoCuadrados.setText(cuadrados);
-        textoCuadrados.setDepth(999);
 
         var textoPausa = this.add.text(800, 25, pausa, { font: '32px Courier', fill: '#ffffff' });
-        textoPausa.setText(pausa);
-        textoPausa.setDepth(999);
 
         var FKey = this.input.keyboard.addKey('F');
 

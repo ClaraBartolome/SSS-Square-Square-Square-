@@ -19,16 +19,21 @@ var circulosArriba;
 var circulosIzq;
 var circulosDcha;
 var circulosAbajo;
+
 var triangulos;
 var triangulosAbajo;
 var triangulosDcha;
 var triangulosIzq;
+
 var platforms;
+
 var muertesTotales = 0;
+
 var cursors = new Array(numJugadores);
-var gameOver = false;
+
 var idEscenario = 0;
 var estaSonando = false;
+
 let musica;
 let rebote;
 
@@ -40,35 +45,28 @@ class Escena0 extends Phaser.Scene {
 
     
 
-     preload() {
+    preload() {
+        this.load.image('pausa', 'assets/Fondo_pausa.png');
         this.load.image('sky', 'assets/sky.jpeg');
-        this.load.image('ground', 'assets/platformN.png');
-         this.load.image('ground2', 'assets/platform2N.png');
-         this.load.image('wall', 'assets/paredN.png');
-         this.load.image('caja', 'assets/caja.png');
-         this.load.image('caja1', 'assets/caja1.png');
-         this.load.image('caja2', 'assets/caja2.png');
-        this.load.image('cuadrencio', 'assets/cuadrado_verde.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.image('dio', 'assets/dio.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.image('circuloArriba', 'assets/circulo_arriba.png', { frameWidth: 32, frameHeight: 32 });
+        this.load.image('ground2', 'assets/platform2N.png');
+        this.load.image('caja', 'assets/caja.png');
+        this.load.image('caja1', 'assets/caja1.png');
+        this.load.image('caja2', 'assets/caja2.png');
         this.load.image('circuloIzq', 'assets/circulo_izq.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloDcha', 'assets/circulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloAbajo', 'assets/circulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
-        this.load.image('triangulo', 'assets/triangulo.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.image('trianguloAbajo', 'assets/triangulo_abajo.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.image('trianguloDcha', 'assets/triangulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.image('trianguloIzq', 'assets/triangulo_izq.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('tripletriangulo', 'assets/tripletriangulo.png', { frameWidth: 96, frameHeight: 32 });
-         this.load.audio('musica', 'assets/Humble_Match.ogg');
-         this.load.audio('rebote', 'assets/rebote.mp3');
+        this.load.audio('musica', 'assets/Humble_Match.ogg');
+        this.load.audio('rebote', 'assets/rebote.mp3');
      }
 
     create() {
         for (var i = 0; i < numJugadores; i++) {
-            jugadores[i].sprite = "";
             jugadores[i].muerte = false;
         }
-       
 
         if (estaSonando == false) {
             musica = this.sound.add('musica');
@@ -185,45 +183,45 @@ class Escena0 extends Phaser.Scene {
 
 
     update() {
-        
-
         for (var i = 0; i < numJugadores; i++) {
-            if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
-                if (cursors[i].left.isDown) {
-                    jugadores[i].sprite.body.velocity.x = -320;
+            if (!jugadores[i].muerte) {
+                if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
+                    if (cursors[i].left.isDown) {
+                        jugadores[i].sprite.body.velocity.x = -320;
 
-                }
-                else if (cursors[i].right.isDown) {
-                    jugadores[i].sprite.body.velocity.x = 320;
+                    }
+                    else if (cursors[i].right.isDown) {
+                        jugadores[i].sprite.body.velocity.x = 320;
 
+                    }
                 }
-            }
-            if (jugadores[i].sprite.body.touching.down) {
-                if (jugadores[i].sprite.body.velocity.x > 20) {
-                    jugadores[i].sprite.setAccelerationX(-800);
-                } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                    jugadores[i].sprite.setAccelerationX(800);
+                if (jugadores[i].sprite.body.touching.down) {
+                    if (jugadores[i].sprite.body.velocity.x > 20) {
+                        jugadores[i].sprite.setAccelerationX(-800);
+                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                        jugadores[i].sprite.setAccelerationX(800);
+                    } else {
+                        jugadores[i].sprite.setAccelerationX(0);
+                        jugadores[i].sprite.body.velocity.x = 0;
+                    }
+
                 } else {
-                    jugadores[i].sprite.setAccelerationX(0);
-                    jugadores[i].sprite.body.velocity.x = 0;
+                    if (jugadores[i].sprite.body.velocity.x > 20) {
+                        jugadores[i].sprite.setAccelerationX(-1400);
+                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                        jugadores[i].sprite.setAccelerationX(1400);
+                    } else {
+                        jugadores[i].sprite.setAccelerationX(0);
+                        jugadores[i].sprite.body.velocity.x = 0;
+                    }
                 }
 
-            } else {
-                if (jugadores[i].sprite.body.velocity.x > 20) {
-                    jugadores[i].sprite.setAccelerationX(-1400);
-                } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                    jugadores[i].sprite.setAccelerationX(1400);
-                } else {
-                    jugadores[i].sprite.setAccelerationX(0);
-                    jugadores[i].sprite.body.velocity.x = 0;
+                if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
+                    jugadores[i].sprite.body.velocity.y = -600;
+                    salto.play();
                 }
             }
-
-            if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
-                jugadores[i].sprite.body.velocity.y = -600;
-                salto.play();
-            }
-         }
+        }
          if (muertesTotales == (numJugadores - 1)) {
              var i = 0;
              muertesTotales = 0;
@@ -251,7 +249,6 @@ class Escena1 extends Phaser.Scene {
 
     create() {
         for (var i = 0; i < numJugadores; i++) {
-            jugadores[i].sprite = "";
             jugadores[i].muerte = false;
         }
 
@@ -364,43 +361,43 @@ class Escena1 extends Phaser.Scene {
 
 
     update() {
-        
-
         for (var i = 0; i < numJugadores; i++) {
-            if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
-                if (cursors[i].left.isDown) {
-                    jugadores[i].sprite.body.velocity.x = -320;
+            if (!jugadores[i].muerte) {
+                if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
+                    if (cursors[i].left.isDown) {
+                        jugadores[i].sprite.body.velocity.x = -320;
 
-                }
-                else if (cursors[i].right.isDown) {
-                    jugadores[i].sprite.body.velocity.x = 320;
+                    }
+                    else if (cursors[i].right.isDown) {
+                        jugadores[i].sprite.body.velocity.x = 320;
 
+                    }
                 }
-            }
-            if (jugadores[i].sprite.body.touching.down) {
-                if (jugadores[i].sprite.body.velocity.x > 20) {
-                    jugadores[i].sprite.setAccelerationX(-800);
-                } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                    jugadores[i].sprite.setAccelerationX(800);
+                if (jugadores[i].sprite.body.touching.down) {
+                    if (jugadores[i].sprite.body.velocity.x > 20) {
+                        jugadores[i].sprite.setAccelerationX(-800);
+                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                        jugadores[i].sprite.setAccelerationX(800);
+                    } else {
+                        jugadores[i].sprite.setAccelerationX(0);
+                        jugadores[i].sprite.body.velocity.x = 0;
+                    }
+
                 } else {
-                    jugadores[i].sprite.setAccelerationX(0);
-                    jugadores[i].sprite.body.velocity.x = 0;
+                    if (jugadores[i].sprite.body.velocity.x > 20) {
+                        jugadores[i].sprite.setAccelerationX(-1400);
+                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                        jugadores[i].sprite.setAccelerationX(1400);
+                    } else {
+                        jugadores[i].sprite.setAccelerationX(0);
+                        jugadores[i].sprite.body.velocity.x = 0;
+                    }
                 }
 
-            } else {
-                if (jugadores[i].sprite.body.velocity.x > 20) {
-                    jugadores[i].sprite.setAccelerationX(-1400);
-                } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                    jugadores[i].sprite.setAccelerationX(1400);
-                } else {
-                    jugadores[i].sprite.setAccelerationX(0);
-                    jugadores[i].sprite.body.velocity.x = 0;
+                if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
+                    jugadores[i].sprite.body.velocity.y = -600;
+                    salto.play();
                 }
-            }
-
-            if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
-                jugadores[i].sprite.body.velocity.y = -600;
-                salto.play();
             }
         }
         if (muertesTotales == (numJugadores - 1)) {
@@ -413,7 +410,6 @@ class Escena1 extends Phaser.Scene {
             terminarRonda(jugadores[i], that);
         } else if (muertesTotales == numJugadores) {
             muertesTotales = 0;
-            console.log("empato xd");
             var empato;
             var that = this;
             terminarRonda(empato, this);
@@ -431,7 +427,6 @@ class Escena2 extends Phaser.Scene {
 
     create() {
         for (var i = 0; i < numJugadores; i++) {
-            jugadores[i].sprite = "";
             jugadores[i].muerte = false;
         }
 
@@ -497,7 +492,7 @@ class Escena2 extends Phaser.Scene {
 
 
         // The player and its settings
-           jugadores[0].sprite = this.physics.add.sprite(250, 318, 'cuadrencio');
+        jugadores[0].sprite = this.physics.add.sprite(250, 318, 'cuadrencio');
 
         jugadores[1].sprite = this.physics.add.sprite(1050, 318, 'dio');
 
@@ -560,43 +555,43 @@ class Escena2 extends Phaser.Scene {
 
 
     update() {
-        
-
         for (var i = 0; i < numJugadores; i++) {
-            if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
-                if (cursors[i].left.isDown) {
-                    jugadores[i].sprite.body.velocity.x = -320;
+            if (!jugadores[i].muerte) {
+                if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
+                    if (cursors[i].left.isDown) {
+                        jugadores[i].sprite.body.velocity.x = -320;
 
-                }
-                else if (cursors[i].right.isDown) {
-                    jugadores[i].sprite.body.velocity.x = 320;
+                    }
+                    else if (cursors[i].right.isDown) {
+                        jugadores[i].sprite.body.velocity.x = 320;
 
+                    }
                 }
-            }
-            if (jugadores[i].sprite.body.touching.down) {
-                if (jugadores[i].sprite.body.velocity.x > 20) {
-                    jugadores[i].sprite.setAccelerationX(-800);
-                } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                    jugadores[i].sprite.setAccelerationX(800);
+                if (jugadores[i].sprite.body.touching.down) {
+                    if (jugadores[i].sprite.body.velocity.x > 20) {
+                        jugadores[i].sprite.setAccelerationX(-800);
+                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                        jugadores[i].sprite.setAccelerationX(800);
+                    } else {
+                        jugadores[i].sprite.setAccelerationX(0);
+                        jugadores[i].sprite.body.velocity.x = 0;
+                    }
+
                 } else {
-                    jugadores[i].sprite.setAccelerationX(0);
-                    jugadores[i].sprite.body.velocity.x = 0;
+                    if (jugadores[i].sprite.body.velocity.x > 20) {
+                        jugadores[i].sprite.setAccelerationX(-1400);
+                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                        jugadores[i].sprite.setAccelerationX(1400);
+                    } else {
+                        jugadores[i].sprite.setAccelerationX(0);
+                        jugadores[i].sprite.body.velocity.x = 0;
+                    }
                 }
 
-            } else {
-                if (jugadores[i].sprite.body.velocity.x > 20) {
-                    jugadores[i].sprite.setAccelerationX(-1400);
-                } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                    jugadores[i].sprite.setAccelerationX(1400);
-                } else {
-                    jugadores[i].sprite.setAccelerationX(0);
-                    jugadores[i].sprite.body.velocity.x = 0;
+                if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
+                    jugadores[i].sprite.body.velocity.y = -600;
+                    salto.play();
                 }
-            }
-
-            if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
-                jugadores[i].sprite.body.velocity.y = -600;
-                salto.play();
             }
         }
         if (muertesTotales == (numJugadores - 1)) {
@@ -609,7 +604,6 @@ class Escena2 extends Phaser.Scene {
             terminarRonda(jugadores[i], that);
         } else if (muertesTotales == numJugadores) {
             muertesTotales = 0;
-            console.log("empato xd");
             var empato;
             var that = this;
             terminarRonda(empato, this);
@@ -627,7 +621,6 @@ class Escena3 extends Phaser.Scene {
 
     create() {
         for (var i = 0; i < numJugadores; i++) {
-            jugadores[i].sprite = "";
             jugadores[i].muerte = false;
         }
 
@@ -739,43 +732,43 @@ class Escena3 extends Phaser.Scene {
 
 
     update() {
-       
-
         for (var i = 0; i < numJugadores; i++) {
-            if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
-                if (cursors[i].left.isDown) {
-                    jugadores[i].sprite.body.velocity.x = -320;
+            if (!jugadores[i].muerte) {
+                if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
+                    if (cursors[i].left.isDown) {
+                        jugadores[i].sprite.body.velocity.x = -320;
 
-                }
-                else if (cursors[i].right.isDown) {
-                    jugadores[i].sprite.body.velocity.x = 320;
+                    }
+                    else if (cursors[i].right.isDown) {
+                        jugadores[i].sprite.body.velocity.x = 320;
 
+                    }
                 }
-            }
-            if (jugadores[i].sprite.body.touching.down) {
-                if (jugadores[i].sprite.body.velocity.x > 20) {
-                    jugadores[i].sprite.setAccelerationX(-800);
-                } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                    jugadores[i].sprite.setAccelerationX(800);
+                if (jugadores[i].sprite.body.touching.down) {
+                    if (jugadores[i].sprite.body.velocity.x > 20) {
+                        jugadores[i].sprite.setAccelerationX(-800);
+                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                        jugadores[i].sprite.setAccelerationX(800);
+                    } else {
+                        jugadores[i].sprite.setAccelerationX(0);
+                        jugadores[i].sprite.body.velocity.x = 0;
+                    }
+
                 } else {
-                    jugadores[i].sprite.setAccelerationX(0);
-                    jugadores[i].sprite.body.velocity.x = 0;
+                    if (jugadores[i].sprite.body.velocity.x > 20) {
+                        jugadores[i].sprite.setAccelerationX(-1400);
+                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
+                        jugadores[i].sprite.setAccelerationX(1400);
+                    } else {
+                        jugadores[i].sprite.setAccelerationX(0);
+                        jugadores[i].sprite.body.velocity.x = 0;
+                    }
                 }
 
-            } else {
-                if (jugadores[i].sprite.body.velocity.x > 20) {
-                    jugadores[i].sprite.setAccelerationX(-1400);
-                } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                    jugadores[i].sprite.setAccelerationX(1400);
-                } else {
-                    jugadores[i].sprite.setAccelerationX(0);
-                    jugadores[i].sprite.body.velocity.x = 0;
+                if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
+                    jugadores[i].sprite.body.velocity.y = -600;
+                    salto.play();
                 }
-            }
-
-            if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
-                jugadores[i].sprite.body.velocity.y = -600;
-                salto.play();
             }
         }
         if (muertesTotales == (numJugadores - 1)) {
@@ -788,7 +781,6 @@ class Escena3 extends Phaser.Scene {
             terminarRonda(jugadores[i], that);
         } else if (muertesTotales == numJugadores) {
             muertesTotales = 0;
-            console.log("empato xd");
             var empato;
             var that = this;
             terminarRonda(empato, this);
@@ -809,8 +801,6 @@ class resultados extends Phaser.Scene {
     }
 
     create() {
-        jugadores[0].sprite = "";
-        jugadores[1].sprite = "";
         this.add.image(640, 360, 'sky').setScale(1);
 
 
@@ -961,22 +951,14 @@ class menuPausa extends Phaser.Scene {
         super("menuPausa");
     }
 
-    preload() {
-        this.load.image('pausa', 'assets/Fondo_pausa.png');
-    }
-
     create() {
         musica.volume = 0.07;
         this.add.image(640, 360, 'pausa').setScale(1);
         var info = "Pausa";
         var info2 = ["Para volver al juego", "pulsa P", "Para salir al menú principal", "pulsa N"];
         var texto = this.add.text(525, 200, info, { font: '72px Courier', fill: '#ffffff' });
-        texto.setText(info);
-        texto.setDepth(999);
 
-        var texto = this.add.text(300, 300, info2, { font: '48px Courier', fill: '#ffffff' });
-        texto.setText(info2);
-        texto.setDepth(999)
+        var texto2 = this.add.text(300, 300, info2, { font: '48px Courier', fill: '#ffffff' });
 
         var PKey = this.input.keyboard.addKey('P');
         PKey.on('down', play, this);
@@ -1092,10 +1074,10 @@ function colisionTrianguloIzq(sprite, triangulo) {
 }
 
 function comprobacionPisacion(sprite, sprite2) {
-    if (sprite2.body.touching.up) {
+    if (sprite2.y >= sprite.y + 32 && sprite2.body.touching.up) {
         muerteSonido.play();
         morir(jugadores[sprite2.name]);
-    } if (sprite.body.touching.up) {
+    } else if (sprite.y >= sprite2.y + 32 && sprite.body.touching.up) {
         muerteSonido.play();
         morir(jugadores[sprite.name]);
     }
@@ -1104,14 +1086,25 @@ function comprobacionPisacion(sprite, sprite2) {
 function morir(player) {
     player.sprite.setTint(0x9c9c9c);
     player.muerte = true;
-    player.sprite.x = 10000;
-    player.sprite.y = 10000;
+    player.sprite = "";
     muertesTotales++;
 }
 
 function terminarRonda(ganador, that) {
-    if (ganador != undefined) { 
+    if (ganador != undefined) {
         ganador.puntuacion++;
+        //var info = ("El ganador es el jugador " + (ganador.sprite.name + 1));
+
+        //that.add.image(640, 360, 'pausa');
+
+        //var texto = that.add.text(100, 400, info, { font: '32px Courier', fill: '#ffffff' });
+
+    } else {
+        //var info = ("¡Empate!");
+
+        //that.add.image(640, 360, 'pausa');
+
+        //var texto = that.add.text(100, 400, info, { font: '32px Courier', fill: '#ffffff' });
     }
     idEscenario++;
     if (ganador.puntuacion == 10) {
@@ -1136,7 +1129,6 @@ function terminarRonda(ganador, that) {
             musica.stop();
             estaSonando = false;
             that.scene.start("resultados");
-            
             break;
     }
 }
