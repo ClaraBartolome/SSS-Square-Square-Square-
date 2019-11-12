@@ -1,6 +1,7 @@
 // JavaScript source code
 
-
+let muerteSonido;
+let salto;
 class Mainmenu extends Phaser.Scene {
 
     constructor() {
@@ -8,7 +9,9 @@ class Mainmenu extends Phaser.Scene {
     }
 
     preload() {
+        this.load.image('logo', 'assets/logo.png');
         this.load.image('fondo', 'assets/fondo_juego.jpg');
+        this.load.image('fondo2', 'assets/fondo_juego_2.jpg');
         this.load.image('jugar', 'assets/jugar.png');
         this.load.image('jugar_pulsado', 'assets/jugar_pulsado.png');
         this.load.image('creditos', 'assets/creditos.png');
@@ -23,29 +26,36 @@ class Mainmenu extends Phaser.Scene {
         this.load.image('dio', 'assets/dio.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('ground', 'assets/platformN.png');
         this.load.image('wall', 'assets/paredN.png');
+        
+        this.load.audio('salto', 'assets/salto_1.mp3');
+        this.load.audio('muerteSonido', 'assets/muerte.mp3');
+   
     }
 
     create() {
-
-
+        muerteSonido = this.sound.add('muerteSonido');
+        muerteSonido.volume = 0.4;
         this.add.image(640, 360, 'fondo');
 
-        this.buttonJugar = this.add.sprite(250, 250, 'jugar').setScale(0.5).setInteractive();
+
+        this.add.image(300, 150, 'logo').setScale(0.7);
+
+        this.buttonJugar = this.add.sprite(300, 350, 'jugar').setScale(0.5).setInteractive();
         this.buttonJugar.on('pointerdown', () => this.clickButtonJugar());
         this.buttonJugar.on('pointerover', () => this.changeSpriteJugarPulsado());
         this.buttonJugar.on('pointerup', () => this.changeSpriteJugar());
 
-
-        this.buttonCreditos = this.add.sprite(250, 400, 'creditos').setScale(0.5).setInteractive();
-        this.buttonCreditos.on('pointerdown', () => this.clickButtonCreditos());
-        this.buttonCreditos.on('pointerover', () => this.changeSpriteCreditosPulsado());
-        this.buttonCreditos.on('pointerup', () => this.changeSpriteCreditos());
-
-        this.buttonComoJugar = this.add.sprite(250, 550, 'como_jugar').setScale(0.5).setInteractive();
+        this.buttonComoJugar = this.add.sprite(300, 450, 'como_jugar').setScale(0.5).setInteractive();
         this.buttonComoJugar.on('pointerdown', () => this.clickButtonComoJugar());
         this.buttonComoJugar.on('pointerover', () => this.changeSpriteComoJugarPulsado());
         this.buttonComoJugar.on('pointerup', () => this.changeSpriteComoJugar());
 
+        this.buttonCreditos = this.add.sprite(300, 550, 'creditos').setScale(0.5).setInteractive();
+        this.buttonCreditos.on('pointerdown', () => this.clickButtonCreditos());
+        this.buttonCreditos.on('pointerover', () => this.changeSpriteCreditosPulsado());
+        this.buttonCreditos.on('pointerup', () => this.changeSpriteCreditos());
+
+        
         var FKey = this.input.keyboard.addKey('F');
 
         FKey.on('down', function () {
@@ -67,18 +77,21 @@ class Mainmenu extends Phaser.Scene {
     }
 
     clickButtonJugar() {
+        muerteSonido.play();
         this.scene.switch("Escena0");
     }
     clickButtonCreditos() {
+        muerteSonido.play();
         this.scene.switch("creditos");
     }
     clickButtonComoJugar() {
-        this.scene.switch("ComoJugar");
+        muerteSonido.play();
+        this.scene.start("ComoJugar");
     }
 
     changeSpriteJugarPulsado() {
         this.buttonJugar.destroy();
-        this.buttonJugar = this.add.sprite(250, 250, 'jugar_pulsado').setScale(0.5).setInteractive();
+        this.buttonJugar = this.add.sprite(300, 350, 'jugar_pulsado').setScale(0.5).setInteractive();
         this.buttonJugar.on('pointerdown', () => this.changeSpriteJugar());
         this.buttonJugar.on('pointerdown', () => this.clickButtonJugar());
         this.buttonJugar.on('pointerout', () => this.changeSpriteJugar());
@@ -86,7 +99,7 @@ class Mainmenu extends Phaser.Scene {
     }
     changeSpriteJugar() {
         this.buttonJugar.destroy();
-        this.buttonJugar = this.add.sprite(250, 250, 'jugar').setScale(0.5).setInteractive();
+        this.buttonJugar = this.add.sprite(300, 350, 'jugar').setScale(0.5).setInteractive();
         this.buttonJugar.on('pointerdown', () => this.clickButtonJugar());
         this.buttonJugar.on('pointerover', () => this.changeSpriteJugarPulsado());
         this.buttonJugar.on('pointerup', () => this.changeSpriteJugar());
@@ -94,7 +107,7 @@ class Mainmenu extends Phaser.Scene {
     }
     changeSpriteCreditosPulsado() {
         this.buttonCreditos.destroy();
-        this.buttonCreditos = this.add.sprite(250, 400, 'creditos_pulsado').setScale(0.5).setInteractive();
+        this.buttonCreditos = this.add.sprite(300, 550, 'creditos_pulsado').setScale(0.5).setInteractive();
         this.buttonCreditos.on('pointerdown', () => this.changeSpriteCreditos());
         this.buttonCreditos.on('pointerdown', () => this.clickButtonCreditos());
         this.buttonCreditos.on('pointerout', () => this.changeSpriteCreditos());
@@ -102,7 +115,7 @@ class Mainmenu extends Phaser.Scene {
     }
     changeSpriteCreditos() {
         this.buttonCreditos.destroy();
-        this.buttonCreditos = this.add.sprite(250, 400, 'creditos').setScale(0.5).setInteractive();
+        this.buttonCreditos = this.add.sprite(300, 550, 'creditos').setScale(0.5).setInteractive();
         this.buttonCreditos.on('pointerdown', () => this.clickButtonCreditos());
         this.buttonCreditos.on('pointerover', () => this.changeSpriteCreditosPulsado());
         this.buttonCreditos.on('pointerup', () => this.changeSpriteJugar());
@@ -111,7 +124,7 @@ class Mainmenu extends Phaser.Scene {
 
     changeSpriteComoJugarPulsado() {
         this.buttonComoJugar.destroy();
-        this.buttonComoJugar = this.add.sprite(250, 550, 'como_jugar_pulsado').setScale(0.5).setInteractive();
+        this.buttonComoJugar = this.add.sprite(300, 450, 'como_jugar_pulsado').setScale(0.5).setInteractive();
         this.buttonComoJugar.on('pointerdown', () => this.changeSpriteComoJugar());
         this.buttonComoJugar.on('pointerdown', () => this.clickButtonComoJugar());
         this.buttonComoJugar.on('pointerout', () => this.changeSpriteComoJugar());
@@ -119,7 +132,7 @@ class Mainmenu extends Phaser.Scene {
     }
     changeSpriteComoJugar() {
         this.buttonComoJugar.destroy();
-        this.buttonComoJugar = this.add.sprite(250, 550, 'como_jugar').setScale(0.5).setInteractive();
+        this.buttonComoJugar = this.add.sprite(300, 450, 'como_jugar').setScale(0.5).setInteractive();
         this.buttonComoJugar.on('pointerdown', () => this.clickButtonComoJugar());
         this.buttonComoJugar.on('pointerover', () => this.changeSpriteComoJugarPulsado());
         this.buttonComoJugar.on('pointerup', () => this.changeSpriteJugar());
@@ -136,19 +149,20 @@ class creditos extends Phaser.Scene {
     }
 
     create() {
-        console.log(jugadores[0].puntuacion);
+        muerteSonido = this.sound.add('muerteSonido');
+        muerteSonido.volume = 0.4;
         var info = [
             'GRUPO A:NI[ME]',
-            'Fernando Guilty Gear Xrd Revelator 2',
-            'Elena Rosal del Melifluo',
-            'Clara Megalovania',
-            'Javi Naruto'
+            '   -Fernando Doménech Martínez',
+            '   -Elena Rosal del Rey',
+            '   -Clara Bartolomé Pereira',
+            '   -Javier Morales López'
         ];
 
         var texto = this.add.text(100, 400, info, { font: '32px Courier', fill: '#ffffff' });
         texto.setText(info);
         texto.setDepth(999)
-        this.add.image(640, 360, 'fondo');
+        this.add.image(640, 360, 'fondo2');
 
         this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
@@ -174,7 +188,7 @@ class creditos extends Phaser.Scene {
     }
 
     clickButtonVolver() {
-
+        muerteSonido.play();
         this.scene.switch("Mainmenu");
 
     }
@@ -208,8 +222,11 @@ class ComoJugar extends Phaser.Scene {
         super("ComoJugar");
     }
     create() {
-
-        this.add.image(640, 360, 'fondo');
+        salto = this.sound.add('salto');
+        muerteSonido = this.sound.add('muerteSonido');
+        salto.volume = 0.2;
+        muerteSonido.volume = 0.4;
+        this.add.image(640, 360, 'fondo2');
 
         this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
@@ -222,14 +239,19 @@ class ComoJugar extends Phaser.Scene {
         platforms = this.physics.add.staticGroup();
 
         platforms.create(322, 369, 'ground').setScale(0.7);
-        platforms.create(175, 240, 'wall').setScale(0.7);
         platforms.create(322, 111, 'ground').setScale(0.7);
-        platforms.create(450, 240, 'wall').setScale(0.7); 
+        platforms.create(180, 240, 'wall').setScale(0.7);
+        platforms.create(455, 240, 'wall').setScale(0.7); 
 
         platforms.create(958, 369, 'ground').setScale(0.7);
-        platforms.create(830, 240, 'wall').setScale(0.7);
         platforms.create(958, 111, 'ground').setScale(0.7);
+        platforms.create(825, 240, 'wall').setScale(0.7);
         platforms.create(1105, 240, 'wall').setScale(0.7); 
+
+        jugadores[0].sprite = "";
+
+        jugadores[1].sprite = "";
+
 
         jugadores[0].sprite = this.physics.add.sprite(315, 340, 'cuadrencio');
 
@@ -248,7 +270,7 @@ class ComoJugar extends Phaser.Scene {
         for (var i = 0; i < numJugadores; i++) {
             jugadores[i].sprite.name = i;
 
-            jugadores[i].sprite.setBounce(0.3);
+            jugadores[i].sprite.setBounce(0.15);
             jugadores[i].sprite.setCollideWorldBounds(true);
 
             this.physics.add.collider(jugadores[i].sprite, platforms);
@@ -275,12 +297,17 @@ class ComoJugar extends Phaser.Scene {
 
         var triangulos = [
             'Evita los',
-            '�Acabar�n contigo!'
+            '¡Acabarán contigo!'
         ];
 
         var cuadrados = [
             'Salta sobre tu',
             'oponente para ganar'
+        ];
+
+        var pausa = [
+            'Pulsa F para fullscreen',
+            'Pulsa P para pausar'
         ];
 
         var textoJugador1 = this.add.text(100, 420, jugador1, { font: '32px Courier', fill: '#ffffff' });
@@ -302,6 +329,10 @@ class ComoJugar extends Phaser.Scene {
         var textoCuadrados = this.add.text(850, 575, cuadrados, { font: '32px Courier', fill: '#ffffff' });
         textoCuadrados.setText(cuadrados);
         textoCuadrados.setDepth(999);
+
+        var textoPausa = this.add.text(800, 25, pausa, { font: '32px Courier', fill: '#ffffff' });
+        textoPausa.setText(pausa);
+        textoPausa.setDepth(999);
 
         var FKey = this.input.keyboard.addKey('F');
 
@@ -353,12 +384,13 @@ class ComoJugar extends Phaser.Scene {
 
             if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
                 jugadores[i].sprite.body.velocity.y = -600;
+                salto.play();
             }
         }
     }
     clickButtonVolver() {
-       
-        this.scene.switch("Mainmenu");
+        muerteSonido.play();
+        this.scene.start("Mainmenu");
 
     }
 

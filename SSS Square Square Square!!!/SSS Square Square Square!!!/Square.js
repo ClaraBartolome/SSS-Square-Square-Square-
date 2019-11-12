@@ -28,6 +28,9 @@ var muertesTotales = 0;
 var cursors = new Array(numJugadores);
 var gameOver = false;
 var idEscenario = 0;
+var estaSonando = false;
+let musica;
+let rebote;
 
 class Escena0 extends Phaser.Scene {
 
@@ -39,9 +42,12 @@ class Escena0 extends Phaser.Scene {
 
      preload() {
         this.load.image('sky', 'assets/sky.jpeg');
-         this.load.image('ground', 'assets/platformN.png');
+        this.load.image('ground', 'assets/platformN.png');
          this.load.image('ground2', 'assets/platform2N.png');
-        this.load.image('wall', 'assets/paredN.png');
+         this.load.image('wall', 'assets/paredN.png');
+         this.load.image('caja', 'assets/caja.png');
+         this.load.image('caja1', 'assets/caja1.png');
+         this.load.image('caja2', 'assets/caja2.png');
         this.load.image('cuadrencio', 'assets/cuadrado_verde.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('dio', 'assets/dio.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('circuloArriba', 'assets/circulo_arriba.png', { frameWidth: 32, frameHeight: 32 });
@@ -53,12 +59,30 @@ class Escena0 extends Phaser.Scene {
 		this.load.image('trianguloDcha', 'assets/triangulo_dcha.png', { frameWidth: 32, frameHeight: 32 });
 		this.load.image('trianguloIzq', 'assets/triangulo_izq.png', { frameWidth: 32, frameHeight: 32 });
         this.load.image('tripletriangulo', 'assets/tripletriangulo.png', { frameWidth: 96, frameHeight: 32 });
-    }
+         this.load.audio('musica', 'assets/Humble_Match.ogg');
+         this.load.audio('rebote', 'assets/rebote.mp3');
+     }
 
     create() {
         for (var i = 0; i < numJugadores; i++) {
             jugadores[i].sprite = "";
             jugadores[i].muerte = false;
+        }
+       
+
+        if (estaSonando == false) {
+            musica = this.sound.add('musica');
+            musica.volume = 0.2;
+            salto = this.sound.add('salto');
+            salto.volume = 0.2;
+            muerteSonido = this.sound.add('muerteSonido');
+            muerteSonido.volume = 0.4;
+            rebote = this.sound.add('rebote');
+
+            musica.play();
+            
+            musica.setLoop(true);
+            estaSonando = true;
         }
         //  A simple background for our game
         this.add.image(640, 360, 'sky').setScale(1);
@@ -116,7 +140,7 @@ class Escena0 extends Phaser.Scene {
         for (var i = 0; i < numJugadores; i++) {
             jugadores[i].sprite.name = i;
 
-            jugadores[i].sprite.setBounce(0.3);
+            jugadores[i].sprite.setBounce(0.15);
             jugadores[i].sprite.setCollideWorldBounds(true);
 
             this.physics.add.collider(jugadores[i].sprite, platforms);
@@ -146,6 +170,17 @@ class Escena0 extends Phaser.Scene {
             }
 
         }, this);
+
+        var PKey = this.input.keyboard.addKey('P');
+        PKey.on('down', pause, this);
+
+        // And finally the method that handels the pause menu
+        function pause() {
+
+            this.scene.pause();
+            this.scene.launch('menuPausa');
+
+        };
     }
 
 
@@ -186,6 +221,7 @@ class Escena0 extends Phaser.Scene {
 
             if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
                 jugadores[i].sprite.body.velocity.y = -600;
+                salto.play();
             }
          }
          if (muertesTotales == (numJugadores - 1)) {
@@ -198,7 +234,6 @@ class Escena0 extends Phaser.Scene {
              terminarRonda(jugadores[i], that);
          } else if (muertesTotales == numJugadores) {
              muertesTotales = 0;
-             console.log("empato xd");
              var empato;
              var that = this;
              terminarRonda(empato, this);
@@ -219,6 +254,9 @@ class Escena1 extends Phaser.Scene {
             jugadores[i].sprite = "";
             jugadores[i].muerte = false;
         }
+
+
+
         //  A simple background for our game
         this.add.image(640, 360, 'sky').setScale(1);
 
@@ -281,7 +319,7 @@ class Escena1 extends Phaser.Scene {
         for (var i = 0; i < numJugadores; i++) {
             jugadores[i].sprite.name = i;
 
-            jugadores[i].sprite.setBounce(0.3);
+            jugadores[i].sprite.setBounce(0.15);
             jugadores[i].sprite.setCollideWorldBounds(true);
 
             this.physics.add.collider(jugadores[i].sprite, platforms);
@@ -311,6 +349,17 @@ class Escena1 extends Phaser.Scene {
             }
 
         }, this);
+
+        var PKey = this.input.keyboard.addKey('P');
+        PKey.on('down', pause, this);
+
+        // And finally the method that handels the pause menu
+        function pause() {
+
+            this.scene.pause();
+            this.scene.launch('menuPausa');
+
+        };
     }
 
 
@@ -351,6 +400,7 @@ class Escena1 extends Phaser.Scene {
 
             if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
                 jugadores[i].sprite.body.velocity.y = -600;
+                salto.play();
             }
         }
         if (muertesTotales == (numJugadores - 1)) {
@@ -384,6 +434,7 @@ class Escena2 extends Phaser.Scene {
             jugadores[i].sprite = "";
             jugadores[i].muerte = false;
         }
+
         //  A simple background for our game
         this.add.image(640, 360, 'sky').setScale(1);
 
@@ -464,7 +515,7 @@ class Escena2 extends Phaser.Scene {
         for (var i = 0; i < numJugadores; i++) {
             jugadores[i].sprite.name = i;
 
-            jugadores[i].sprite.setBounce(0.3);
+            jugadores[i].sprite.setBounce(0.15);
             jugadores[i].sprite.setCollideWorldBounds(true);
 
             this.physics.add.collider(jugadores[i].sprite, platforms);
@@ -494,6 +545,17 @@ class Escena2 extends Phaser.Scene {
             }
 
         }, this);
+
+        var PKey = this.input.keyboard.addKey('P');
+        PKey.on('down', pause, this);
+
+        // And finally the method that handels the pause menu
+        function pause() {
+
+            this.scene.pause();
+            this.scene.launch('menuPausa');
+
+        };
     }
 
 
@@ -534,6 +596,7 @@ class Escena2 extends Phaser.Scene {
 
             if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
                 jugadores[i].sprite.body.velocity.y = -600;
+                salto.play();
             }
         }
         if (muertesTotales == (numJugadores - 1)) {
@@ -567,6 +630,7 @@ class Escena3 extends Phaser.Scene {
             jugadores[i].sprite = "";
             jugadores[i].muerte = false;
         }
+
         //  A simple background for our game
         this.add.image(640, 360, 'sky').setScale(1);
 
@@ -612,9 +676,9 @@ class Escena3 extends Phaser.Scene {
 
 
         // The player and its settings
-        jugadores[0].sprite = this.physics.add.sprite(150, 250, 'cuadrencio');
+        jugadores[0].sprite = this.physics.add.sprite(150, 268, 'cuadrencio');
 
-        jugadores[1].sprite = this.physics.add.sprite(1100, 250, 'dio');
+        jugadores[1].sprite = this.physics.add.sprite(1100, 468, 'dio');
 
         //  Input Events
         cursors[1] = this.input.keyboard.createCursorKeys();
@@ -630,7 +694,7 @@ class Escena3 extends Phaser.Scene {
         for (var i = 0; i < numJugadores; i++) {
             jugadores[i].sprite.name = i;
 
-            jugadores[i].sprite.setBounce(0.3);
+            jugadores[i].sprite.setBounce(0.15);
             jugadores[i].sprite.setCollideWorldBounds(true);
 
             this.physics.add.collider(jugadores[i].sprite, platforms);
@@ -660,6 +724,17 @@ class Escena3 extends Phaser.Scene {
             }
 
         }, this);
+
+        var PKey = this.input.keyboard.addKey('P');
+        PKey.on('down', pause, this);
+
+        // And finally the method that handels the pause menu
+        function pause() {
+
+            this.scene.pause();
+            this.scene.launch('menuPausa');
+
+        };
     }
 
 
@@ -700,6 +775,7 @@ class Escena3 extends Phaser.Scene {
 
             if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
                 jugadores[i].sprite.body.velocity.y = -600;
+                salto.play();
             }
         }
         if (muertesTotales == (numJugadores - 1)) {
@@ -733,9 +809,11 @@ class resultados extends Phaser.Scene {
     }
 
     create() {
+        jugadores[0].sprite = "";
+        jugadores[1].sprite = "";
         this.add.image(640, 360, 'sky').setScale(1);
 
-       
+
         
         //  A simple background for our game
         
@@ -745,10 +823,11 @@ class resultados extends Phaser.Scene {
 
         platforms.create(640, 720, 'ground').setScale(5).refreshBody();
         platforms.create(640, 0, 'ground').setScale(5).refreshBody();
-        platforms.create(1200, 500, 'ground');
-        platforms.create(600, 400, 'ground');
-        platforms.create(100, 300, 'ground');
-        //platforms.create(750, 16, 'ground');
+
+        platforms.create(640, 632, 'caja');
+        platforms.create(640, 568, 'caja1');
+        platforms.create(704, 608, 'caja2');
+
 
         this.buttonVolver = this.add.sprite(250, 40, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
@@ -758,13 +837,13 @@ class resultados extends Phaser.Scene {
 
         // The player and its settings
         if (jugadores[0].puntuacion > jugadores[1].puntuacion) {
-            jugadores[0].sprite = this.physics.add.sprite(150, 250, 'cuadrencio');
+            jugadores[0].sprite = this.physics.add.sprite(640, 520, 'cuadrencio');
 
-            jugadores[1].sprite = this.physics.add.sprite(1100, 250, 'dio');
+            jugadores[1].sprite = this.physics.add.sprite(704, 560, 'dio');
         } else {
-            jugadores[0].sprite = this.physics.add.sprite(1100, 250, 'cuadrencio');
+            jugadores[0].sprite = this.physics.add.sprite(704, 560, 'cuadrencio');
 
-            jugadores[1].sprite = this.physics.add.sprite(150, 250, 'dio');
+            jugadores[1].sprite = this.physics.add.sprite(640, 520, 'dio');
         }
         
         for (var i = 0; i < numJugadores; i++) {
@@ -786,7 +865,7 @@ class resultados extends Phaser.Scene {
             });
 
         for (var i = 0; i < numJugadores; i++) {
-            jugadores[i].sprite.setBounce(0.3);
+            jugadores[i].sprite.setBounce(0.15);
             jugadores[i].sprite.setCollideWorldBounds(true);
 
             this.physics.add.collider(jugadores[i].sprite, platforms);
@@ -847,6 +926,7 @@ class resultados extends Phaser.Scene {
 
             if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
                 jugadores[i].sprite.body.velocity.y = -600;
+                salto.play();
             }
         }
 
@@ -854,7 +934,7 @@ class resultados extends Phaser.Scene {
 
     clickButtonVolver() {
 
-        this.scene.switch("Mainmenu");
+        this.scene.start("Mainmenu");
 
     }
 
@@ -876,57 +956,149 @@ class resultados extends Phaser.Scene {
 
 }
 
+class menuPausa extends Phaser.Scene {
+    constructor() {
+        super("menuPausa");
+    }
+
+    preload() {
+        this.load.image('pausa', 'assets/Fondo_pausa.png');
+    }
+
+    create() {
+        musica.volume = 0.07;
+        this.add.image(640, 360, 'pausa').setScale(1);
+        var info = "Pausa";
+        var info2 = ["Para volver al juego", "pulsa P", "Para salir al menú principal", "pulsa N"];
+        var texto = this.add.text(525, 200, info, { font: '72px Courier', fill: '#ffffff' });
+        texto.setText(info);
+        texto.setDepth(999);
+
+        var texto = this.add.text(300, 300, info2, { font: '48px Courier', fill: '#ffffff' });
+        texto.setText(info2);
+        texto.setDepth(999)
+
+        var PKey = this.input.keyboard.addKey('P');
+        PKey.on('down', play, this);
+
+        var NKey = this.input.keyboard.addKey('N');
+        NKey.on('down', quit, this);
+
+
+
+        // And finally the method that handels the pause menu
+        function play() {
+            musica.volume = 0.2;
+            switch (idEscenario) {
+                case (0):
+                    this.scene.resume("Escena0");
+                    break;
+                case (1):
+                    this.scene.resume("Escena1");
+                    break;
+                case (2):
+                    this.scene.resume("Escena2");
+                    break;
+                case (3):
+                    this.scene.resume("Escena3");
+                    break;
+            }
+            
+            this.scene.stop("menuPausa");
+
+        };
+
+        function quit() {
+            musica.stop();
+            estaSonando = false;
+            for (var i = 0; i < numJugadores; i++) {
+                jugadores[i].puntuacion = 0;
+                jugadores[i].muerte = false;
+            }
+            switch (idEscenario) {
+                case (0):
+                    this.scene.stop("Escena0");
+                    break;
+                case (1):
+                    this.scene.stop("Escena1");
+                    break;
+                case (2):
+                    this.scene.stop("Escena2");
+                    break;
+                case (3):
+                    this.scene.stop("Escena3");
+                    break;
+            }
+
+            idEscenario = 0;
+            muertesTotales = 0;
+            this.scene.start("Mainmenu");
+        };
+
+    }
+
+
+    update() {
+
+    }
+}
 
 function colisionCirculoArriba(player, circulos) {
+    rebote.play();
     player.body.velocity.y = -1000;
 }
 
 function colisionCirculoIzq(player, circulos) {
+    rebote.play();
     player.body.velocity.x = -1000;
 }
 
 function colisionCirculoDcha(player, circulos) {
+    rebote.play();
     player.body.velocity.x = 1000;
 }
 
 function colisionCirculoAbajo(player, circulos) {
+    rebote.play();
     player.body.velocity.y = 1000;
 }
 
 function colisionTriangulo(sprite, triangulo) {
     if (triangulo.body.touching.up) {
+        muerteSonido.play();
         morir(jugadores[sprite.name]);
     }
 }
 
 function colisionTrianguloAbajo(sprite, triangulo) {
     if (triangulo.body.touching.down) {
+        muerteSonido.play();
         morir(jugadores[sprite.name]);
     }
 }
 
 function colisionTrianguloDcha(sprite, triangulo) {
     if (triangulo.body.touching.right) {
+        muerteSonido.play();
         morir(jugadores[sprite.name]);
     }
 }
 
 function colisionTrianguloIzq(sprite, triangulo) {
     if (triangulo.body.touching.left) {
+        muerteSonido.play();
         morir(jugadores[sprite.name]);
     }
 }
 
 function comprobacionPisacion(sprite, sprite2) {
-
-        if (sprite2.body.touching.up) {
-            console.log("Oh no soy el jugador " + (sprite2.name + 1) + " y he muerto");
-            morir(jugadores[sprite2.name]);
-        } if (sprite.body.touching.up) {
-            console.log("Oh no soy el jugador " + (sprite.name + 1) + " y he muerto");
-            morir(jugadores[sprite.name]);
-        }
-    
+    if (sprite2.body.touching.up) {
+        muerteSonido.play();
+        morir(jugadores[sprite2.name]);
+    } if (sprite.body.touching.up) {
+        muerteSonido.play();
+        morir(jugadores[sprite.name]);
+    }
 }
 
 function morir(player) {
@@ -961,7 +1133,10 @@ function terminarRonda(ganador, that) {
             that.scene.start("Escena3");
             break;
         case (5):
+            musica.stop();
+            estaSonando = false;
             that.scene.start("resultados");
+            
             break;
     }
 }
