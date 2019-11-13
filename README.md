@@ -18,28 +18,60 @@ El juego se sustenta en las siguientes características:
 #### Plataforma(s), Tecnología, y Alcance:
 Es un juego pensado para pc, queremos centrarnos en la experiencia multijugador típica de los juegos de ordenador de los 90, como Quake 3 Arena o Unreal Tournament, cada uno en su propia máquina jugando por LAN con una máquina servidor, para conseguir la mayor fluidez posible, pero también, aprovechando la simpleza de los controles, y la cantidad de botones del teclado, existe la posibilidad de juego local en un solo cliente. Se usarán solo elementos 2D, por lo que tendrá un peso lo suficientemente bajo para que se pueda jugar en la mayoría de ordenadores. Lo haremos con Javascript, ya que el juego es muy sencillo y no son necesarios grandes requisitos de PC. Así cualquiera puede unirse al juego, sin importar sus especificaciones. Haremos uso de las librerías de físicas de Phaser 3, con ello conseguiremos animaciones suaves y movimientos realistas para el confort del jugador, sin tener que dedicar mucho tiempo de desarrollo.
 #### Mecánicas y flujo del juego:
-Como mencionamos anteriormente, en ‘SSS: Square Square Square!!!’ el jugador es un cuadrado que debe derrotar a otros cuadrados. El usuario sentirá tensión ya que debe de planear cómo derrotar a sus enemigos al mismo tiempo que huye o esquiva a los mismos. De esta forma el participante debe pasar toda la partida en constante movimiento, finalizando esta una vez que quede solo un cuadrado. Al ser una partida relativamente corta, el usuario sentirá el deseo de seguir jugando.
-El juego se desarrollará por rondas, y en cuanto termine una con un ganador, se le otorgará un punto e inmediatamente se pasará al siguiente nivel. Cuando un jugador llegue al número de victorias necesarias, el juego terminará, entonces el jugador podrá ver su puntuación final. Se mostrará un mensaje de victoria o derrota, dando la opción de volver a jugar o salir.
-El juego incluirá las siguientes mecánicas:
-  - Movimiento: El jugador tendrá a su disposición la posibilidad de moverse a la izquierda y la derecha. Puede agacharse con el fin de disminuir su hitbox, o bajar a una plataforma inferior si pulsa el botón de salto. Con el salto, el usuario puede situarse sobre plataformas, esquivar trampas y aplastar a los otros cuadrados.
-  - Rebotes: El usuario podrá impulsarse al colisionar con círculos (objetos sólidos que estarán repartidos a lo largo del nivel), saliendo el jugador impulsado en el lado contrario en donde esté el círculo situado.
-  - Pinchos: Dentro de cada nivel existen unos objetos que actúan como trampa y hacen daño a los cuadrados. Se trata de los triángulos, cuya función consiste en eliminar a cualquier cuadrado que colisione con ellos. Son estáticos, por lo que la única forma de que un cuadrado choque con ellos es por accidente. 
+Como mencionamos anteriormente, en ‘SSS: Square Square Square!!!’ el jugador es un cuadrado que debe derrotar a otros cuadrados. El usuario sentirá tensión ya que debe de planear cómo derrotar a sus enemigos al mismo tiempo que huye o esquiva a los mismos y a los triángulos. De esta forma el participante debe pasar toda la partida en constante movimiento, finalizando esta una vez que quede solo un cuadrado. Al ser una partida relativamente corta, el usuario sentirá el deseo de seguir jugando. El juego se desarrollará por rondas, y en cuanto termine una con un ganador, se le otorgará un punto e inmediatamente se pasará al siguiente nivel. Si un jugador colisiona con un triángulo, este muere y su rival se lleva un punto. Cuando un jugador llegue al número de victorias necesarias, el juego terminará, entonces se saltará a la pantalla del podio, en la que se mostrará quién ha ganado, y desde la cual se podrá volver al menú principal. El juego incluirá las siguientes mecánicas:
+Movimiento: El jugador tendrá a su disposición la posibilidad de moverse a la izquierda y la derecha. Puede agacharse con el fin de disminuir su hitbox, o bajar a una plataforma inferior si pulsa el botón de salto. Con el salto, el usuario puede situarse sobre plataformas, esquivar trampas y aplastar a los otros cuadrados.
+Rebotes: El usuario podrá impulsarse al colisionar con semicírculos (objetos sólidos que estarán repartidos a lo largo del nivel), saliendo el jugador impulsado hacia el lado en donde apunte el semicírculo.
+Pinchos: Dentro de cada nivel existen unos objetos que actúan como trampa y hacen daño a los cuadrados. Se trata de los triángulos, cuya función consiste en eliminar a cualquier cuadrado que colisione con ellos. Son estáticos, por lo que la única forma de que un cuadrado choque con ellos es por accidente.
+Al iniciar una partida, se empieza por el nivel uno. Si el jugador gana, se pasará al siguiente nivel, cuyo mapa será diferente y, por tanto, los objetos distribuidos a lo largo del mismo también lo serán. El nivel de dificultad de los escenarios no será ascendente, pero al ser los niveles tan diferentes la forma de afrontar uno es muy diferente que de afrontar otro, por lo que el jugador no sentirá estar jugando a lo mismo siempre. Cuando un jugador llegue a 10 puntos, se saltará a la pantalla del podio, en la que se verá quién ha ganado, y desde la cual se podrá volver al menú principal.
+En cualquier momento de la partida, se puede pausar el juego, quedándose toda la pantalla en un tono grisáceo, y mostrando las instrucciones de lo que se puede hacer (pulsar p para continuar o n para ir al menu).
+Los efectos de sonidos son sencillos y se adecuan a cada movimiento, dando la impresión de rebote al colisionar con las semiesferas , un sonido de elevación cuando un cuadrado salta… La música de fondo también es ideal para nuestro juego, puesto que es sencilla y al mismo tiempo muy animada e incita al competivismo. Asimismo, ninguno de los efectos de sonido ni la música es nuestra, todas han sido sacadas de la página que se muestra en la webgrafía.
 
-Al iniciar una partida, el mapa en el que se juega se elegirá aleatoriamente. Si el jugador gana, se pasará al siguiente nivel, cuyo mapa será diferente  y, por tanto, los objetos distribuidos a lo largo del mismo también lo serán. Al generarse sin ninguna pauta, el nivel de dificultad de los escenarios no será ascendente. Sin embargo, el jugador no sentirá estar jugando a lo mismo siempre, ya que no jugará siempre en un escenario con el mismo diseño.
+#### Pantallas y escenarios
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Nivel_1.png)
+Primer nivel del juego.
+
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Nivel_2.png)
+Segundo nivel del juego.
+
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Nivel_3.png)
+Tercer nivel del juego.
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Nivel_4.png)
+Cuarto nivel del juego.
+
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Podio.png)
+Pantalla del podio. Los jugadores se pueden mover por todo el escenario, pero si uno salta encima del otro, no ocurre nada. De esa página el usuario solo puede salir dando al botón de volver, que le llevará al menú principal.
+
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Pausa.png)
+Pantalla de pausa, a la cual se accede pulsando p, y volviendo a pulsar p para reanudar el nivel en el cual se encuentran los jugadores. Si por su parte se pulsa la tecla n, se vuelve al menu principal.
+
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Menu.png)
+Pantalla de menú principal. Se muestra el logo del juego y tres botones. El botón de jugar hace que empiece el juego. El de cómo jugar muestra  una pantalla en la que se explican los controles y elementos del juego. El de los créditos solo muestra el nombre de los desarrolladores.
+
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Tutorial.png)
+Pantalla de cómo jugar. Se muestra como ejecutar el movimientos y qué hace cada elemento del juego. Asimismo, los jugadores pueden moverse en sus respectivos cuadrados. Pulsando en volver se vuelve al menú principal.
+
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Creditos.png)
+Pantalla de créditos. Pulsando en volver se vuelve al menú principal.
+
+
 #### Arte:
 ‘SSS: Square Square Square!!!’ precisa, como se mencionó anteriormente, de un estilo artístico muy sencillo, optando por incluir formas de colores planos y geometría simple. Es necesario conocer y visualizar bien los obstáculos y jugadores, por eso se optó por figuras básicas. Sin embargo, se les ha dotado de un estilo cartoon para dar una estética más amigable y familiar. De esta forma no se recarga la pantalla con elementos innecesarios y el jugador puede asignar las distintas formas a los distintos elementos de la pantalla de una forma más sencilla y casi inconsciente.
 Por otro lado, los niveles del juego estarán en contraposición con los colores llamativos de los personajes, optando por fondos en tonalidades de escalas de grises para que se diferencie muy bien la utilidad de cada cosa.
 
-
+##### Arte original:
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/triangulo.png)
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/circulo.png)
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/cuadrado.png)
 
+##### Arte nuevo:
+
+
+
 #### Skins
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Squaremma.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/SSS-Square-Square-Square!!!/SSS-Square-Square-Square!!!/assets/circulo_abajo.png)
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadralewis.png)
 
