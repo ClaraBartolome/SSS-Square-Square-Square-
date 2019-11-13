@@ -67,7 +67,7 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 
 ##### Arte nuevo:
 
-![alt text](SSS-Square-Square-Square-/SSS Square Square Square!!!/SSS Square Square Square!!!/assets/circulo_abajo.png)
+![alt text](SSS Square Square Square!!!/SSS Square Square Square!!!/assets/circulo_abajo.png)
 
 #### Skins
 
