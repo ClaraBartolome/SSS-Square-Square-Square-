@@ -67,7 +67,7 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 
 #### Skins
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Squaremma.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/SSS-Square-Square-Square!!!/SSS-Square-Square-Square!!!/assets/circulo_abajo.png)
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadralewis.png)
 
