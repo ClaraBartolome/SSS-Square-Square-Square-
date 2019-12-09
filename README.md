@@ -58,6 +58,14 @@ Pantalla de créditos. Pulsando en volver se vuelve al menú principal.
 ‘SSS: Square Square Square!!!’ precisa, como se mencionó anteriormente, de un estilo artístico muy sencillo, optando por incluir formas de colores planos y geometría simple. Es necesario conocer y visualizar bien los obstáculos y jugadores, por eso se optó por figuras básicas. Sin embargo, se les ha dotado de un estilo cartoon para dar una estética más amigable y familiar. De esta forma no se recarga la pantalla con elementos innecesarios y el jugador puede asignar las distintas formas a los distintos elementos de la pantalla de una forma más sencilla y casi inconsciente.
 Por otro lado, los niveles del juego estarán en contraposición con los colores llamativos de los personajes, optando por fondos en tonalidades de escalas de grises para que se diferencie muy bien la utilidad de cada cosa.
 
+
+#### Fase 3:
+En esta fase ya existe comunicación entre cliente y servidor.
+
+
+
+Para ejecutar el juego, es necesario ejecutar el .jar del juego. Es recomendable, aunque no es necesario, instalar ngrok en la máquina, para asegurarse que la comunicación entre cliente servidor se está efectuando correctamente. El URL a cargar en el navegador para poder empezar a jugar es http://localhost:8080/, o, si usamos ngrok, usaremos la que este nos de. En caso de usar ngrok, habría que ejecutar "ngrok http 8080" en la consola.
+ 
 ##### Arte original:
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/triangulo.png)
 
