@@ -85,7 +85,8 @@ Solo tenemos dos clases, que son controller y jugador. La clase jugador es usada
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/diagrama.png)
 
-Para ejecutar el juego, es necesario ejecutar el .jar del juego. Es recomendable, aunque no es necesario, instalar ngrok en la máquina, para asegurarse que la comunicación entre cliente servidor se está efectuando correctamente. El URL a cargar en el navegador para poder empezar a jugar es http://localhost:8080/, o, si usamos ngrok, usaremos la que este nos de. En caso de usar ngrok, habría que ejecutar "ngrok http 8080" en la consola.
+Para ejecutar el juego, es necesario ejecutar el .jar del juego. Es recomendable, aunque no es necesario, instalar ngrok en la máquina, para asegurarse que la comunicación entre cliente servidor se está efectuando correctamente. El URL a cargar en el navegador para poder empezar a jugar es http://localhost:8080/, o, si usamos ngrok, usaremos la que este nos de. En caso de usar ngrok, habría que ejecutar "ngrok http 8080" en la consola. Es necesario instalar java 8.
+ 
  
 ##### Arte original:
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/triangulo.png)
