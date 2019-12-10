@@ -63,6 +63,10 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 En esta fase ya existe comunicación entre cliente y servidor.
 
 
+#### Diagrama de clases
+Solo tenemos dos clases, que son controller y jugador. La clase jugador es usada en la clase controller. Es una relación de agregación, puesto que un jugador sí puede existir sin un controlador.
+
+
 
 Para ejecutar el juego, es necesario ejecutar el .jar del juego. Es recomendable, aunque no es necesario, instalar ngrok en la máquina, para asegurarse que la comunicación entre cliente servidor se está efectuando correctamente. El URL a cargar en el navegador para poder empezar a jugar es http://localhost:8080/, o, si usamos ngrok, usaremos la que este nos de. En caso de usar ngrok, habría que ejecutar "ngrok http 8080" en la consola.
  
