@@ -1,6 +1,6 @@
 # <div align="center"> SSS: Square Square Square!!! </div>
 ## <div align="center"> Vivimos en una sociedad de cuadrados </div>
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/logo.jpg)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/logo2.jpg)
 
 ## Game Design Document
 #### Introducción:
