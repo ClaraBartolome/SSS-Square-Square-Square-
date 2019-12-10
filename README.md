@@ -63,27 +63,21 @@ Por otro lado, los niveles del juego estarán en contraposición con los colores
 En esta fase ya existe comunicación entre cliente y servidor. A parte de esta nueva funcionalidad, se han realizado mejoras visuales. Con el uso de API REST, ahora es posible mirar cuántos jugadores hay dentro del juego y, dentro de los mismo, cuántos de ellos están jugando en este mismo momento. Aquí se muestran las capturas de la mejora visual con respecto a la fase anterior.
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/captura1_f3.png)
-
 Créditos
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/captura2_f3.png)
-
 Tutorial
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/captura3_f3.png)
-
 Menú principal (el cambio es que arriba a la derecha se observan el número de jugadores conectados y jugando).
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/captura4_f3.png)
-
 Selección de skins
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/captura5_f3.png)
-
 Fin de ronda
 
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/captura3_f3.png)
-
 Pausa
 
 #### Diagrama de clases
