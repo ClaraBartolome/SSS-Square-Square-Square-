@@ -31,6 +31,9 @@ class Mainmenu extends Phaser.Scene {
         this.load.image('fondo3', 'assets/creditos_fondo.jpg');
         this.load.image('ok', 'assets/B_OK.png')
         this.load.image('ok_pul', 'assets/B_OK_pul.png')
+        this.load.image('cancelar', 'assets/B_OK.png')
+        this.load.image('cancelar_pul', 'assets/B_OK_pul.png')
+
         this.load.image('J1_c', 'assets/Jugador_1.png')
         this.load.image('J2_c', 'assets/Jugador_2.png')
         this.load.image('pausaC', 'assets/Pausa_con.png')
@@ -438,6 +441,18 @@ class local extends Phaser.Scene {
         this.buttonOK.on('pointerover', () => this.changeSpriteOKPulsado());
         this.buttonOK.on('pointerout', () => this.changeSpriteOK());
 
+        //BOTON CANCELAR
+        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar').setScale(1).setInteractive();
+        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
+        this.buttonCancelar.on('pointerover', () => this.changeSpriteCancelarPulsado());
+        this.buttonCancelar.on('pointerout', () => this.changeSpriteCancelar());
+
+        //BOTON VOLVER
+        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
+
         this.shadebuttons();
 
         var FKey = this.input.keyboard.addKey('F');
@@ -641,6 +656,70 @@ class local extends Phaser.Scene {
         this.buttonOK.on('pointerover', () => this.changeSpriteOKPulsado());
         this.buttonOK.on('pointerup', () => this.changeSpriteOK());
     }
+
+    //FUNCIONES CANCELAR
+    clickButtonCancelar() {
+        J1 = "";
+        J2 = "";
+        this.banner1.destroy();
+        this.portrait1.destroy();
+        this.banner2.destroy();
+        this.portrait2.destroy();
+
+        this.shadebuttons();
+
+        suelo1.setVisible(false);
+        techo1.setVisible(false);
+        paredI1.setVisible(false);
+        paredD1.setVisible(false);
+
+        suelo2.setVisible(false);
+        techo2.setVisible(false);
+        paredI2.setVisible(false);
+        paredD2.setVisible(false);
+
+        jugadores[0].sprite.setVisible(false);
+        jugadores[1].sprite.setVisible(false);
+    }
+
+    changeSpriteCancelarPulsado() {
+        this.buttonCancelar.destroy();
+        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar_pul').setScale(1).setInteractive();
+        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
+        this.buttonCancelar.on('pointerdown', () => this.changeSpriteCancelarPulsado());
+        this.buttonCancelar.on('pointerout', () => this.changeSpriteCancelar());
+    }
+
+    changeSpriteCancelar() {
+        this.buttonCancelar.destroy();
+        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar').setScale(1).setInteractive();
+        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
+        this.buttonCancelar.on('pointerover', () => this.changeSpriteCancelarPulsado());
+        this.buttonCancelar.on('pointerup', () => this.changeSpriteCancelar());
+    }
+
+    //FUNCIONES VOLVER
+    clickButtonVolver() {
+        this.clickButtonCancelar();
+        muerteSonido.play();
+        this.scene.start("Mainmenu");
+    }
+
+    changeSpriteVolverPulsado() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 50, 'volver_pulsado').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerdown', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
+    }
+
+    changeSpriteVolver() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerup', () => this.changeSpriteVolver());
+    }
 }
 
 
@@ -826,12 +905,18 @@ class login extends Phaser.Scene {
         this.buttonCuadrachuche.on('pointerover', () => this.changeSpritePulsado("cuadrachuche", "cuadrachuche_n"));
         this.buttonCuadrachuche .on('pointerout', () => this.changeSprite());
 
-      //BOTON OK
+        //BOTON OK
         this.buttonOK = this.add.sprite(640, 650, 'ok').setScale(1).setInteractive();
         this.buttonOK.on('pointerdown', () => this.clickButtonOK());
         this.buttonOK.on('pointerover', () => this.changeSpriteOKPulsado());
         this.buttonOK.on('pointerout', () => this.changeSpriteOK());
-        
+
+        //BOTON CANCELAR
+        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar').setScale(1).setInteractive();
+        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
+        this.buttonCancelar.on('pointerover', () => this.changeSpriteCancelarPulsado());
+        this.buttonCancelar.on('pointerout', () => this.changeSpriteCancelar());
+
         this.shadebuttons();
         
         var FKey = this.input.keyboard.addKey('F');
@@ -1052,7 +1137,38 @@ class login extends Phaser.Scene {
         this.buttonOK.on('pointerover', () => this.changeSpriteOKPulsado());
         this.buttonOK.on('pointerup', () => this.changeSpriteOK()); 
     }
-        
+
+    //FUNCIONES CANCELAR
+    clickButtonCancelar() {
+        J1 = "";
+        this.banner1.destroy();
+        this.portrait1.destroy();
+
+        this.shadebuttons();
+
+        suelo1.setVisible(false);
+        techo1.setVisible(false);
+        paredI1.setVisible(false);
+        paredD1.setVisible(false);
+
+        jugadores[0].sprite.setVisible(false);
+    }
+
+    changeSpriteCancelarPulsado() {
+        this.buttonCancelar.destroy();
+        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar_pul').setScale(1).setInteractive();
+        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
+        this.buttonCancelar.on('pointerdown', () => this.changeSpriteCancelarPulsado());
+        this.buttonCancelar.on('pointerout', () => this.changeSpriteCancelar());
+    }
+
+    changeSpriteCancelar() {
+        this.buttonCancelar.destroy();
+        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar').setScale(1).setInteractive();
+        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
+        this.buttonCancelar.on('pointerover', () => this.changeSpriteCancelarPulsado());
+        this.buttonCancelar.on('pointerup', () => this.changeSpriteCancelar());
+    }
 }
 
 // JavaScript source code
