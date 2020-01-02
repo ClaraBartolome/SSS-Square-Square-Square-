@@ -27,7 +27,7 @@ var triangulosIzq;
 
 var platforms;
 
-var muertesTotales = 0;
+var muertesTotales_on = 0;
 
 var cursors = new Array(numJugadores);
 
@@ -45,6 +45,7 @@ var ronda = 0;
 var timedEvent;
 
 
+var partida = false;
 
 
 class Escena0 extends Phaser.Scene {
@@ -132,10 +133,21 @@ class Escena0 extends Phaser.Scene {
 
                 circulosAbajo.create(1200, 474, 'circuloAbajo');
                 circulosAbajo.create(650, 40, 'circuloAbajo');
-
-                jugadores[0].sprite = this.physics.add.sprite(100, 268, J1);
-
-                jugadores[1].sprite = this.physics.add.sprite(1100, 418, J2);
+                
+                J1posX = 100;
+            	J1posY = 268;
+            	
+            	J2posX = 1100;
+            	J2posY = 418; 
+                
+                if(n == 1){               	
+                	jugadores[0].sprite = this.physics.add.sprite(J1posX, J1posY, J1);
+                    jugadores[1].sprite = this.physics.add.sprite(J2posX, J2posY, J2);
+                }   
+                if(n == 2){               	
+                	jugadores[1].sprite = this.physics.add.sprite(J1posX, J1posY, J2);
+                    jugadores[0].sprite = this.physics.add.sprite(J2posX, J2posY, J1);
+                } 
 
                 break;
             case (1):
@@ -298,46 +310,60 @@ class Escena0 extends Phaser.Scene {
     }
 
     update() {
-        for (var i = 0; i < numJugadores; i++) {
-            if (!jugadores[i].muerte) {
-                if (jugadores[i].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
-                    if (cursors[i].left.isDown) {
-                        jugadores[i].sprite.body.velocity.x = -320;
-                    }
-                    else if (cursors[i].right.isDown) {
-                        jugadores[i].sprite.body.velocity.x = 320;
-                    }
-                }
-                if (jugadores[i].sprite.body.touching.down) {
-                    if (jugadores[i].sprite.body.velocity.x > 20) {
-                        jugadores[i].sprite.setAccelerationX(-800);
-                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                        jugadores[i].sprite.setAccelerationX(800);
-                    } else {
-                        jugadores[i].sprite.setAccelerationX(0);
-                        jugadores[i].sprite.body.velocity.x = 0;
-                    }
+     	
+    	if (cursors[0].left.isDown) {
+            jugadores[0].sprite.body.velocity.x = -320;
 
-                } else {
-                    if (jugadores[i].sprite.body.velocity.x > 20) {
-                        jugadores[i].sprite.setAccelerationX(-1400);
-                    } else if (jugadores[i].sprite.body.velocity.x < -20) {
-                        jugadores[i].sprite.setAccelerationX(1400);
-                    } else {
-                        jugadores[i].sprite.setAccelerationX(0);
-                        jugadores[i].sprite.body.velocity.x = 0;
-                    }
-                }
+        }
+        else if (cursors[0].right.isDown) {
+            jugadores[0].sprite.body.velocity.x = 320;
 
-                if (cursors[i].up.isDown && jugadores[i].sprite.body.touching.down) {
-                    jugadores[i].sprite.body.velocity.y = -600;
-                    salto.play();
-                }
+        }
+        
+        if (jugadores[0].sprite.body.touching.down) {
+            if (jugadores[0].sprite.body.velocity.x > 20) {
+                jugadores[0].sprite.setAccelerationX(-800);
+            } else if (jugadores[0].sprite.body.velocity.x < -20) {
+                jugadores[0].sprite.setAccelerationX(800);
+            } else {
+                jugadores[0].sprite.setAccelerationX(0);
+                jugadores[0].sprite.body.velocity.x = 0;
+            }
+
+        } else {
+            if (jugadores[0].sprite.body.velocity.x > 20) {
+                jugadores[0].sprite.setAccelerationX(-1400);
+            } else if (jugadores[0].sprite.body.velocity.x < -20) {
+                jugadores[0].sprite.setAccelerationX(1400);
+            } else {
+                jugadores[0].sprite.setAccelerationX(0);
+                jugadores[0].sprite.body.velocity.x = 0;
             }
         }
-        if (muertesTotales == (numJugadores - 1)) {
+
+        if (cursors[0].up.isDown && jugadores[0].sprite.body.touching.down) {
+            jugadores[0].sprite.body.velocity.y = -600;
+        }
+    	
+        
+        J1posX = jugadores[0].sprite.body.x;
+        J1posY = jugadores[0].sprite.body.y;
+        
+        if(id_P != -1 && id_J1 != -1){
+        	Comprobar();
+        }
+        if(partida){
+        	Actualizar();
+        }
+                
+        jugadores[1].sprite.body.x = J2posX;
+        jugadores[1].sprite.body.y = J2posY; 
+        
+        
+        
+        if (muertesTotales_on == (numJugadores - 1)) {
             var i = 0;
-            muertesTotales = 0;
+            muertesTotales_on = 0;
             while (jugadores[i].muerte) {
                 i++;
             }
@@ -345,8 +371,8 @@ class Escena0 extends Phaser.Scene {
             this.scene.pause();
             that.scene.pause();
             terminarRonda(jugadores[i], that);
-        } else if (muertesTotales == numJugadores) {
-            muertesTotales = 0;
+        } else if (muertesTotales_on == numJugadores) {
+            muertesTotales_on = 0;
             var empato;
             var that = this;
 
@@ -398,7 +424,7 @@ class resultados extends Phaser.Scene {
             jugadores[i].muerte = false;
         }
         idEscenario = 0;
-        muertesTotales = 0;
+        muertesTotales_on = 0;
 
         cursors[1] = this.input.keyboard.createCursorKeys();
 
@@ -481,7 +507,7 @@ class resultados extends Phaser.Scene {
         this.scene.stop("resultados");
 
         idEscenario = 0;
-        muertesTotales = 0;
+        muertesTotales_on = 0;
         cerrar();
         this.scene.start("Mainmenu");
     }
@@ -535,7 +561,7 @@ class menuPausa extends Phaser.Scene {
             this.scene.stop("Escena0");
 
             idEscenario = 0;
-            muertesTotales = 0;
+            muertesTotales_on = 0;
             cerrar();
             this.scene.start("Mainmenu");
         };
@@ -603,7 +629,7 @@ class sigRonda extends Phaser.Scene {
             this.scene.stop("Escena0");
 
             idEscenario = 0;
-            muertesTotales = 0;
+            muertesTotales_on = 0;
             this.scene.start("Mainmenu");
         };
         
@@ -734,8 +760,9 @@ function comprobacionPisacion(sprite, sprite2) {
 function morir(player) {
     player.sprite.setTint(0x9c9c9c);
     player.muerte = true;
+    Morir(player.muerte);
     player.sprite = "";
-    muertesTotales++;
+    muertesTotales_on++;
 }
 
 function terminarRonda(ganador, that) {

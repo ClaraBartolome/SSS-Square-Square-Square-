@@ -2,19 +2,150 @@
 
 var pascua;
 
-var id = 0;
+var id_J1 = -1;
+var n = -1;
+var id_J2 = -1;
+var id_P = -1;
+var Mu = false;
 var NusuariosAct; //USUARIOSACTIVOS
 var NusuariosJug = 0; //USUARIOSJUGANDO
 
 //Si cierras elimina un usuario
-window.onbeforeunload = function(e){cerrar();};
+//window.onbeforeunload = function(e){cerrar();};
+
+
+
+
+
+var socket; 
+
+socket = new WebSocket("ws://localhost:8080/SSS")
+
+socket.onopen = function(event) {
+	  console.log("WebSocket is open now.");
+	  let cmessage = {
+				message : "HELLO_WORLD",
+				text : "AH FILHO DE PUTA AGORA SEM ENTENDO"
+			}
+
+	  socket.send(JSON.stringify(cmessage))
+	};
+
+	socket.onmessage = function(event){
+		
+		console.log("tengo un mensaje")
+		
+	}
+
+	//Esto en teoria controla cuando se cierra la conexion
+	//var intervalo = setInterval(console.log("cosas"), 100);
+
+	//jugador();
 	
+	function Nuevo_Jugador(){
+		let message = {
+	    		message: "NUEVA_PARTIDA",
+	    		J1
+	    		
+	    };
+	    socket.send(JSON.stringify(message));
+	    socket.onmessage = function(event){
+			var o = JSON.parse(event.data);
+			console.log(o.J1);
+			console.log("Partida: " + o.Nueva_Partida);
+			id_P = o.Nueva_Partida;
+			console.log("Id Jug: " + o.Id_J);
+			id_J1 = o.Id_J;
+			n = o.N;
+			console.log("Jugador: " + o.N);
+			
+		}
+	};
 	
+	function Actualizar(){
+		let message = {
+	    		message: "ACTUALIZAR",
+	    		id_J1,
+	    		id_P,
+	    		J1posX,
+	    		J1posY
+	    		
+	    };
+	    socket.send(JSON.stringify(message));
+	    socket.onmessage = function(event){
+			var o = JSON.parse(event.data);
+			//console.log(o);
+			if(o.Estado){
+				J2posX = o.X_J2;
+				console.log(J2posX);
+				J2posY = o.Y_J2;
+				console.log(J2posY);
+			}
+			
+			
+		}
+	};
+	
+	function Comprobar(){
+		let message = {
+	    		message: "COMPROBAR",
+	    		id_J1,
+	    		id_P,
+	    		
+	    };
+	    socket.send(JSON.stringify(message));
+	    socket.onmessage = function(event){
+			var o = JSON.parse(event.data);
+			//console.log(o);
+			partida = o.Estado;
+			//console.log(partida);
+			J2 = o.Piel;
+		
+			
+			
+		}
+	};
+	
+	function Morir(M){
+		let message = {
+	    		message: "MUERTE",
+	    		id_J1,
+	    		id_P,
+	    		M
+	    		
+	    		
+	    };
+	    socket.send(JSON.stringify(message));
+	    socket.onmessage = function(event){
+			var o = JSON.parse(event.data);
+			//muertesTotales_on = o.Muertes;
+			
+			
+		}
+	}
+	
+    
+    
+	
+window.onclose = 
+	console.log("CLOSE");
+	let kmessage = {
+			message : "CLOSE",
+			text : "Se cerro este socket"
+		}
+
+  socket.send(JSON.stringify(kmessage));
+; 
+
+
+
+function usuarios(){}
+
 function cerrar(){
 	
-	console.log(id);
+	console.log(id_J);
 	
-	$.ajax( {        
+	/*$.ajax( {        
         type: "DELETE",   
         url: "/cerrar/" + id,
         success: function (jugador) {
@@ -22,11 +153,11 @@ function cerrar(){
         	//console.log(jugador)
         	
         }
-    });
+    }); */
 	
 	//alert(jugador);
 }
-
+/*
 	function jugador(){
 		$(document).ready(function(){
 			$.ajax( {
@@ -101,3 +232,4 @@ function prueba(){
 })
 	
 }
+*/

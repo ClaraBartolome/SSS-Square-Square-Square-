@@ -1,30 +1,30 @@
 package es.urjc.code.juegosenred;
-import javax.servlet.ServletContext;
-import javax.servlet.ServletException;
+
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.annotation.Bean;
+import org.springframework.web.socket.config.annotation.EnableWebSocket;
+import org.springframework.web.socket.config.annotation.WebSocketConfigurer;
+import org.springframework.web.socket.config.annotation.WebSocketHandlerRegistry;
 
 @SpringBootApplication
-public class App {
-
+@EnableWebSocket
+public class App implements WebSocketConfigurer {
 	public static void main(String[] args) {
-		
-		//Esta clase es cien por cien necesaria 
-		//Ejecuta la spring app
-
-		 SpringApplication.run(App.class, args);
-		 System.err.println("App iniciada");
-		 
-		
-		 
-		 
+		SpringApplication.run(App.class, args);
 	}
+
 	
+	public void registerWebSocketHandlers(WebSocketHandlerRegistry registry) {
+		registry.addHandler(gameHandler(), "/SSS");
+	}
 
-
+	@Bean
+	public Handler gameHandler() {
+		return new Handler();
+	}
 }
-
 
 
 

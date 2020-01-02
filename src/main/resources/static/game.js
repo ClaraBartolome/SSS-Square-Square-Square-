@@ -15,7 +15,8 @@ var config = {
             debug: false
         }
     },
-    scene: [Mainmenu, login, creditos, ComoJugar, Escena0, resultados, menuPausa, sigRonda]
+    scene: [Mainmenu, login, creditos, ComoJugar, Escena0, resultados, menuPausa, sigRonda],
+    antialias: false
 };
 
 var game = new Phaser.Game(config);

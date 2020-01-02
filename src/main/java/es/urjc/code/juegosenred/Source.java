@@ -1,3 +1,4 @@
+/*
 package es.urjc.code.juegosenred;
 
 import org.springframework.boot.SpringApplication;
@@ -12,3 +13,4 @@ public class Source {
 		SpringApplication.run(Source.class, args);
 	}
 }
+*/
