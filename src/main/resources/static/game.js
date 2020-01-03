@@ -15,7 +15,7 @@ var config = {
             debug: false
         }
     },
-    scene: [Mainmenu, login, creditos, ComoJugar, Escena0, resultados, menuPausa, sigRonda],
+    scene: [Mainmenu, local, login, creditos, ComoJugar, Escena0, resultados, menuPausa, sigRonda, JuegoLocal, resultadosLocal, menuPausaLocal, sigRondaLocal],
     antialias: false
 };
 
