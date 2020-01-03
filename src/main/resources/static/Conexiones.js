@@ -9,6 +9,7 @@ var id_P = -1;
 var Mu = false;
 var NusuariosAct; //USUARIOSACTIVOS
 var NusuariosJug = 0; //USUARIOSJUGANDO
+var muertesTotales_on = 0;
 
 //Si cierras elimina un usuario
 //window.onbeforeunload = function(e){cerrar();};
@@ -68,7 +69,7 @@ socket.onopen = function(event) {
 	    		id_J1,
 	    		id_P,
 	    		J1posX,
-	    		J1posY
+	    		J1posY,
 	    		
 	    };
 	    socket.send(JSON.stringify(message));
@@ -80,6 +81,8 @@ socket.onopen = function(event) {
 				console.log(J2posX);
 				J2posY = o.Y_J2;
 				console.log(J2posY);
+				muertesTotales_on = o.Muertes;
+				console.log(muertesTotales_on);
 			}
 			
 			
@@ -106,36 +109,47 @@ socket.onopen = function(event) {
 		}
 	};
 	
-	function Morir(M){
+	function Morir_Websockets(M){
 		let message = {
 	    		message: "MUERTE",
 	    		id_J1,
 	    		id_P,
 	    		M
 	    		
+	    };
+	    socket.send(JSON.stringify(message));
+	    socket.onmessage = function(event){
+			var o = JSON.parse(event.data);
+						
+		}
+	}
+	
+	function Res_Websockets(){
+		let message = {
+	    		message: "N_RONDA",
+	    		id_J1,
+	    		id_P,
 	    		
 	    };
 	    socket.send(JSON.stringify(message));
 	    socket.onmessage = function(event){
 			var o = JSON.parse(event.data);
-			//muertesTotales_on = o.Muertes;
-			
-			
+			muertesTotales_on = 0;			
 		}
 	}
 	
     
-    
-	
-window.onclose = 
-	console.log("CLOSE");
-	let kmessage = {
-			message : "CLOSE",
-			text : "Se cerro este socket"
-		}
+	function cerracion() {
+		console.log("CLOSE");
+		let kmessage = {
+				message : "CLOSE",
+				text : "Se cerro este socket"
+			}
 
-  socket.send(JSON.stringify(kmessage));
-; 
+	  socket.send(JSON.stringify(kmessage));
+	}    
+	
+window.onbeforeunload = cerracion();
 
 
 

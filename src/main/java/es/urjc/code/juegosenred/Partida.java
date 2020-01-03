@@ -10,12 +10,14 @@ public class Partida {
 	private Jugador J1; 
 	private Jugador J2;
 	private Boolean Empty;
+	private int Muertes;
 	
 	public Partida () {
 		this.id = 0;
 		this.J1 = null;
 		this.J2 = null;
 		this.Empty = false;
+		this.Muertes = 0;
 		
 	}
 	
@@ -24,6 +26,7 @@ public class Partida {
 		this.id = id; 
 		this.J1 = uno;
 		this.Empty = false;
+		this.Muertes = 0;
 	}
 	
 	//GETTERS
@@ -63,7 +66,9 @@ public class Partida {
 			return -1;
 		}
 	}
-	
+	public int getMuertes() {
+		return this.Muertes;
+	}
 	
 	
 	//SETTERS
@@ -78,6 +83,9 @@ public class Partida {
 	}
 	public void SetEstado(Boolean e) {
 		this.Empty = e;
+	}
+	public void setMuertes(int m) {
+		this.Muertes = m;
 	}
 	
 	

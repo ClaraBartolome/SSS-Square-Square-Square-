@@ -158,6 +158,7 @@ public class Handler extends TextWebSocketHandler {
 					
 					msg.put("X_J2", partidas.get(idP).getJug(idJ2).getPosX());
 					msg.put("Y_J2", partidas.get(idP).getJug(idJ2).getPosY());
+					msg.put("Muertes", partidas.get(idP).getMuertes());
 					
 					msg.put("Estado", partidas.get(idP).estado());
 				}else{
@@ -202,12 +203,22 @@ public class Handler extends TextWebSocketHandler {
 				partidas.get(id_p).getJug(idj1).setM(muerte);
 				if(muerte) {
 					N_muertes ++;
-					msg.put("Muertes", N_muertes);
+					partidas.get(id_p).setMuertes(N_muertes);
+					msg.put("Muerte", N_muertes);
 				}
 				
 				J_1.sendMessage(msg.toString());
 				
-				break;		
+				break;
+			
+			case("N_RONDA"):
+				int id_partida = node.get("id_P").asInt();
+				int idj = node.get("id_J1").asInt();
+				
+				partidas.get(id_partida).getJug(idj).setM(false);
+				partidas.get(id_partida).setMuertes(0);
+				
+				break;
 
 		/*	case ("NEW_PLAYER"):
 				if (jugadores.size() < N_PLAYERS  ) {
