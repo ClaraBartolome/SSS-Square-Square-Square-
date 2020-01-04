@@ -100,7 +100,7 @@ No ha sido posible exportar el jar del juego, por lo que se ha enviado en forma 
  #### Nuevos niveles
  ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Nivel_5.png)
 Quinto nivel del juego.
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Nivel_6.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Nivel_6 .png)
 Sexto nivel del juego.
  
  #### Nuevas skins
