@@ -930,8 +930,6 @@ class login extends Phaser.Scene {
         super("login");
     }
 
-	
-	
 	shadebuttons(){
     	this.buttonCuadrencio.setTint(0x727272);
     	this.buttonCuadralino.setTint(0x727272);
@@ -1147,9 +1145,6 @@ class login extends Phaser.Scene {
         if(id_P != -1 && id_J1 != -1){
         	Comprobar();
         }
-        if(partida){
-            this.scene.start("Escena0");
-        }
     }
 
     //funciones skins
@@ -1328,14 +1323,11 @@ class login extends Phaser.Scene {
   
   //FUNCIONES OK    
     clickButtonOK() {
-		if(J1 != "" && !partida){
+		if(J1 != ""){
 			muerteSonido.play();
 			//jugador();
 			Nuevo_Jugador();        
-			
-		}
-		if(partida){
-            this.scene.start("Escena0");
+            this.scene.start("SalaEspera");
 		}
     }
 
@@ -1549,4 +1541,189 @@ class ComoJugar extends Phaser.Scene {
     }
  
 
+}
+
+var encontrada = false;
+class SalaEspera extends Phaser.Scene {
+
+    constructor() {
+        super("SalaEspera");
+    }
+    create() {
+        encontrada = false; 
+
+        salto = this.sound.add('salto');
+        muerteSonido = this.sound.add('muerteSonido');
+        salto.volume = 0.2;
+        muerteSonido.volume = 0.4;
+        this.add.image(640, 360, 'fondo2');
+
+        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerup', () => this.changeSpriteVolver());
+
+
+        platforms = this.physics.add.staticGroup();
+
+        platforms.create(322, 369, 'ground').setScale(0.7);
+        platforms.create(322, 111, 'ground').setScale(0.7);
+        platforms.create(180, 240, 'wall').setScale(0.7);
+        platforms.create(455, 240, 'wall').setScale(0.7);
+
+        jugadores[0].sprite = this.physics.add.sprite(315, 340, J1);
+
+        cursors[0] = this.input.keyboard.addKeys(
+            {
+                up: Phaser.Input.Keyboard.KeyCodes.W,
+                down: Phaser.Input.Keyboard.KeyCodes.S,
+                left: Phaser.Input.Keyboard.KeyCodes.A,
+                right: Phaser.Input.Keyboard.KeyCodes.D
+            });
+
+        jugadores[0].sprite.setBounce(0.15);
+        jugadores[0].sprite.setCollideWorldBounds(true);
+
+        this.physics.add.collider(jugadores[0].sprite, platforms);
+
+        var FKey = this.input.keyboard.addKey('F');
+
+        this.reglas = this.add.sprite(640, 625, 'reglas');
+        this.Jug1 = this.add.sprite(280, 475, 'J1_c');
+
+        FKey.on('down', function () {
+
+            if (this.scale.isFullscreen) {
+                this.scale.stopFullscreen();
+            }
+            else {
+                this.scale.startFullscreen();
+            }
+
+        }, this);
+    }
+
+    update() {
+        if (cursors[0].left.isDown) {
+            jugadores[0].sprite.body.velocity.x = -320;
+        }
+        else if (cursors[0].right.isDown) {
+            jugadores[0].sprite.body.velocity.x = 320;
+        }
+
+        if (jugadores[0].sprite.body.touching.down) {
+            if (jugadores[0].sprite.body.velocity.x > 20) {
+                jugadores[0].sprite.setAccelerationX(-800);
+            } else if (jugadores[0].sprite.body.velocity.x < -20) {
+                jugadores[0].sprite.setAccelerationX(800);
+            } else {
+                jugadores[0].sprite.setAccelerationX(0);
+                jugadores[0].sprite.body.velocity.x = 0;
+            }
+        } else {
+            if (jugadores[0].sprite.body.velocity.x > 20) {
+                jugadores[0].sprite.setAccelerationX(-1400);
+            } else if (jugadores[0].sprite.body.velocity.x < -20) {
+                jugadores[0].sprite.setAccelerationX(1400);
+            } else {
+                jugadores[0].sprite.setAccelerationX(0);
+                jugadores[0].sprite.body.velocity.x = 0;
+            }
+        }
+        if (cursors[0].up.isDown && jugadores[0].sprite.body.touching.down) {
+            jugadores[0].sprite.body.velocity.y = -600;
+            salto.play();
+        }
+        if (id_P != -1 && id_J1 != -1) {
+            Comprobar();
+        }
+        if (partida && !encontrada) {
+            encontrada = true;
+            this.scene.launch("ContadorSalaEspera");
+        }
+    }
+    clickButtonVolver() {
+        muerteSonido.play();
+        this.scene.start("login");
+    }
+
+    changeSpriteVolverPulsado() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 50, 'volver_pulsado').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.changeSpriteVolver());
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
+
+    }
+    changeSpriteVolver() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+
+    }
+
+
+}
+
+class ContadorSalaEspera extends Phaser.Scene {
+    constructor() {
+        super("ContadorSalaEspera");
+    }
+
+    preload() {
+        this.load.image('pausa', 'assets/Fondo_pausa.png');
+        this.load.image('3', 'assets/3.png');
+        this.load.image('2', 'assets/2.png');
+        this.load.image('1', 'assets/1.png');
+    }
+
+    create() {
+        this.add.image(640, 360, 'pausa').setScale(1);
+        counter = 3;
+        alphaC = 1;
+
+        contador = this.add.image(650, 550, '3').setScale(1);
+        contador.setAlpha(alphaC);
+
+        timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, repeat: 2 });
+
+        function onEvent() {
+            counter--; // One second 
+            if (counter == 0) {
+                alphaC = 0;
+            } else {
+                alphaC = 1;
+            }
+
+        }
+    }
+
+    update() {
+        contador.setAlpha(alphaC);
+
+        switch (counter) {
+            case (2):
+                contador.destroy();
+                contador = this.add.image(650, 550, '2').setScale(1);
+                contador.setAlpha(alphaC);
+                break;
+            case (1):
+                contador.destroy();
+                contador = this.add.image(650, 550, '1').setScale(1);
+                contador.setAlpha(alphaC);
+                break;
+            case (0):
+                var that = this;
+                play(that);
+                break;
+        }
+
+        function play(that) {
+            that.scene.stop("SalaEspera");
+            that.scene.stop("ContadorSalaEspera");
+            that.scene.start("Escena0");
+            
+        };
+    }
 }

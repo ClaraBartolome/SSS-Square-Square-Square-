@@ -53,13 +53,9 @@ class Escena0 extends Phaser.Scene {
     }
 
     preload() {
-        this.load.image('pausa', 'assets/Fondo_pausa.png');
         this.load.image('sky', 'assets/sky.jpeg');
         this.load.image('ground2', 'assets/platform2N.png');
         this.load.image('caja', 'assets/caja.png');
-        this.load.image('3', 'assets/3.png');
-        this.load.image('2', 'assets/2.png');
-        this.load.image('1', 'assets/1.png');
         this.load.image('caja1', 'assets/caja1.png');
         this.load.image('finR', 'assets/findelaronda.png');
         this.load.image('caja2', 'assets/caja2.png');
