@@ -855,10 +855,10 @@ function colisionTrianguloIzq(sprite, triangulo) {
 }
 
 function comprobacionPisacion(sprite, sprite2) {
-    if (sprite2.y = sprite.y + 32 && sprite2.body.touching.up) {
+    if (sprite2.y >= sprite.y + 32 && sprite2.body.touching.up) {
         muerteSonido.play();
         morir(jugadores[sprite2.name]);
-    } else if (sprite.y = sprite2.y + 32 && sprite.body.touching.up) {
+    } else if (sprite.y >= sprite2.y + 32 && sprite.body.touching.up) {
         muerteSonido.play();
         morir(jugadores[sprite.name]);
     }

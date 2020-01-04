@@ -738,7 +738,6 @@ function morirLocal(player) {
     player.sprite.setTint(0x9c9c9c);
     player.muerte = true;
 
-    player.sprite = "";
     muertesTotales++;
 }
 
