@@ -1549,6 +1549,9 @@ class SalaEspera extends Phaser.Scene {
     constructor() {
         super("SalaEspera");
     }
+    preload() {
+        this.load.image('buscando', 'assets/BuscandoJugadores.png');
+    }
     create() {
         encontrada = false; 
 
@@ -1557,6 +1560,8 @@ class SalaEspera extends Phaser.Scene {
         salto.volume = 0.2;
         muerteSonido.volume = 0.4;
         this.add.image(640, 360, 'fondo2');
+
+        this.buscando = this.add.image(900, 250, 'buscando');
 
         this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
@@ -1639,11 +1644,14 @@ class SalaEspera extends Phaser.Scene {
         }
         if (partida && !encontrada) {
             encontrada = true;
+            this.buscando.setVisible(false);
             this.scene.launch("ContadorSalaEspera");
         }
     }
     clickButtonVolver() {
         muerteSonido.play();
+        J1 = "";
+        //hay que hacer algo de cancelar la busqueda de partida o algo asi
         this.scene.start("login");
     }
 
@@ -1683,7 +1691,7 @@ class ContadorSalaEspera extends Phaser.Scene {
         counter = 3;
         alphaC = 1;
 
-        contador = this.add.image(650, 550, '3').setScale(1);
+        contador = this.add.image(650, 450, '3').setScale(1);
         contador.setAlpha(alphaC);
 
         timedEvent = this.time.addEvent({ delay: 1000, callback: onEvent, callbackScope: this, repeat: 2 });
@@ -1705,12 +1713,12 @@ class ContadorSalaEspera extends Phaser.Scene {
         switch (counter) {
             case (2):
                 contador.destroy();
-                contador = this.add.image(650, 550, '2').setScale(1);
+                contador = this.add.image(650, 450, '2').setScale(1);
                 contador.setAlpha(alphaC);
                 break;
             case (1):
                 contador.destroy();
-                contador = this.add.image(650, 550, '1').setScale(1);
+                contador = this.add.image(650, 450, '1').setScale(1);
                 contador.setAlpha(alphaC);
                 break;
             case (0):
