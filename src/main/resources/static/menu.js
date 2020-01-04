@@ -441,12 +441,6 @@ class local extends Phaser.Scene {
         this.buttonOK.on('pointerover', () => this.changeSpriteOKPulsado());
         this.buttonOK.on('pointerout', () => this.changeSpriteOK());
 
-        //BOTON CANCELAR
-        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar').setScale(1).setInteractive();
-        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
-        this.buttonCancelar.on('pointerover', () => this.changeSpriteCancelarPulsado());
-        this.buttonCancelar.on('pointerout', () => this.changeSpriteCancelar());
-
         //BOTON VOLVER
         this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
@@ -560,39 +554,287 @@ class local extends Phaser.Scene {
                     this.buttonCuadrachuche.clearTint();
                     break;
             }
-        }
-        if (J1 == "") {
-            J1 = skin;
-            this.portrait1.destroy();
+            if (J1 == "") {
+                if (J2 == skin) {
+                    switch (skin) {
+                        case "cuadrencio":
+                            this.buttonCuadrencio.setTint(0x727272);
+                            break;
+                        case "cuadralino":
+                            this.buttonCuadralino.setTint(0x727272);
+                            break;
+                        case "cuadradio":
+                            this.buttonCuadradio.setTint(0x727272);
+                            break;
+                        case "cuadrataro":
+                            this.buttonCuadrataro.setTint(0x727272);
+                            break;
+                        case "cuadrabob":
+                            this.buttonCuadrabob.setTint(0x727272);
+                            break;
+                        case "cuadratricio":
+                            this.buttonCuadratricio.setTint(0x727272);
+                            break;
+                        case "cuadrazoro":
+                            this.buttonCuadrazoro.setTint(0x727272);
+                            break;
+                        case "cuadrasanji":
+                            this.buttonCuadrasanji.setTint(0x727272);
+                            break;
+                        case "cuadraruto":
+                            this.buttonCuadraruto.setTint(0x727272);
+                            break;
+                        case "cuadrasasuke":
+                            this.buttonCuadrasasuke.setTint(0x727272);
+                            break;
+                        case "cuadramomia":
+                            this.buttonCuadramomia.setTint(0x727272);
+                            break;
+                        case "cuadragato":
+                            this.buttonCuadragato.setTint(0x727272);
+                            break;
+                        case "cuadrabarril":
+                            this.buttonCuadrabarril.setTint(0x727272);
+                            break;
+                        case "cuadramago":
+                            this.buttonCuadramago.setTint(0x727272);
+                            break;
+                        case "cuadralien":
+                            this.buttonCuadralien.setTint(0x727272);
+                            break;
+                        case "cuadrachuche":
+                            this.buttonCuadrachuche.setTint(0x727272);
+                            break;
+                    }
+                    J2 = "";
 
+                    this.banner2.destroy();
+                    jugadores[1].sprite.setVisible(false);
 
-            jugadores[0].sprite = this.physics.add.sprite(200, 340, J1);
+                    suelo2.setVisible(false);
+                    techo2.setVisible(false);
+                    paredI2.setVisible(false);
+                    paredD2.setVisible(false);
+                } else {
+                    J1 = skin;
+                    this.portrait1.destroy();
 
-            jugadores[0].sprite.setBounce(0.15);
-            jugadores[0].sprite.setCollideWorldBounds(true);
+                    jugadores[0].sprite = this.physics.add.sprite(200, 340, J1);
 
-            this.physics.add.collider(jugadores[0].sprite, platforms);
+                    jugadores[0].sprite.setBounce(0.15);
+                    jugadores[0].sprite.setCollideWorldBounds(true);
 
-            suelo1.setVisible(true);
-            techo1.setVisible(true);
-            paredI1.setVisible(true);
-            paredD1.setVisible(true);
-        } else {
-            if (J2 == "" && skin != J1) {
-                J2 = skin;
-                this.portrait2.destroy();
-                jugadores[1].sprite = this.physics.add.sprite(1080, 340, J2);
+                    this.physics.add.collider(jugadores[0].sprite, platforms);
 
-                jugadores[1].sprite.setBounce(0.15);
-                jugadores[1].sprite.setCollideWorldBounds(true);
-                this.physics.add.collider(jugadores[1].sprite, platforms);
+                    suelo1.setVisible(true);
+                    techo1.setVisible(true);
+                    paredI1.setVisible(true);
+                    paredD1.setVisible(true);
+                }
+            } else if (J2 == "") {
+                if (J1 == skin) {
+                    switch (skin) {
+                        case "cuadrencio":
+                            this.buttonCuadrencio.setTint(0x727272);
+                            break;
+                        case "cuadralino":
+                            this.buttonCuadralino.setTint(0x727272);
+                            break;
+                        case "cuadradio":
+                            this.buttonCuadradio.setTint(0x727272);
+                            break;
+                        case "cuadrataro":
+                            this.buttonCuadrataro.setTint(0x727272);
+                            break;
+                        case "cuadrabob":
+                            this.buttonCuadrabob.setTint(0x727272);
+                            break;
+                        case "cuadratricio":
+                            this.buttonCuadratricio.setTint(0x727272);
+                            break;
+                        case "cuadrazoro":
+                            this.buttonCuadrazoro.setTint(0x727272);
+                            break;
+                        case "cuadrasanji":
+                            this.buttonCuadrasanji.setTint(0x727272);
+                            break;
+                        case "cuadraruto":
+                            this.buttonCuadraruto.setTint(0x727272);
+                            break;
+                        case "cuadrasasuke":
+                            this.buttonCuadrasasuke.setTint(0x727272);
+                            break;
+                        case "cuadramomia":
+                            this.buttonCuadramomia.setTint(0x727272);
+                            break;
+                        case "cuadragato":
+                            this.buttonCuadragato.setTint(0x727272);
+                            break;
+                        case "cuadrabarril":
+                            this.buttonCuadrabarril.setTint(0x727272);
+                            break;
+                        case "cuadramago":
+                            this.buttonCuadramago.setTint(0x727272);
+                            break;
+                        case "cuadralien":
+                            this.buttonCuadralien.setTint(0x727272);
+                            break;
+                        case "cuadrachuche":
+                            this.buttonCuadrachuche.setTint(0x727272);
+                            break;
+                    }
+                    J1 = "";
 
-                suelo2.setVisible(true);
-                techo2.setVisible(true);
-                paredI2.setVisible(true);
-                paredD2.setVisible(true);
+                    this.portrait1 = this.add.sprite(200, 360, skin).setScale(10);
+
+                    jugadores[0].sprite.setVisible(false);
+
+                    suelo1.setVisible(false);
+                    techo1.setVisible(false);
+                    paredI1.setVisible(false);
+                    paredD1.setVisible(false);
+                }
+                else if (J2 == "" && skin != J1) {
+                    J2 = skin;
+                    this.portrait2.destroy();
+                    jugadores[1].sprite = this.physics.add.sprite(1080, 340, J2);
+
+                    jugadores[1].sprite.setBounce(0.15);
+                    jugadores[1].sprite.setCollideWorldBounds(true);
+                    this.physics.add.collider(jugadores[1].sprite, platforms);
+
+                    suelo2.setVisible(true);
+                    techo2.setVisible(true);
+                    paredI2.setVisible(true);
+                    paredD2.setVisible(true);
+                }
             }
+        } else {
+            if (J1 == skin) {
+                switch (skin) {
+                    case "cuadrencio":
+                        this.buttonCuadrencio.setTint(0x727272);
+                        break;
+                    case "cuadralino":
+                        this.buttonCuadralino.setTint(0x727272);
+                        break;
+                    case "cuadradio":
+                        this.buttonCuadradio.setTint(0x727272);
+                        break;
+                    case "cuadrataro":
+                        this.buttonCuadrataro.setTint(0x727272);
+                        break;
+                    case "cuadrabob":
+                        this.buttonCuadrabob.setTint(0x727272);
+                        break;
+                    case "cuadratricio":
+                        this.buttonCuadratricio.setTint(0x727272);
+                        break;
+                    case "cuadrazoro":
+                        this.buttonCuadrazoro.setTint(0x727272);
+                        break;
+                    case "cuadrasanji":
+                        this.buttonCuadrasanji.setTint(0x727272);
+                        break;
+                    case "cuadraruto":
+                        this.buttonCuadraruto.setTint(0x727272);
+                        break;
+                    case "cuadrasasuke":
+                        this.buttonCuadrasasuke.setTint(0x727272);
+                        break;
+                    case "cuadramomia":
+                        this.buttonCuadramomia.setTint(0x727272);
+                        break;
+                    case "cuadragato":
+                        this.buttonCuadragato.setTint(0x727272);
+                        break;
+                    case "cuadrabarril":
+                        this.buttonCuadrabarril.setTint(0x727272);
+                        break;
+                    case "cuadramago":
+                        this.buttonCuadramago.setTint(0x727272);
+                        break;
+                    case "cuadralien":
+                        this.buttonCuadralien.setTint(0x727272);
+                        break;
+                    case "cuadrachuche":
+                        this.buttonCuadrachuche.setTint(0x727272);
+                        break;
+                }
+                J1 = "";
+
+                this.portrait1 = this.add.sprite(200, 360, skin).setScale(10);
+
+                jugadores[0].sprite.setVisible(false);
+
+                suelo1.setVisible(false);
+                techo1.setVisible(false);
+                paredI1.setVisible(false);
+                paredD1.setVisible(false);
+            } else if (J2 == skin) {
+                switch (skin) {
+                    case "cuadrencio":
+                        this.buttonCuadrencio.setTint(0x727272);
+                        break;
+                    case "cuadralino":
+                        this.buttonCuadralino.setTint(0x727272);
+                        break;
+                    case "cuadradio":
+                        this.buttonCuadradio.setTint(0x727272);
+                        break;
+                    case "cuadrataro":
+                        this.buttonCuadrataro.setTint(0x727272);
+                        break;
+                    case "cuadrabob":
+                        this.buttonCuadrabob.setTint(0x727272);
+                        break;
+                    case "cuadratricio":
+                        this.buttonCuadratricio.setTint(0x727272);
+                        break;
+                    case "cuadrazoro":
+                        this.buttonCuadrazoro.setTint(0x727272);
+                        break;
+                    case "cuadrasanji":
+                        this.buttonCuadrasanji.setTint(0x727272);
+                        break;
+                    case "cuadraruto":
+                        this.buttonCuadraruto.setTint(0x727272);
+                        break;
+                    case "cuadrasasuke":
+                        this.buttonCuadrasasuke.setTint(0x727272);
+                        break;
+                    case "cuadramomia":
+                        this.buttonCuadramomia.setTint(0x727272);
+                        break;
+                    case "cuadragato":
+                        this.buttonCuadragato.setTint(0x727272);
+                        break;
+                    case "cuadrabarril":
+                        this.buttonCuadrabarril.setTint(0x727272);
+                        break;
+                    case "cuadramago":
+                        this.buttonCuadramago.setTint(0x727272);
+                        break;
+                    case "cuadralien":
+                        this.buttonCuadralien.setTint(0x727272);
+                        break;
+                    case "cuadrachuche":
+                        this.buttonCuadrachuche.setTint(0x727272);
+                        break;
+                }
+                J2 = "";
+
+                this.portrait2 = this.add.sprite(1080, 360, skin).setScale(10);
+
+                jugadores[1].sprite.setVisible(false);
+
+                suelo2.setVisible(false);
+                techo2.setVisible(false);
+                paredI2.setVisible(false);
+                paredD2.setVisible(false);
+            } 
         }
+         
     }
 
     changeSpritePulsado(skin, banner) {
@@ -657,50 +899,10 @@ class local extends Phaser.Scene {
         this.buttonOK.on('pointerup', () => this.changeSpriteOK());
     }
 
-    //FUNCIONES CANCELAR
-    clickButtonCancelar() {
-        J1 = "";
-        J2 = "";
-        this.banner1.destroy();
-        this.portrait1.destroy();
-        this.banner2.destroy();
-        this.portrait2.destroy();
-
-        this.shadebuttons();
-
-        suelo1.setVisible(false);
-        techo1.setVisible(false);
-        paredI1.setVisible(false);
-        paredD1.setVisible(false);
-
-        suelo2.setVisible(false);
-        techo2.setVisible(false);
-        paredI2.setVisible(false);
-        paredD2.setVisible(false);
-
-        jugadores[0].sprite.setVisible(false);
-        jugadores[1].sprite.setVisible(false);
-    }
-
-    changeSpriteCancelarPulsado() {
-        this.buttonCancelar.destroy();
-        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar_pul').setScale(1).setInteractive();
-        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
-        this.buttonCancelar.on('pointerdown', () => this.changeSpriteCancelarPulsado());
-        this.buttonCancelar.on('pointerout', () => this.changeSpriteCancelar());
-    }
-
-    changeSpriteCancelar() {
-        this.buttonCancelar.destroy();
-        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar').setScale(1).setInteractive();
-        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
-        this.buttonCancelar.on('pointerover', () => this.changeSpriteCancelarPulsado());
-        this.buttonCancelar.on('pointerup', () => this.changeSpriteCancelar());
-    }
-
     //FUNCIONES VOLVER
     clickButtonVolver() {
-        this.clickButtonCancelar();
+        J1 = "";
+        J2 = "";
         muerteSonido.play();
         this.scene.start("Mainmenu");
     }
@@ -761,7 +963,7 @@ class login extends Phaser.Scene {
         paredI1 = platforms.create(52, 359, 'wall').setScale(0.7805);
         paredD1 = platforms.create(348, 359, 'wall').setScale(0.7805); 
 		
-		jugadores[0].sprite = this.physics.add.sprite(J1posX, J1posY, J1);
+        jugadores[0].sprite = this.physics.add.sprite(200, 340, J1);
 		
 		jugadores[0].sprite.setVisible(false);
 		
@@ -891,12 +1093,6 @@ class login extends Phaser.Scene {
         this.buttonOK.on('pointerover', () => this.changeSpriteOKPulsado());
         this.buttonOK.on('pointerout', () => this.changeSpriteOK());
 
-        //BOTON CANCELAR
-        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar').setScale(1).setInteractive();
-        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
-        this.buttonCancelar.on('pointerover', () => this.changeSpriteCancelarPulsado());
-        this.buttonCancelar.on('pointerout', () => this.changeSpriteCancelar());
-
         this.shadebuttons();
         
         var FKey = this.input.keyboard.addKey('F');
@@ -948,9 +1144,6 @@ class login extends Phaser.Scene {
             jugadores[0].sprite.body.velocity.y = -600;
         }
         
-        J1posX = jugadores[0].sprite.body.x;
-        J1posY = jugadores[0].sprite.body.y;
-        
         if(id_P != -1 && id_J1 != -1){
         	Comprobar();
         }
@@ -961,7 +1154,7 @@ class login extends Phaser.Scene {
 
     //funciones skins
     clickButton(skin) {
-        if (J1 == "" || J2 == "") {
+        if (J1 == "") {
             switch (skin) {
                 case "cuadrencio":
                     this.buttonCuadrencio.clearTint();
@@ -1012,24 +1205,104 @@ class login extends Phaser.Scene {
                     this.buttonCuadrachuche.clearTint();
                     break;
             }
-        }
-		if(J1 == ""){
             J1 = skin;
             this.portrait1.destroy();
-			
 
-			jugadores[0].sprite = this.physics.add.sprite(J1posX, J1posY, J1);
-			
-			jugadores[0].sprite.setBounce(0.15);
-			jugadores[0].sprite.setCollideWorldBounds(true);
 
-			this.physics.add.collider(jugadores[0].sprite, platforms);
-			
-			suelo1.setVisible(true);
-			techo1.setVisible(true);
-			paredI1.setVisible(true);
-			paredD1.setVisible(true);
-		}
+            jugadores[0].sprite = this.physics.add.sprite(200, 340, J1);
+
+            jugadores[0].sprite.setBounce(0.15);
+            jugadores[0].sprite.setCollideWorldBounds(true);
+
+            this.physics.add.collider(jugadores[0].sprite, platforms);
+
+            suelo1.setVisible(true);
+            techo1.setVisible(true);
+            paredI1.setVisible(true);
+            paredD1.setVisible(true);
+        } else {
+            this.shadebuttons();
+            if (J1 == skin) {
+                J1 = "";
+
+                this.portrait1 = this.add.sprite(200, 360, skin).setScale(10);  
+
+                jugadores[0].sprite.setVisible(false);
+
+                suelo1.setVisible(false);
+                techo1.setVisible(false);
+                paredI1.setVisible(false);
+                paredD1.setVisible(false);
+            } else {
+                switch (skin) {
+                    case "cuadrencio":
+                        this.buttonCuadrencio.clearTint();
+                        break;
+                    case "cuadralino":
+                        this.buttonCuadralino.clearTint();
+                        break;
+                    case "cuadradio":
+                        this.buttonCuadradio.clearTint();
+                        break;
+                    case "cuadrataro":
+                        this.buttonCuadrataro.clearTint();
+                        break;
+                    case "cuadrabob":
+                        this.buttonCuadrabob.clearTint();
+                        break;
+                    case "cuadratricio":
+                        this.buttonCuadratricio.clearTint();
+                        break;
+                    case "cuadrazoro":
+                        this.buttonCuadrazoro.clearTint();
+                        break;
+                    case "cuadrasanji":
+                        this.buttonCuadrasanji.clearTint();
+                        break;
+                    case "cuadraruto":
+                        this.buttonCuadraruto.clearTint();
+                        break;
+                    case "cuadrasasuke":
+                        this.buttonCuadrasasuke.clearTint();
+                        break;
+                    case "cuadramomia":
+                        this.buttonCuadramomia.clearTint();
+                        break;
+                    case "cuadragato":
+                        this.buttonCuadragato.clearTint();
+                        break;
+                    case "cuadrabarril":
+                        this.buttonCuadrabarril.clearTint();
+                        break;
+                    case "cuadramago":
+                        this.buttonCuadramago.clearTint();
+                        break;
+                    case "cuadralien":
+                        this.buttonCuadralien.clearTint();
+                        break;
+                    case "cuadrachuche":
+                        this.buttonCuadrachuche.clearTint();
+                        break;
+                }
+                J1 = skin;
+
+                this.banner1.destroy();
+                if (skin == "cuadragato") {
+                    this.banner1 = this.add.sprite(200, 575, skin + "_n").setScale(0.85);
+                } else {
+                    this.banner1 = this.add.sprite(200, 575, skin + "_n").setScale(1);
+                }
+
+                jugadores[0].sprite.setVisible(false);
+
+                jugadores[0].sprite = this.physics.add.sprite(200, 340, J1);
+
+                jugadores[0].sprite.setBounce(0.15);
+                jugadores[0].sprite.setCollideWorldBounds(true);
+
+                this.physics.add.collider(jugadores[0].sprite, platforms);
+            }
+        }
     }
     
     changeSpritePulsado(skin, banner) {
@@ -1083,37 +1356,6 @@ class login extends Phaser.Scene {
         this.buttonOK.on('pointerup', () => this.changeSpriteOK()); 
     }
 
-    //FUNCIONES CANCELAR
-    clickButtonCancelar() {
-        J1 = "";
-        this.banner1.destroy();
-        this.portrait1.destroy();
-
-        this.shadebuttons();
-
-        suelo1.setVisible(false);
-        techo1.setVisible(false);
-        paredI1.setVisible(false);
-        paredD1.setVisible(false);
-
-        jugadores[0].sprite.setVisible(false);
-    }
-
-    changeSpriteCancelarPulsado() {
-        this.buttonCancelar.destroy();
-        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar_pul').setScale(1).setInteractive();
-        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
-        this.buttonCancelar.on('pointerdown', () => this.changeSpriteCancelarPulsado());
-        this.buttonCancelar.on('pointerout', () => this.changeSpriteCancelar());
-    }
-
-    changeSpriteCancelar() {
-        this.buttonCancelar.destroy();
-        this.buttonCancelar = this.add.sprite(150, 650, 'cancelar').setScale(1).setInteractive();
-        this.buttonCancelar.on('pointerdown', () => this.clickButtonCancelar());
-        this.buttonCancelar.on('pointerover', () => this.changeSpriteCancelarPulsado());
-        this.buttonCancelar.on('pointerup', () => this.changeSpriteCancelar());
-    }
 }
 
 // JavaScript source code
