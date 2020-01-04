@@ -1091,6 +1091,12 @@ class login extends Phaser.Scene {
         this.buttonOK.on('pointerover', () => this.changeSpriteOKPulsado());
         this.buttonOK.on('pointerout', () => this.changeSpriteOK());
 
+        //BOTON VOLVER
+        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
+
         this.shadebuttons();
         
         var FKey = this.input.keyboard.addKey('F');
@@ -1348,6 +1354,28 @@ class login extends Phaser.Scene {
         this.buttonOK.on('pointerup', () => this.changeSpriteOK()); 
     }
 
+    //FUNCIONES VOLVER
+    clickButtonVolver() {
+        J1 = "";
+        muerteSonido.play();
+        this.scene.start("Mainmenu");
+    }
+
+    changeSpriteVolverPulsado() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 50, 'volver_pulsado').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerdown', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
+    }
+
+    changeSpriteVolver() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerup', () => this.changeSpriteVolver());
+    }
 }
 
 // JavaScript source code

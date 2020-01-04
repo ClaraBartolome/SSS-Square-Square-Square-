@@ -59,78 +59,77 @@ socket.onopen = function(event) {
 		}
 	};
 	
-	function Actualizar(){
-		let message = {
-	    		message: "ACTUALIZAR",
-	    		id_J1,
-	    		id_P,
-	    		J1posX,
-	    		J1posY
-	    		
-	    };
-	    socket.send(JSON.stringify(message));
-	    socket.onmessage = function(event){
-			var o = JSON.parse(event.data);
-			//console.log(o);
-			if(o.Estado){
-				J2posX = o.X_J2;
-				J2posY = o.Y_J2;
-				
-				muertesTotales_on = o.Muertes;
-			}
-			
-			
-		}
-	};
+function Actualizar() {
+    let message = {
+        message: "ACTUALIZAR",
+        idjact: id_J1,
+        idpact: id_P,
+        J1posXact: J1posX,
+        J1posYact: J1posY
+
+    };
+    socket.send(JSON.stringify(message));
+    socket.onmessage = function (event) {
+        var o = JSON.parse(event.data);
+        //console.log(o);
+        if (o.Estado) {
+            J2posX = o.X_J2;
+            J2posY = o.Y_J2;
+
+            muertesTotales_on = o.Muertes;
+        }
+    }
+};
 	
-	function Comprobar(){
-		let message = {
-	    		message: "COMPROBAR",
-	    		id_J1,
-	    		id_P,
-	    		
-	    };
-	    socket.send(JSON.stringify(message));
-	    socket.onmessage = function(event){
-			var o = JSON.parse(event.data);
-			//console.log(o);
-			partida = o.Estado;
-			//console.log(partida);
-			J2 = o.Piel;
-		
-			
-			
-		}
-	};
+function Comprobar() {
+    let message = {
+        message: "COMPROBAR",
+        id_J1comp: id_J1,
+        id_Pcomp: id_P,
+
+    };
+    socket.send(JSON.stringify(message));
+    socket.onmessage = function (event) {
+        var o = JSON.parse(event.data);
+        //console.log(o);
+        partida = o.Estado;
+        //console.log(partida);
+        J2 = o.Piel;
+
+
+
+    }
+};
 	
-	function Morir_Websockets(M){
-		let message = {
-	    		message: "MUERTE",
-	    		id_J1,
-	    		id_P,
-	    		M
-	    		
-	    };
-	    socket.send(JSON.stringify(message));
-	    socket.onmessage = function(event){
-			var o = JSON.parse(event.data);
-						
-		}
-	}
+function Morir_Websockets(M) {
+    let message = {
+        message: "MUERTE",
+        id_J1m: id_J1,
+        id_Pm: id_P,
+        Mm: M
+
+    };
+    socket.send(JSON.stringify(message));
+    socket.onmessage = function (event) {
+        var o = JSON.parse(event.data);
+
+    }
+}
 	
-    function Res_Websockets(){
-		let message = {
-	    		message: "N_RONDA",
-	    		id_J1,
-	    		id_P,
-	    		
-	    };
-	    socket.send(JSON.stringify(message));
-	    socket.onmessage = function(event){
-			var o = JSON.parse(event.data);
-			muertesTotales_on = 0;			
-		}
-	}
+function Res_Websockets() {
+    let message = {
+        message: "N_RONDA",
+        id_J1ron: id_J1,
+        id_Pron: id_P,
+
+    };
+    socket.send(JSON.stringify(message));
+    socket.onmessage = function (event) {
+        var o = JSON.parse(event.data);
+        muertesTotales_on = 0;
+    }
+}
+
     function cerracion() {
 		console.log("CLOSE");
 		let kmessage = {

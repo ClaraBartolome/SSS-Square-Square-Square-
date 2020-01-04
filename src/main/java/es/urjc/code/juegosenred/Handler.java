@@ -142,10 +142,10 @@ public class Handler extends TextWebSocketHandler {
 			//RECIBE LA POSICION DEL JUGADOR, LA CAMBIA EN EL SERVIDOR Y DEVUELVE LA POSICION DEL JUGADOR 2		
 			case ("ACTUALIZAR"):
 
-				int idP = node.get("id_P").asInt();
-				int idJ1 = node.get("id_J1").asInt();
-				float X = node.get("J1posX").asInt();
-				float Y = node.get("J1posY").asInt();
+				int idP = node.get("idpact").asInt();
+				int idJ1 = node.get("idjact").asInt();
+				float X = node.get("J1posXact").asInt();
+				float Y = node.get("J1posYact").asInt();
 				
 				Jugador J1 = partidas.get(idP).getJug(idJ1);
 				
@@ -173,8 +173,8 @@ public class Handler extends TextWebSocketHandler {
 				
 				//RECIBE LA ID DE UNA PARTIDA Y DE UN JUGADOR Y DEVUELVE SI ESTA LLENA	
 			case ("COMPROBAR"):
-				int id_par = node.get("id_P").asInt();
-				int id1 = node.get("id_J1").asInt();
+				int id_par = node.get("id_Pcomp").asInt();
+				int id1 = node.get("id_J1comp").asInt();
 				
 				Jugador Jug = partidas.get(id_par).getJug(id1);
 				
@@ -193,10 +193,10 @@ public class Handler extends TextWebSocketHandler {
 				
 				
 			case ("MUERTE"):
-				int id_p = node.get("id_P").asInt();
-				int idj1 = node.get("id_J1").asInt();
+				int id_p = node.get("id_Pm").asInt();
+				int idj1 = node.get("id_J1m").asInt();
 				int N_muertes = 0;
-				Boolean muerte = node.get("M").asBoolean();
+				Boolean muerte = node.get("Mm").asBoolean();
 				
 				Jugador J_1 = partidas.get(id_p).getJug(idj1);
 				
@@ -212,8 +212,8 @@ public class Handler extends TextWebSocketHandler {
 				break;
 			
 			case("N_RONDA"):
-				int id_partida = node.get("id_P").asInt();
-				int idj = node.get("id_J1").asInt();
+				int id_partida = node.get("id_Pron").asInt();
+				int idj = node.get("id_J1ron").asInt();
 				
 				partidas.get(id_partida).getJug(idj).setM(false);
 				partidas.get(id_partida).setMuertes(0);
