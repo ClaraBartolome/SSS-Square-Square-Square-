@@ -88,6 +88,21 @@ Solo tenemos dos clases, que son controller y jugador. La clase jugador es usada
 No ha sido posible exportar el jar del juego, por lo que se ha enviado en forma de proyecto STS. Es recomendable, aunque no es necesario, instalar ngrok en la máquina, para asegurarse que la comunicación entre cliente servidor se está efectuando correctamente. El URL a cargar en el navegador para poder empezar a jugar es http://localhost:8080/, o, si usamos ngrok, usaremos la que este nos de. En caso de usar ngrok, habría que ejecutar "ngrok http 8080" en la consola. Es necesario instalar java 8.
 
  
+ #### Fases 4 y 5
+ Estas fases han sido realizadas al mismo tiempo, puesto que mientras algunos desarrollaban el juego con websockets, otros hacían mejoras visuales y ampliación de contenido (añadir nuevos escenarios y nuevas skins).
+ 
+ 
+ #### Nuevas skins
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadraruto.png)
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadrasasuke.png)
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadrazoro.png)
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadrasanji.png)
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadralien.png)
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadrabarril.png)
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadrankamon.png)
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadragato.png)
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadrabrujo.png)
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Skins/Cuadraniva.png)
  
 ##### Arte original:
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/triangulo.png)
