@@ -91,6 +91,14 @@ No ha sido posible exportar el jar del juego, por lo que se ha enviado en forma 
  #### Fases 4 y 5
  Estas fases han sido realizadas al mismo tiempo, puesto que mientras algunos desarrollaban el juego con websockets, otros hacían mejoras visuales y ampliación de contenido (añadir nuevos escenarios y nuevas skins).
  
+ #### Mejoras técnicas
+ Para empezar, antes de jugar el jeugo te pregunta si quieres jugar online o local, para que se ejecute de una forma u otra. De esta forma se puede decir que realmente existen dos juegos, puesto que la jugabilidad del segundo jugador cambia (en local se habilita su movilidad en el mismo teclado que el jugador 1, y en online desaparece esa posibilidad de teclado compartido),
+ 
+ Por otro lado, en el menú de selección de skins, ahora una skins ya no va ligada a otra, es decir, puedes seleccionar cualquier skin sin que la del juegador 2 sea otra ya definida a partir de la que escojas. Además, al escoger la skin, aparece una zona en la que puedes moverte con tu skin hasta que el otro jugador decida la suya.
+ 
+ 
+ #### Nuevos niveles
+ 
  
  #### Nuevas skins
  ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/cuadraruto.jpg)
@@ -103,6 +111,8 @@ No ha sido posible exportar el jar del juego, por lo que se ha enviado en forma 
  ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/cuadragato.jpg)
  ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/cuadrabrujo.jpg)
  ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/cuadraniva.jpg)
+ 
+ Como se puede observar, la mayoría de skins están basadas en personajes que aparecen en juegos de otros grupos de clase. Antes de ponernos a desarrollarlas les pedimos permiso a todos para incluirlos en nuestro juego.
  
 ##### Arte original:
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Base/triangulo.png)
