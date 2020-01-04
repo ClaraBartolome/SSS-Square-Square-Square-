@@ -230,6 +230,12 @@ class Escena0 extends Phaser.Scene {
                 triangulos.create(1030, 624, 'tripletriangulo');
                 triangulos.create(1130, 624, 'tripletriangulo');
 
+				J1posX = 250;
+            	J1posY = 318;
+            	
+            	J2posX = 1050;
+            	J2posY = 318; 
+				
                 if(n == 1){               	
                 	jugadores[0].sprite = this.physics.add.sprite(J1posX, J1posY, J1);
                     jugadores[1].sprite = this.physics.add.sprite(J2posX, J2posY, J2);
@@ -411,7 +417,7 @@ class Escena0 extends Phaser.Scene {
 
     update() {
 		if (!jugadores[0].muerte) {
-            if (jugadores[0].sprite.body.velocity.x > -320 && jugadores[i].sprite.body.velocity.x < 320) {
+            if (jugadores[0].sprite.body.velocity.x > -320 && jugadores[0].sprite.body.velocity.x < 320) {
                 if (cursors[0].left.isDown) {
                     jugadores[0].sprite.body.velocity.x = -320;
                 }
@@ -515,15 +521,9 @@ class resultados extends Phaser.Scene {
         	
         	J2posX = 704;
         	J2posY = 560; 
-            
-            if(n == 1){               	
-            	jugadores[0].sprite = this.physics.add.sprite(J1posX, J1posY, J1);
-                jugadores[1].sprite = this.physics.add.sprite(J2posX, J2posY, J2);
-            }   
-            if(n == 2){               	
-            	jugadores[0].sprite = this.physics.add.sprite(J1posX, J1posY, J2);
-                jugadores[1].sprite = this.physics.add.sprite(J2posX, J2posY, J1);
-            } 
+          	
+            jugadores[0].sprite = this.physics.add.sprite(J1posX, J1posY, J1);
+            jugadores[1].sprite = this.physics.add.sprite(J2posX, J2posY, J2);
 
         } else {
         	
@@ -532,16 +532,9 @@ class resultados extends Phaser.Scene {
         	
         	J2posX = 704;
         	J2posY = 560; 
-            
-            if(n == 1){               	
-            	jugadores[1].sprite = this.physics.add.sprite(J1posX, J1posY, J1);
-                jugadores[0].sprite = this.physics.add.sprite(J2posX, J2posY, J2);
-            }   
-            if(n == 2){               	
-            	jugadores[1].sprite = this.physics.add.sprite(J1posX, J1posY, J2);
-                jugadores[0].sprite = this.physics.add.sprite(J2posX, J2posY, J1);
-            } 
-        	
+                          	
+            jugadores[1].sprite = this.physics.add.sprite(J1posX, J1posY, J2);
+            jugadores[0].sprite = this.physics.add.sprite(J2posX, J2posY, J1);
         }
 
         for (var i = 0; i < numJugadores; i++) {
@@ -862,10 +855,10 @@ function colisionTrianguloIzq(sprite, triangulo) {
 }
 
 function comprobacionPisacion(sprite, sprite2) {
-    if (sprite2.y >= sprite.y + 32 && sprite2.body.touching.up) {
+    if (sprite2.y = sprite.y + 32 && sprite2.body.touching.up) {
         muerteSonido.play();
         morir(jugadores[sprite2.name]);
-    } else if (sprite.y >= sprite2.y + 32 && sprite.body.touching.up) {
+    } else if (sprite.y = sprite2.y + 32 && sprite.body.touching.up) {
         muerteSonido.play();
         morir(jugadores[sprite.name]);
     }
@@ -874,10 +867,9 @@ function comprobacionPisacion(sprite, sprite2) {
 function morir(player) {
     if(!player.muerte){
 		player.sprite.setTint(0x9c9c9c);
-	}	
-    player.muerte = true;
-    Morir(player.muerte);
-    player.sprite = "";
+	    player.muerte = true;
+        Morir_Websockets(player.muerte);
+    }	
     //muertesTotales_on++;
 }
 
@@ -885,10 +877,8 @@ function terminarRonda(ganador, that) {
     if (ganador != undefined) {
         ganador.puntuacion++;
 
-    } else {
-
     }
-
+       
     idEscenario++;
     if (ganador.puntuacion == 10) {
         idEscenario = 7;

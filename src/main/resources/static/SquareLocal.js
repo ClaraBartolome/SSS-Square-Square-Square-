@@ -272,13 +272,13 @@ class JuegoLocal extends Phaser.Scene {
             this.physics.add.collider(jugadores[i].sprite, circulosDcha, colisionCirculoDcha);
             this.physics.add.collider(jugadores[i].sprite, circulosAbajo, colisionCirculoAbajo);
 
-            this.physics.add.collider(jugadores[i].sprite, triangulos, colisionTriangulo);
-            this.physics.add.collider(jugadores[i].sprite, triangulosAbajo, colisionTrianguloAbajo);
-            this.physics.add.collider(jugadores[i].sprite, triangulosDcha, colisionTrianguloDcha);
-            this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzq);
+            this.physics.add.collider(jugadores[i].sprite, triangulos, colisionTrianguloLocal);
+            this.physics.add.collider(jugadores[i].sprite, triangulosAbajo, colisionTrianguloAbajoLocal);
+            this.physics.add.collider(jugadores[i].sprite, triangulosDcha, colisionTrianguloDchaLocal);
+            this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzqLocal);
         }
 
-        this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
+        this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacionLocal);
 
         var FKey = this.input.keyboard.addKey('F');
 
@@ -348,14 +348,14 @@ class JuegoLocal extends Phaser.Scene {
             var that = this;
             this.scene.pause();
             that.scene.pause();
-            terminarRonda(jugadores[i], that);
+            terminarRondaLocal(jugadores[i], that);
         } else if (muertesTotales == numJugadores) {
             muertesTotales = 0;
             var empato;
             var that = this;
 
             that.scene.pause();
-            terminarRonda(empato, this);
+            terminarRondaLocal(empato, this);
         }
     }
 }
@@ -696,53 +696,53 @@ function colisionCirculoAbajo(player, circulos) {
     player.body.velocity.y = 1000;
 }
 
-function colisionTriangulo(sprite, triangulo) {
+function colisionTrianguloLocal(sprite, triangulo) {
     if (triangulo.body.touching.up) {
         muerteSonido.play();
-        morir(jugadores[sprite.name]);
+        morirLocal(jugadores[sprite.name]);
     }
 }
 
-function colisionTrianguloAbajo(sprite, triangulo) {
+function colisionTrianguloAbajoLocal(sprite, triangulo) {
     if (triangulo.body.touching.down) {
         muerteSonido.play();
-        morir(jugadores[sprite.name]);
+        morirLocal(jugadores[sprite.name]);
     }
 }
 
-function colisionTrianguloDcha(sprite, triangulo) {
+function colisionTrianguloDchaLocal(sprite, triangulo) {
     if (triangulo.body.touching.right) {
         muerteSonido.play();
-        morir(jugadores[sprite.name]);
+        morirLocal(jugadores[sprite.name]);
     }
 }
 
-function colisionTrianguloIzq(sprite, triangulo) {
+function colisionTrianguloIzqLocal(sprite, triangulo) {
     if (triangulo.body.touching.left) {
         muerteSonido.play();
-        morir(jugadores[sprite.name]);
+        morirLocal(jugadores[sprite.name]);
     }
 }
 
-function comprobacionPisacion(sprite, sprite2) {
+function comprobacionPisacionLocal(sprite, sprite2) {
     if (sprite2.y >= sprite.y + 32 && sprite2.body.touching.up) {
         muerteSonido.play();
-        morir(jugadores[sprite2.name]);
+        morirLocal(jugadores[sprite2.name]);
     } else if (sprite.y >= sprite2.y + 32 && sprite.body.touching.up) {
         muerteSonido.play();
-        morir(jugadores[sprite.name]);
+        morirLocal(jugadores[sprite.name]);
     }
 }
 
-function morir(player) {
+function morirLocal(player) {
     player.sprite.setTint(0x9c9c9c);
     player.muerte = true;
-    Morir(player.muerte);
+
     player.sprite = "";
     muertesTotales++;
 }
 
-function terminarRonda(ganador, that) {
+function terminarRondaLocal(ganador, that) {
     if (ganador != undefined) {
         ganador.puntuacion++;
 

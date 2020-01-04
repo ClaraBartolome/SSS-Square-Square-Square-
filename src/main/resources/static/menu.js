@@ -760,29 +760,15 @@ class login extends Phaser.Scene {
         techo1 = platforms.create(200, 212, 'ground').setScale(0.7805);
         paredI1 = platforms.create(52, 359, 'wall').setScale(0.7805);
         paredD1 = platforms.create(348, 359, 'wall').setScale(0.7805); 
-
-        suelo2 = platforms.create(1080, 506, 'ground').setScale(0.7805);
-        techo2 = platforms.create(1080, 212, 'ground').setScale(0.7805);
-        paredI2 = platforms.create(932, 359, 'wall').setScale(0.7805);
-        paredD2 = platforms.create(1228, 359, 'wall').setScale(0.7805); 
 		
 		jugadores[0].sprite = this.physics.add.sprite(J1posX, J1posY, J1);
-		jugadores[1].sprite = this.physics.add.sprite(J2posX, J2posY, J2);
 		
 		jugadores[0].sprite.setVisible(false);
-		jugadores[1].sprite.setVisible(false);
 		
 		suelo1.setVisible(false);
 		techo1.setVisible(false);
 		paredI1.setVisible(false);
 		paredD1.setVisible(false);
-		
-		suelo2.setVisible(false);
-		techo2.setVisible(false);
-		paredI2.setVisible(false);
-		paredD2.setVisible(false);
-		
-        //cursors[1] = this.input.keyboard.createCursorKeys();
 
         cursors[0] = this.input.keyboard.addKeys(
             {
@@ -792,22 +778,16 @@ class login extends Phaser.Scene {
                 right: Phaser.Input.Keyboard.KeyCodes.D
             });
 
-        for (var i = 0; i < numJugadores; i++) {
-            jugadores[i].sprite.setBounce(0.15);
-            jugadores[i].sprite.setCollideWorldBounds(true);
+            jugadores[0].sprite.setBounce(0.15);
+            jugadores[0].sprite.setCollideWorldBounds(true);
 
-            this.physics.add.collider(jugadores[i].sprite, platforms);
-        }
+            this.physics.add.collider(jugadores[0].sprite, platforms);
 
         this.banner1 = this.add.sprite(200, 575, 'cuadrencio_n').setScale(1);
         this.banner1.setVisible(false);
-        this.banner2 = this.add.sprite(200, 575, 'cuadrencio_n').setScale(1);
-        this.banner2.setVisible(false);
 
         this.portrait1 = this.add.sprite(200, 360, 'cuadrencio').setScale(10);
         this.portrait1.setVisible(false);
-        this.portrait2 = this.add.sprite(1080, 360, 'cuadrencio').setScale(10);
-        this.portrait2.setVisible(false);
 
       //BOTON CUADRENCIO
         this.buttonCuadrencio = this.add.sprite(580, 320, 'cuadrencio').setScale(3).setInteractive();
@@ -977,9 +957,6 @@ class login extends Phaser.Scene {
         if(partida){
             this.scene.start("Escena0");
         }
-
-        jugadores[1].sprite.body.x = 1248 - J2posX;
-        jugadores[1].sprite.body.y = J2posY;
     }
 
     //funciones skins
@@ -1052,21 +1029,6 @@ class login extends Phaser.Scene {
 			techo1.setVisible(true);
 			paredI1.setVisible(true);
 			paredD1.setVisible(true);
-		}else{
-			if(J2 == "" && skin != J1){
-                J2 = skin;
-                this.portrait2.destroy();
-				jugadores[1].sprite = this.physics.add.sprite(J2posX, J2posY, J2);
-		
-				jugadores[1].sprite.setBounce(0.15);
-				jugadores[1].sprite.setCollideWorldBounds(true);
-				this.physics.add.collider(jugadores[1].sprite, platforms);
-		
-				suelo2.setVisible(true);
-				techo2.setVisible(true);
-				paredI2.setVisible(true);
-				paredD2.setVisible(true);
-			}
 		}
     }
     
@@ -1081,31 +1043,14 @@ class login extends Phaser.Scene {
                 this.banner1 = this.add.sprite(200, 575, banner).setScale(1);
             }
 			this.portrait1 = this.add.sprite(200, 360, skin).setScale(10);     
-		} /*(else{
-			if(J2 == ""){
-                this.banner2.destroy();
-                this.portrait2.destroy();
-		
-                if (skin == "cuadragato") {
-                    this.banner2 = this.add.sprite(1080, 575, banner).setScale(0.85);
-                } else {
-                    this.banner2 = this.add.sprite(1080, 575, banner).setScale(1);
-                }
-			this.portrait2 = this.add.sprite(1080, 360, skin).setScale(10);
-			}
-		} */
+		}
 	}
     
     changeSprite() {
         if (J1 == "") {
             this.banner1.destroy();
             this.portrait1.destroy();
-    	}else{
-			if(J2 == ""){
-                this.banner2.destroy();
-                this.portrait2.destroy();
-			}
-		}
+    	}
     }
   
   //FUNCIONES OK    
