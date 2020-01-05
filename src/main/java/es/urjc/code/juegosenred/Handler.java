@@ -69,8 +69,8 @@ public class Handler extends TextWebSocketHandler {
 					msg.put("message", "NUEVA_PARTIDA");
 
 					//CREAMOS UN NUEVO JUGADOR
-					String skin = node.get("J1").asText();
-					System.err.println(node.get("J1").asText());
+					String skin = node.get("Nombre").asText();
+					System.err.println(node.get("Nombre").asText());
 					
 					int idJ = ids.incrementAndGet();
 					
@@ -90,7 +90,7 @@ public class Handler extends TextWebSocketHandler {
 						Partida p = new Partida(id, j);					
 						partidas.put(id, p);
 						System.err.println(id);
-						msg.put("J1", partidas.get(id).getJ1().toString());
+						msg.put("Nombre", partidas.get(id).getJ1().toString());
 						msg.put("Id_J", idJ);
 						msg.put("N", partidas.get(id).getJ1().getn());
 					}else {
@@ -104,7 +104,7 @@ public class Handler extends TextWebSocketHandler {
 										if(((Partida) me2.getValue()).getJ1() == null) {
 											j.setn(1);
 											((Partida) me2.getValue()).setJ1(j);
-											msg.put("J1", partidas.get(me2.getKey()).getJ1().toString());
+											msg.put("Nombre", partidas.get(me2.getKey()).getJ1().toString());
 											msg.put("Id_J", idJ);
 											msg.put("N", partidas.get(me2.getKey()).getJ1().getn());
 											System.err.println(me2.getKey());
@@ -117,7 +117,7 @@ public class Handler extends TextWebSocketHandler {
 										}else{ //SOMOS EL J2
 											j.setn(2);
 											((Partida) me2.getValue()).setJ2(j);
-											msg.put("J1", partidas.get(me2.getKey()).getJ1().toString());
+											msg.put("Nombre", partidas.get(me2.getKey()).getJ1().toString());
 											msg.put("J2", partidas.get(me2.getKey()).getJ2().toString());
 											msg.put("N", partidas.get(me2.getKey()).getJ2().getn());
 											msg.put("Id_J", idJ);

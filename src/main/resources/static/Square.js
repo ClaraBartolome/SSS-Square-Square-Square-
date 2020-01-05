@@ -388,7 +388,7 @@ class Escena0 extends Phaser.Scene {
             this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzq);
         }
 
-        this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
+        this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite);
 
         var FKey = this.input.keyboard.addKey('F');
 
@@ -443,22 +443,34 @@ class Escena0 extends Phaser.Scene {
             if (cursors[0].up.isDown && jugadores[0].sprite.body.touching.down) {
                 jugadores[0].sprite.body.velocity.y = -600;
                 salto.play();
+                console.log(jugadores[1].sprite);
             }
 			J1posX = jugadores[0].sprite.body.x;
 			J1posY = jugadores[0].sprite.body.y;
         }
         
         if(id_P != -1 && id_J1 != -1){
-        	Comprobar();
+        	//Comprobar();
         }
         if(partida){
         	Actualizar();
         }
         
-        if(!jugadores[1].muerte){
+        if ((J2posX - 32) < J1posX && J1posX < (J2posX + 32)) {
+            if ((J2posY + 32) < J1posY && J1posY < (J2posY + 48)) {
+                muerteSonido.play();
+                morir(jugadores[0]);
+                
+            } else if ((J1posY + 32) < J2posY && J2posY < (J1posY + 48)) {
+                muerteSonido.play();
+                morir(jugadores[1]);
+            }
+        }
+
+        
 			jugadores[1].sprite.body.x = J2posX;
 			jugadores[1].sprite.body.y = J2posY; 
-        }
+        
         
         if (muertesTotales_on == (numJugadores - 1)) {
             var i = 0;
@@ -606,15 +618,14 @@ class resultados extends Phaser.Scene {
 		J1posY = jugadores[0].sprite.body.y;
         
         if(id_P != -1 && id_J1 != -1){
-        	Comprobar();
+        	//Comprobar();
         }
         if(partida){
         	Actualizar();
         }
+            jugadores[1].sprite.body.x = J2posX;
+            jugadores[1].sprite.body.y = J2posY;
         
-		jugadores[1].sprite.body.x = J2posX;
-		jugadores[1].sprite.body.y = J2posY; 
-
     }
 
     clickButtonVolver() {
@@ -845,16 +856,6 @@ function colisionTrianguloDcha(sprite, triangulo) {
 
 function colisionTrianguloIzq(sprite, triangulo) {
     if (triangulo.body.touching.left) {
-        muerteSonido.play();
-        morir(jugadores[sprite.name]);
-    }
-}
-
-function comprobacionPisacion(sprite, sprite2) {
-    if (sprite2.y >= sprite.y + 32 && sprite2.body.touching.up) {
-        muerteSonido.play();
-        morir(jugadores[sprite2.name]);
-    } else if (sprite.y >= sprite2.y + 32 && sprite.body.touching.up) {
         muerteSonido.play();
         morir(jugadores[sprite.name]);
     }

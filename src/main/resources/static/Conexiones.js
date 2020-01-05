@@ -42,7 +42,7 @@ socket.onopen = function(event) {
 	function Nuevo_Jugador(){
 		let message = {
 	    		message: "NUEVA_PARTIDA",
-	    		J1
+	    		Nombre: J1
 	    		
 	    };
 	    socket.send(JSON.stringify(message));
