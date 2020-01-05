@@ -476,31 +476,25 @@ class Escena0 extends Phaser.Scene {
             that.scene.pause();
             terminarRonda(empato, this);
         } else*/
-        if (n == 1) {
-            if (jugadores[0].muerte) {
-                var that = this;
-                this.scene.pause();
-                that.scene.pause();
-                terminarRonda(jugadores[1], that);
-            } else if (jugadores[1].muerte) {
-                var that = this;
-                this.scene.pause();
-                that.scene.pause();
-                terminarRonda(jugadores[0], that);
-            }
-        } else if (n == 2) {
-            if (jugadores[1].muerte) {
-                var that = this;
-                this.scene.pause();
-                that.scene.pause();
-                terminarRonda(jugadores[0], that);
-            } else if (jugadores[0].muerte) {
-                var that = this;
-                this.scene.pause();
-                that.scene.pause();
-                terminarRonda(jugadores[1], that);
-            }
-        }
+        if (puntuacionJ1 > jugadores[0].puntuacion) {
+            jugadores[0].puntuacion = puntuacionJ1;
+
+
+            jugadores[0].sprite.setTint(0x9c9c9c);
+            var that = this;
+            this.scene.pause();
+            that.scene.pause();
+            terminarRonda(that);
+        } else if (puntuacionJ2 > jugadores[1].puntuacion) {
+            jugadores[1].puntuacion = puntuacionJ2;
+
+
+            jugadores[1].sprite.setTint(0x9c9c9c);
+            var that = this;
+            this.scene.pause();
+            that.scene.pause();
+            terminarRonda(that);
+        } 
     }
 }
 
@@ -793,7 +787,12 @@ class sigRonda extends Phaser.Scene {
 
     update() {
         contador.setAlpha(alphaC);
-        
+
+        if (partida) {
+            Actualizar();
+        }
+
+
         switch(counter){
         case(2):
 		Res_Websockets();
@@ -879,12 +878,9 @@ function colisionTrianguloIzq(sprite, triangulo) {
 
 function morir(player) {
     if(!player.muerte){
-		player.sprite.setTint(0x9c9c9c);
-        player.muerte = true;
         if (player.sprite.name == 0) {
             J1muerte = true;
-        } else if (player.sprite.name == 1) {
-            J2muerte = true;
+            player.muerte = true;
         }
         Morir_Websockets(player.muerte);
     }	
@@ -901,19 +897,14 @@ function comprobacionPisacion(sprite, sprite2) {
     }
 }
 
-function terminarRonda(ganador, that) {
+function terminarRonda(that) {
     console.log(J1muerte + " " + J2muerte);
-    if (ganador != undefined) {
-        ganador.puntuacion++;
 
-    
-       
     idEscenario++;
-    if (ganador.puntuacion == 10) {
+    if (puntuacionJ1 == 10 || puntuacionJ2 == 10) {
         idEscenario = 7;
     }
     //AQUI IRIA LA LLAMADA A LA ESCENA DE ENTRE RONDAS. MISMAMENTE
-	}
     that.scene.launch("sigRonda");
 }
 

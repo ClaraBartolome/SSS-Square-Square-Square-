@@ -64,6 +64,9 @@ public class Jugador {
 	public float getVelY() {	
 		return this.velY;		
 	}
+	public int getPuntuacion() {	
+		return this.puntuacion;		
+	}
 	
 	public void setPosX(float x) {	
 		this.posX = x;		
@@ -82,6 +85,9 @@ public class Jugador {
 	}
 	public void setM(boolean b) {	
 		this.muerte = b;		
+	}
+	public void setPuntuacion(int p) {	
+		this.puntuacion = p;		
 	}
 	
 	

@@ -11,6 +11,8 @@ var NusuariosAct; //USUARIOSACTIVOS
 var NusuariosJug = 0; //USUARIOSJUGANDO
 var muertesTotales_on = 0;
 
+var puntuacionJ1 = 0;
+var puntuacionJ2 = 0;
 //Si cierras elimina un usuario
 //window.onbeforeunload = function(e){cerrar();};
 
@@ -79,7 +81,9 @@ function Actualizar() {
             J2velX = o.velX_J2;
             J2velY = o.velY_J2;
             J2muerte = o.muerte;
-            muertesTotales_on = o.Muertes;
+            
+            puntuacionJ1 = o.Pun_J1;
+            puntuacionJ2 = o.Pun_J2;
         }
     }
 };

@@ -151,19 +151,32 @@ public class Handler extends TextWebSocketHandler {
 				Jugador J1 = partidas.get(idP).getJug(idJ1);
 				
 				if(partidas.get(idP).estado()) {
-					
 					int idJ2 = partidas.get(idP).getIdOtroJug(idJ1);
-					partidas.get(idP).getJug(idJ1).setPosX(X);
-					partidas.get(idP).getJug(idJ1).setPosY(Y);
-					partidas.get(idP).getJug(idJ1).setVelX(velX);
-					partidas.get(idP).getJug(idJ1).setVelY(velY);
+					J1.setPosX(X);
+					J1.setPosY(Y);
+					J1.setVelX(velX);
+					J1.setVelY(velY);
+					
+					Jugador J2 = partidas.get(idP).getJug(idJ2);
+					
+					boolean cambiar = false;
+					
+					if(J1.getM()) {
+						J2.setPuntuacion(J2.getPuntuacion() + 1);
+						J1.setM(false);
+					}else if(J2.getM()) {
+						J1.setPuntuacion(J1.getPuntuacion() + 1);
+						J2.setM(false);
+					}
 					
 					msg.put("X_J2", partidas.get(idP).getJug(idJ2).getPosX());
 					msg.put("Y_J2", partidas.get(idP).getJug(idJ2).getPosY());
 					msg.put("velX_J2", partidas.get(idP).getJug(idJ2).getVelX());
 					msg.put("velY_J2", partidas.get(idP).getJug(idJ2).getVelY());
 					msg.put("muerte", partidas.get(idP).getJug(idJ2).getM());
-					msg.put("Muertes", partidas.get(idP).getMuertes());
+					
+					msg.put("Pun_J1", J1.getPuntuacion());
+					msg.put("Pun_J2", J2.getPuntuacion());
 					
 					msg.put("Estado", partidas.get(idP).estado());
 				}else{
@@ -200,17 +213,11 @@ public class Handler extends TextWebSocketHandler {
 			case ("MUERTE"):
 				int id_p = node.get("id_Pm").asInt();
 				int idj1 = node.get("id_J1m").asInt();
-				int N_muertes = 0;
 				Boolean muerte = node.get("Mm").asBoolean();
 				
 				Jugador J_1 = partidas.get(id_p).getJug(idj1);
 				
 				partidas.get(id_p).getJug(idj1).setM(muerte);
-				if(muerte) {
-					N_muertes ++;
-					partidas.get(id_p).setMuertes(N_muertes);
-					msg.put("Muerte", N_muertes);
-				}
 				
 				J_1.sendMessage(msg.toString());
 				
