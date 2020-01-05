@@ -254,6 +254,14 @@ var J1posY = 340;
 var J2posX = 1080;
 var J2posY = 340;
 
+var J1velX = 0;
+var J1velY = 0;
+var J2velX = 0;
+var J2velY = 0;
+
+var J1muerte = false; 
+var J2muerte = false;
+
 var partida = false;
 
 class local extends Phaser.Scene {

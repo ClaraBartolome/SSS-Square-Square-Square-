@@ -146,7 +146,8 @@ public class Handler extends TextWebSocketHandler {
 				int idJ1 = node.get("idjact").asInt();
 				float X = node.get("J1posXact").asInt();
 				float Y = node.get("J1posYact").asInt();
-				
+				float velX = node.get("J1velXact").asInt();
+				float velY = node.get("J1velYact").asInt();
 				Jugador J1 = partidas.get(idP).getJug(idJ1);
 				
 				if(partidas.get(idP).estado()) {
@@ -154,10 +155,14 @@ public class Handler extends TextWebSocketHandler {
 					int idJ2 = partidas.get(idP).getIdOtroJug(idJ1);
 					partidas.get(idP).getJug(idJ1).setPosX(X);
 					partidas.get(idP).getJug(idJ1).setPosY(Y);
-								
+					partidas.get(idP).getJug(idJ1).setVelX(velX);
+					partidas.get(idP).getJug(idJ1).setVelY(velY);
 					
 					msg.put("X_J2", partidas.get(idP).getJug(idJ2).getPosX());
 					msg.put("Y_J2", partidas.get(idP).getJug(idJ2).getPosY());
+					msg.put("velX_J2", partidas.get(idP).getJug(idJ2).getVelX());
+					msg.put("velY_J2", partidas.get(idP).getJug(idJ2).getVelY());
+					msg.put("muerte", partidas.get(idP).getJug(idJ2).getM());
 					msg.put("Muertes", partidas.get(idP).getMuertes());
 					
 					msg.put("Estado", partidas.get(idP).estado());

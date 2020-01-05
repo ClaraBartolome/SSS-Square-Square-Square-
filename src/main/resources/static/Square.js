@@ -78,6 +78,9 @@ class Escena0 extends Phaser.Scene {
             jugadores[i].muerte = false;
         }
 
+        J1muerte = false; 
+        J2muerte = false; 
+
         if (estaSonando == false) {
             musica = this.sound.add('musica');
             musica.volume = 0.2;
@@ -388,7 +391,7 @@ class Escena0 extends Phaser.Scene {
             this.physics.add.collider(jugadores[i].sprite, triangulosIzq, colisionTrianguloIzq);
         }
 
-        this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite);
+        this.physics.add.collider(jugadores[0].sprite, jugadores[1].sprite, comprobacionPisacion);
 
         var FKey = this.input.keyboard.addKey('F');
 
@@ -443,10 +446,12 @@ class Escena0 extends Phaser.Scene {
             if (cursors[0].up.isDown && jugadores[0].sprite.body.touching.down) {
                 jugadores[0].sprite.body.velocity.y = -600;
                 salto.play();
-                console.log(jugadores[1].sprite);
+                console.log(J1muerte + " " + J2muerte);
             }
 			J1posX = jugadores[0].sprite.body.x;
-			J1posY = jugadores[0].sprite.body.y;
+            J1posY = jugadores[0].sprite.body.y;
+            J1velX = jugadores[0].sprite.body.velocity.x;
+            J1velY = jugadores[0].sprite.body.velocity.y;
         }
         
         if(id_P != -1 && id_J1 != -1){
@@ -456,41 +461,45 @@ class Escena0 extends Phaser.Scene {
         	Actualizar();
         }
         
-        if ((J2posX - 32) < J1posX && J1posX < (J2posX + 32)) {
-            if ((J2posY + 32) < J1posY && J1posY < (J2posY + 48)) {
-                muerteSonido.play();
-                morir(jugadores[0]);
-                
-            } else if ((J1posY + 32) < J2posY && J2posY < (J1posY + 48)) {
-                muerteSonido.play();
-                morir(jugadores[1]);
-            }
-        }
+        jugadores[1].sprite.body.x = J2posX;
+        jugadores[1].sprite.body.y = J2posY; 
 
+        jugadores[1].sprite.body.velocity.x = J2velX;
+        jugadores[1].sprite.body.velocity.y = J2velY; 
+
+        jugadores[1].muerte = J2muerte; 
         
-			jugadores[1].sprite.body.x = J2posX;
-			jugadores[1].sprite.body.y = J2posY; 
-        
-        
-        if (muertesTotales_on == (numJugadores - 1)) {
-            var i = 0;
-            //muertesTotales_on = 0;
-            Res_Websockets();
-            while (jugadores[i].muerte) {
-                i++;
-            }
-            var that = this;
-            this.scene.pause();
-            that.scene.pause();
-            terminarRonda(jugadores[i], that);
-        } else if (muertesTotales_on == numJugadores) {
-            //muertesTotales_on = 0;
-        	Res_Websockets();
+        /*if (jugadores[0].muerte && jugadores[1].muerte) {
             var empato;
             var that = this;
 
             that.scene.pause();
             terminarRonda(empato, this);
+        } else*/
+        if (n == 1) {
+            if (jugadores[0].muerte) {
+                var that = this;
+                this.scene.pause();
+                that.scene.pause();
+                terminarRonda(jugadores[1], that);
+            } else if (jugadores[1].muerte) {
+                var that = this;
+                this.scene.pause();
+                that.scene.pause();
+                terminarRonda(jugadores[0], that);
+            }
+        } else if (n == 2) {
+            if (jugadores[1].muerte) {
+                var that = this;
+                this.scene.pause();
+                that.scene.pause();
+                terminarRonda(jugadores[0], that);
+            } else if (jugadores[0].muerte) {
+                var that = this;
+                this.scene.pause();
+                that.scene.pause();
+                terminarRonda(jugadores[1], that);
+            }
         }
     }
 }
@@ -616,7 +625,9 @@ class resultados extends Phaser.Scene {
         }
 		J1posX = jugadores[0].sprite.body.x;
 		J1posY = jugadores[0].sprite.body.y;
-        
+        J1velX = jugadores[0].sprite.body.velocity.x;
+        J1velY = jugadores[0].sprite.body.velocity.y;
+
         if(id_P != -1 && id_J1 != -1){
         	//Comprobar();
         }
@@ -625,7 +636,10 @@ class resultados extends Phaser.Scene {
         }
             jugadores[1].sprite.body.x = J2posX;
             jugadores[1].sprite.body.y = J2posY;
-        
+
+
+        jugadores[1].sprite.body.velocity.x = J2velX;
+        jugadores[1].sprite.body.velocity.y = J2velY; 
     }
 
     clickButtonVolver() {
@@ -782,6 +796,7 @@ class sigRonda extends Phaser.Scene {
         
         switch(counter){
         case(2):
+		Res_Websockets();
         	contador.destroy();
     		contador = this.add.image(650, 550, '2').setScale(1);
     		contador.setAlpha(alphaC);
@@ -791,12 +806,13 @@ class sigRonda extends Phaser.Scene {
     		contador = this.add.image(650, 550, '1').setScale(1);
     		contador.setAlpha(alphaC);
     		break;
-        case(0):
+            case (0):
+                
         	var that = this;
         	play(that);
         	break;
         }
-		
+        
         function play(that) {
             musica.volume = 0.2;
 
@@ -864,24 +880,40 @@ function colisionTrianguloIzq(sprite, triangulo) {
 function morir(player) {
     if(!player.muerte){
 		player.sprite.setTint(0x9c9c9c);
-	    player.muerte = true;
+        player.muerte = true;
+        if (player.sprite.name == 0) {
+            J1muerte = true;
+        } else if (player.sprite.name == 1) {
+            J2muerte = true;
+        }
         Morir_Websockets(player.muerte);
     }	
     //muertesTotales_on++;
 }
 
+function comprobacionPisacion(sprite, sprite2) {
+    if (sprite2.y >= sprite.y + 32 && sprite2.body.touching.up) {
+        muerteSonido.play();
+        morir(jugadores[sprite2.name]);
+    } else if (sprite.y >= sprite2.y + 32 && sprite.body.touching.up) {
+        muerteSonido.play();
+        morir(jugadores[sprite.name]);
+    }
+}
+
 function terminarRonda(ganador, that) {
+    console.log(J1muerte + " " + J2muerte);
     if (ganador != undefined) {
         ganador.puntuacion++;
 
-    }
+    
        
     idEscenario++;
     if (ganador.puntuacion == 10) {
         idEscenario = 7;
     }
     //AQUI IRIA LA LLAMADA A LA ESCENA DE ENTRE RONDAS. MISMAMENTE
-
+	}
     that.scene.launch("sigRonda");
 }
 

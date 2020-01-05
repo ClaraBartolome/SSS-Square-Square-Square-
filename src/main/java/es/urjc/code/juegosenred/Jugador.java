@@ -16,6 +16,8 @@ public class Jugador {
 	private int n; //Guarda si eres J1 o J2
 	private float posX;
 	private float posY;
+	private float velX;
+	private float velY;
 	private int puntuacion;
 	private boolean muerte;
 	
@@ -30,6 +32,8 @@ public class Jugador {
 		this.n = 0;
 		this.posX = 0;
 		this.posY = 0;
+		this.velX = 0;
+		this.velY = 0;
 		this.puntuacion = 0;
 		this.muerte = false;
 	}
@@ -54,12 +58,24 @@ public class Jugador {
 	public float getPosY() {	
 		return this.posY;		
 	}
+	public float getVelX() {	
+		return this.velX;		
+	}
+	public float getVelY() {	
+		return this.velY;		
+	}
 	
 	public void setPosX(float x) {	
 		this.posX = x;		
 	}
 	public void setPosY(float y) {	
 		this.posY = y;		
+	}
+	public void setVelX(float x) {	
+		this.velX = x;		
+	}
+	public void setVelY(float y) {	
+		this.velY = y;		
 	}
 	public void setn(int y) {	
 		this.n = y;		

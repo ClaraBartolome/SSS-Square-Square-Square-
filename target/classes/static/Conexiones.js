@@ -16,7 +16,7 @@ var muertesTotales_on = 0;
 
 var socket; 
 
-socket = new WebSocket("ws://localhost:8080/SSS")
+socket = new WebSocket("ws://192.168.1.46:8080/SSS")
 
 socket.onopen = function(event) {
 	  console.log("WebSocket is open now.");
@@ -65,8 +65,9 @@ function Actualizar() {
         idjact: id_J1,
         idpact: id_P,
         J1posXact: J1posX,
-        J1posYact: J1posY
-
+        J1posYact: J1posY,
+        J1velXact: J1velX,
+        J1velYact: J1velY
     };
     socket.send(JSON.stringify(message));
     socket.onmessage = function (event) {
@@ -75,7 +76,9 @@ function Actualizar() {
         if (o.Estado) {
             J2posX = o.X_J2;
             J2posY = o.Y_J2;
-
+            J2velX = o.velX_J2;
+            J2velY = o.velY_J2;
+            J2muerte = o.muerte;
             muertesTotales_on = o.Muertes;
         }
     }
