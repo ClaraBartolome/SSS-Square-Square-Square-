@@ -44,15 +44,18 @@ public class Partida {
 	}
 	
 	public Jugador getJug(int id) {	
+		if(this.J1 != null) {
 		if(this.J1.getId() == id) {
 			return this.J1;
 		}
+		}
+		if(this.J2 != null) {
 		if(this.J2.getId() == id) {
 			return this.J2;
 		}
-		else {
-			return null;
 		}
+			return null;
+		
 	}
 	
 	public int getIdOtroJug(int id) {	

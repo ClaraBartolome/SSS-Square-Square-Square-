@@ -108,7 +108,7 @@ public class Jugador {
 	}
 	
 	public String toString() {
-		return "Jugador [id=" + id + ", name = " + name + " ]";
+		return "Jugador [id=" + id + ", name = " + name + ", muerte: " + muerte + ", Puntuacion: " + puntuacion + " ]";
 	}
 	
 	synchronized void sendMessage(String msg) throws IOException {

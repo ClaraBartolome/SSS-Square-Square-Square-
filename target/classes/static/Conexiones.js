@@ -16,9 +16,12 @@ var puntuacionJ2 = 0;
 //Si cierras elimina un usuario
 //window.onbeforeunload = function(e){cerrar();};
 
+
+
+
 var socket; 
 
-socket = new WebSocket("ws://192.168.1.46:8080/SSS")
+socket = new WebSocket("ws://localhost:8080/SSS")
 
 socket.onopen = function(event) {
 	  console.log("WebSocket is open now.");
@@ -84,6 +87,8 @@ function Actualizar() {
             
             puntuacionJ1 = o.Pun_J1;
             puntuacionJ2 = o.Pun_J2;
+        }else{
+        	partida = o.estado;
         }
     }
 };
@@ -137,16 +142,38 @@ function Res_Websockets() {
     }
 }
 
-    function cerracion() {
-		console.log("CLOSE");
-		let kmessage = {
+function exit() {
+	console.log("CLOSE");
+		cerracion();
+		let message = {
 				message : "CLOSE",
-				text : "Se cerro este socket"
 			}
 
-	  socket.send(JSON.stringify(kmessage));
-	}    
-	window.onbeforeunload = cerracion();
+	  socket.send(JSON.stringify(message));
+	
+	
+}
+
+function cerracion() {
+	let message = {
+    		message: "ENDGAME",
+    		idjcer: id_J1,
+    		idpcer: id_P,
+    		
+    };
+    socket.send(JSON.stringify(message));
+    socket.onmessage = function(event){
+		var o = JSON.parse(event.data);
+		id_J1 = -1;	
+		id_J2 = -1;
+		id_P = -1;
+		partida = false;
+}
+}
+
+window.onbeforeunload = function () {
+	  exit();
+	};
 
 	
 function usuarios(){}

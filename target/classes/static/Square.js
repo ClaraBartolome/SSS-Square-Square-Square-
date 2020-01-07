@@ -80,7 +80,7 @@ class Escena0 extends Phaser.Scene {
 
         J1muerte = false; 
         J2muerte = false; 
-
+        partida = true; //SI YA ESTAN AQUI ES QUE HAY PARTIDA
         if (estaSonando == false) {
             musica = this.sound.add('musica');
             musica.volume = 0.2;
@@ -455,10 +455,17 @@ class Escena0 extends Phaser.Scene {
         }
         
         if(id_P != -1 && id_J1 != -1){
-        	//Comprobar();
+        	Comprobar();
         }
         if(partida){
         	Actualizar();
+        }else{
+        	if(jugadores[0].muerte == false){
+                this.scene.pause();
+                this.scene.launch("bolita");
+                this.scene.start("bolita"); 
+        	}
+        	
         }
         
         jugadores[1].sprite.body.x = J2posX;
@@ -469,13 +476,6 @@ class Escena0 extends Phaser.Scene {
 
         jugadores[1].muerte = J2muerte; 
         
-        /*if (jugadores[0].muerte && jugadores[1].muerte) {
-            var empato;
-            var that = this;
-
-            that.scene.pause();
-            terminarRonda(empato, this);
-        } else*/
         if (puntuacionJ1 > jugadores[0].puntuacion) {
             jugadores[0].puntuacion = puntuacionJ1;
 
@@ -510,7 +510,9 @@ class resultados extends Phaser.Scene {
 
     create() {
         this.add.image(640, 360, 'sky').setScale(1);
-
+        
+        partida = true;
+        
         platforms = this.physics.add.staticGroup();
 
         platforms.create(640, 720, 'ground').setScale(5).refreshBody();
@@ -623,10 +625,29 @@ class resultados extends Phaser.Scene {
         J1velY = jugadores[0].sprite.body.velocity.y;
 
         if(id_P != -1 && id_J1 != -1){
-        	//Comprobar();
+        	Comprobar();
         }
         if(partida){
         	Actualizar();
+        }else{
+        	
+        	musica.stop();
+            estaSonando = false;
+            for (var i = 0; i < numJugadores; i++) {
+                jugadores[i].puntuacion = 0;
+                jugadores[i].muerte = false;
+            }
+            
+            this.scene.stop("bolita");
+            this.scene.stop("Escena0");
+            this.scene.stop("resultados");
+
+            idEscenario = 0;
+            muertesTotales_on = 0;
+            puntuacionJ1 = 0;
+            puntuacionJ2 = 0;
+            cerracion(); //ELIMINA AL USUARIO DE LA PARTIDA
+            this.scene.start("Mainmenu");
         }
             jugadores[1].sprite.body.x = J2posX;
             jugadores[1].sprite.body.y = J2posY;
@@ -644,12 +665,15 @@ class resultados extends Phaser.Scene {
             jugadores[i].muerte = false;
         }
         
+        this.scene.stop("bolita")
         this.scene.stop("Escena0");
         this.scene.stop("resultados");
 
         idEscenario = 0;
         muertesTotales_on = 0;
-        cerrar();
+        puntuacionJ1 = 0;
+        puntuacionJ2 = 0;
+        cerracion(); //ELIMINA AL USUARIO DE LA PARTIDA
         this.scene.start("Mainmenu");
     }
 
@@ -724,6 +748,7 @@ class sigRonda extends Phaser.Scene {
         counter = 3;
         alphaC = 1;
         ronda++;
+        partida = true;
         this.add.image(640, 100, 'finR').setScale(1);
         var image1 = this.add.image(300, 250, J1 +"_n").setScale(1);
         var image2 = this.add.image(900, 250, J2 +"_n").setScale(1);
@@ -828,6 +853,91 @@ class sigRonda extends Phaser.Scene {
     }
 }
 
+
+class bolita extends Phaser.Scene {
+	constructor() {
+        super("bolita");
+    }
+
+    create() {
+    	
+    	
+    	
+    	
+    	
+    	
+        musica.volume = 0.07;
+        this.add.image(640, 360, 'fondo');
+        this.add.image(640, 360, 'pausa').setScale(1).setTint(0x009688);
+        this.add.image(640, 360, 'pausaSprite').setScale(1);
+
+
+        var NKey = this.input.keyboard.addKey('N');
+        NKey.on('down', quit, this);
+
+      //BOTON VOLVER
+        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
+        
+        function quit() {            
+            musica.stop();
+            estaSonando = false;
+            for (var i = 0; i < numJugadores; i++) {
+                jugadores[i].puntuacion = 0;
+                jugadores[i].muerte = false;
+            }
+            
+            idEscenario = 0;
+            muertesTotales_on = 0;
+            puntuacionJ1 = 0;
+            puntuacionJ2 = 0; 
+            cerracion(); //ELIMINA AL USUARIO DE LA PARTIDA
+            
+            this.scene.stop("Escena0");
+            this.scene.start("Mainmenu");
+        };
+   
+        
+    }
+    
+  //FUNCIONES VOLVER
+    clickButtonVolver() {
+    	musica.stop();
+        estaSonando = false;
+        for (var i = 0; i < numJugadores; i++) {
+            jugadores[i].puntuacion = 0;
+            jugadores[i].muerte = false;
+        }
+        
+        idEscenario = 0;
+        muertesTotales_on = 0;
+        puntuacionJ1 = 0;
+        puntuacionJ2 = 0; 
+        cerracion(); //ELIMINA AL USUARIO DE LA PARTIDA
+        
+        this.scene.stop("Escena0");
+        this.scene.start("Mainmenu");
+    }
+
+    changeSpriteVolverPulsado() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 50, 'volver_pulsado').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerdown', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
+    }
+
+    changeSpriteVolver() {
+        this.buttonVolver.destroy();
+        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
+        this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
+        this.buttonVolver.on('pointerup', () => this.changeSpriteVolver());
+    }
+}
+
 function colisionCirculoArriba(player, circulos) {
     rebote.play();
     player.body.velocity.y = -1000;
@@ -901,7 +1011,7 @@ function terminarRonda(that) {
     console.log(J1muerte + " " + J2muerte);
 
     idEscenario++;
-    if (puntuacionJ1 == 10 || puntuacionJ2 == 10) {
+    if (puntuacionJ1 == 1 || puntuacionJ2 == 1) {
         idEscenario = 7;
     }
     //AQUI IRIA LA LLAMADA A LA ESCENA DE ENTRE RONDAS. MISMAMENTE

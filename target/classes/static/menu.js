@@ -962,6 +962,7 @@ class login extends Phaser.Scene {
 		
         this.add.image(640, 360, 'fondo_login');     
 
+        partida = false;
         platforms = this.physics.add.staticGroup();
 
         suelo1 = platforms.create(200, 506, 'ground').setScale(0.7805);
@@ -1156,9 +1157,9 @@ class login extends Phaser.Scene {
             jugadores[0].sprite.body.velocity.y = -600;
         }
         
-        if(id_P != -1 && id_J1 != -1){
+        /*if(id_P != -1 && id_J1 != -1){
         	Comprobar();
-        }
+        } */
     }
 
     //funciones skins
@@ -1684,10 +1685,12 @@ class SalaEspera extends Phaser.Scene {
             this.scene.launch("ContadorSalaEspera");
         }
     }
+    
     clickButtonVolver() {
         muerteSonido.play();
         J1 = "";
         //hay que hacer algo de cancelar la busqueda de partida o algo asi
+        cerracion();
         this.scene.start("login");
     }
 

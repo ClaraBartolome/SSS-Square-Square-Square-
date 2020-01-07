@@ -71,15 +71,19 @@ public class Handler extends TextWebSocketHandler {
 					//CREAMOS UN NUEVO JUGADOR
 					String skin = node.get("Nombre").asText();
 					System.err.println(node.get("Nombre").asText());
+					Jugador j = new Jugador();
+					int idJ;
 					
-					int idJ = ids.incrementAndGet();
 					
-					Jugador j = new Jugador(idJ , skin , session);					
+					 idJ = ids.incrementAndGet();
+					
+					j = new Jugador(idJ , skin , session);					
 					jugadores.put(session, j);
+					
 					// CREAMOS PARTIDA
-					msg.put("Nueva_Partida", id);
+					
 					if(partidas.isEmpty()) { //SI NO HAY PARTIDAS CREAMOS UNA DIRECTAMENTE
-
+						msg.put("Nueva_Partida", 0);
 							//Creamos todas las partidas
 						for(int i = 0; i < 8; i ++) {
 							Partida p = new Partida();
@@ -89,17 +93,19 @@ public class Handler extends TextWebSocketHandler {
 						j.setn(1);
 						Partida p = new Partida(id, j);					
 						partidas.put(id, p);
-						System.err.println(id);
+						System.err.println("Nueva Partida: " + id);
+						
 						msg.put("Nombre", partidas.get(id).getJ1().toString());
 						msg.put("Id_J", idJ);
 						msg.put("N", partidas.get(id).getJ1().getn());
 					}else {
 						//Buscamos una partida vacia
 						Iterator iterator = partidas.entrySet().iterator();
-						boolean cont = false;
+						boolean cont = false;											
+						
 						while (iterator.hasNext() && cont == false) {
 				             Map.Entry me2 = (Map.Entry) iterator.next();
-									//Si la partida esta vacia añado J2
+									//Si la partida esta vacia añado J1
 									if(!((Partida) me2.getValue()).estado()) { //SOMOS EL J1
 										if(((Partida) me2.getValue()).getJ1() == null) {
 											j.setn(1);
@@ -107,11 +113,14 @@ public class Handler extends TextWebSocketHandler {
 											msg.put("Nombre", partidas.get(me2.getKey()).getJ1().toString());
 											msg.put("Id_J", idJ);
 											msg.put("N", partidas.get(me2.getKey()).getJ1().getn());
+											msg.put("Nueva_Partida", partidas.get(me2.getKey()).getId());
 											System.err.println(me2.getKey());
 											if(((Partida) me2.getValue()).getJ2() != null) {
+												System.err.println("Nueva partida: " + partidas.get(me2.getKey()).getId());
+												System.err.println("J1: " + partidas.get(me2.getKey()).getJ1());
+												System.err.println("J2: " + partidas.get(me2.getKey()).getJ2());
 												((Partida) me2.getValue()).SetEstado(true);
 											}
-											
 											cont = true;
 											
 										}else{ //SOMOS EL J2
@@ -121,17 +130,24 @@ public class Handler extends TextWebSocketHandler {
 											msg.put("J2", partidas.get(me2.getKey()).getJ2().toString());
 											msg.put("N", partidas.get(me2.getKey()).getJ2().getn());
 											msg.put("Id_J", idJ);
-											System.err.println(me2.getKey());
+											msg.put("Nueva_Partida", partidas.get(me2.getKey()).getId());
 											((Partida) me2.getValue()).SetEstado(true);
 											cont = true;
 											idp.getAndIncrement();
+											System.err.println("Nueva partida: " + partidas.get(me2.getKey()).getId());
+											System.err.println("J1: " + partidas.get(me2.getKey()).getJ1());
+											System.err.println("J2: " + partidas.get(me2.getKey()).getJ2());
 										}
 										
 									}	
-				        } 	
+				        }
+						
+						
+						
+						
 						};
 						
-					
+						
 					
 					j.sendMessage(msg.toString());
 					
@@ -148,9 +164,13 @@ public class Handler extends TextWebSocketHandler {
 				float Y = node.get("J1posYact").asInt();
 				float velX = node.get("J1velXact").asInt();
 				float velY = node.get("J1velYact").asInt();
-				Jugador J1 = partidas.get(idP).getJug(idJ1);
+				
+				if(partidas.get(idP).getJug(idJ1) != null) {
+					Jugador J1 = partidas.get(idP).getJug(idJ1);
+				
 				
 				if(partidas.get(idP).estado()) {
+					 
 					int idJ2 = partidas.get(idP).getIdOtroJug(idJ1);
 					J1.setPosX(X);
 					J1.setPosY(Y);
@@ -187,6 +207,7 @@ public class Handler extends TextWebSocketHandler {
 				
 				J1.sendMessage(msg.toString());
 				
+				}
 				break;	
 				
 				//RECIBE LA ID DE UNA PARTIDA Y DE UN JUGADOR Y DEVUELVE SI ESTA LLENA	
@@ -204,8 +225,10 @@ public class Handler extends TextWebSocketHandler {
 					
 					msg.put("Piel", partidas.get(id_par).getJug(id2).getnombre());					
 				} 
+				if(Jug != null) {
+					Jug.sendMessage(msg.toString());
+				}
 				
-				Jug.sendMessage(msg.toString());
 				
 				break;	
 				
@@ -226,36 +249,59 @@ public class Handler extends TextWebSocketHandler {
 			case("N_RONDA"):
 				int id_partida = node.get("id_Pron").asInt();
 				int idj = node.get("id_J1ron").asInt();
+				if(partidas.get(id_partida).getJug(idj) != null) {
+					partidas.get(id_partida).getJug(idj).setM(false);
+					partidas.get(id_partida).setMuertes(0);
+				}
 				
-				partidas.get(id_partida).getJug(idj).setM(false);
-				partidas.get(id_partida).setMuertes(0);
 				
 				break;
 
-		/*	case ("NEW_PLAYER"):
-				if (jugadores.size() < N_PLAYERS  ) {
-				String skin = node.get("skin").asText();
-				int id = ids.incrementAndGet();
-				
-				Jugador j = new Jugador(id , skin , session);
-				
-				jugadores.put(session, j);
-				
-				msg.put("message", "UPDATE_ID");
-				msg.put("id", id);
-				
-				j.sendMessage(msg.toString());
-				
-				
-				}
-				else {}
-				break; */
-				
 			case ("CLOSE"):
 				jugadores.remove(session);
 				System.err.println("Cierre");
 				break;
-
+			
+			case ("ENDGAME"):
+				//recibe la id del jugador y de la partida y borra el jugador de la partida
+				int id_part = node.get("idpcer").asInt();
+				int id_j = node.get("idjcer").asInt();
+				
+				if(id_part != -1 && id_j != -1) {
+					System.err.println("Partida cerrada");
+					Jugador J1_aux = partidas.get(id_part).getJ1();
+					Jugador J2_aux = partidas.get(id_part).getJ2();
+					System.err.println("J1: " + J1_aux );
+					System.err.println("J2: " + J2_aux);
+					
+					
+					
+					if(J1_aux != null) {
+						if(J1_aux.getId() == id_j) {
+							partidas.get(id_part).setJ1(null);
+							partidas.get(id_part).SetEstado(false);
+							partidas.get(id_part).setMuertes(0);
+						}
+						
+					}
+					if(J2_aux != null) {
+						if(J2_aux.getId() == id_j) {
+						partidas.get(id_part).setJ2(null);
+						partidas.get(id_part).SetEstado(false);
+						partidas.get(id_part).setMuertes(0);
+						}
+					}
+					System.err.println("Partida cerrada: ");
+					System.err.println("J1: " + partidas.get(id_part).getJ1() );
+					System.err.println("J2: " + partidas.get(id_part).getJ2());
+					
+						
+					}
+										
+				
+				
+			
+				break;
 			default:
 
 				break;
