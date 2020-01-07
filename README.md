@@ -91,6 +91,9 @@ No ha sido posible exportar el jar del juego, por lo que se ha enviado en forma 
  #### Fases 4 y 5
  Estas fases han sido realizadas al mismo tiempo, puesto que mientras algunos desarrollaban el juego con websockets, otros hacían mejoras visuales y ampliación de contenido (añadir nuevos escenarios y nuevas skins).
  
+ #### Protocolo utilizado sobre websockets
+ Todo api rest ha sido sustituido por websockets, es decri, el código actual no contiene nada de api rest, puesto que todas sus funcionalidades han sido relevadas al usar websockets. Esto no significa que hayan desaparecido dichas funcionalidades, lo único que cambia con respecto a las mismas es que son implementadas por websockets. Como resultado, la parte online del juego está formada completamente por websokets.
+ 
  #### Mejoras técnicas
  Para empezar, antes de jugar el juego te pregunta si quieres jugar online o local, para que se ejecute de una forma u otra. De esta forma se puede decir que realmente existen dos juegos, puesto que la jugabilidad del segundo jugador cambia (en local se habilita su movilidad en el mismo teclado que el jugador 1, y en online desaparece esa posibilidad de teclado compartido),
  
