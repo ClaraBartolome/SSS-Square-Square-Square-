@@ -92,9 +92,9 @@ No ha sido posible exportar el jar del juego, por lo que se ha enviado en forma 
  Estas fases han sido realizadas al mismo tiempo, puesto que mientras algunos desarrollaban el juego con websockets, otros hacían mejoras visuales y ampliación de contenido (añadir nuevos escenarios y nuevas skins).
  
  #### Mejoras técnicas
- Para empezar, antes de jugar el jeugo te pregunta si quieres jugar online o local, para que se ejecute de una forma u otra. De esta forma se puede decir que realmente existen dos juegos, puesto que la jugabilidad del segundo jugador cambia (en local se habilita su movilidad en el mismo teclado que el jugador 1, y en online desaparece esa posibilidad de teclado compartido),
+ Para empezar, antes de jugar el juego te pregunta si quieres jugar online o local, para que se ejecute de una forma u otra. De esta forma se puede decir que realmente existen dos juegos, puesto que la jugabilidad del segundo jugador cambia (en local se habilita su movilidad en el mismo teclado que el jugador 1, y en online desaparece esa posibilidad de teclado compartido),
  
- Por otro lado, en el menú de selección de skins, ahora una skins ya no va ligada a otra, es decir, puedes seleccionar cualquier skin sin que la del juegador 2 sea otra ya definida a partir de la que escojas. Además, al escoger la skin, aparece una zona en la que puedes moverte con tu skin hasta que el otro jugador decida la suya.
+ Por otro lado, en el menú de selección de skins, ahora una skin ya no va ligada a otra, es decir, puedes seleccionar cualquier skin sin que la del juegador 2 sea otra ya definida a partir de la que escojas. Además, al escoger la skin, aparece una zona en la que puedes moverte con tu skin hasta que el otro jugador decida la suya.
  
  Antes del betatesting nos encontramos con los siguientes errores:
  
