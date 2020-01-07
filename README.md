@@ -50,7 +50,7 @@ Pantalla de menú principal. Se muestra el logo del juego y tres botones. El bot
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Tutorial.png)
 Pantalla de cómo jugar. Se muestra como ejecutar el movimientos y qué hace cada elemento del juego. Asimismo, los jugadores pueden moverse en sus respectivos cuadrados. Pulsando en volver se vuelve al menú principal.
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Creditos.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/creditos.png)
 Pantalla de créditos. Pulsando en volver se vuelve al menú principal.
 
 
