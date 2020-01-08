@@ -179,8 +179,6 @@ public class Handler extends TextWebSocketHandler {
 					
 					Jugador J2 = partidas.get(idP).getJug(idJ2);
 					
-					boolean cambiar = false;
-					
 					if(J1.getM()) {
 						J2.setPuntuacion(J2.getPuntuacion() + 1);
 						J1.setM(false);

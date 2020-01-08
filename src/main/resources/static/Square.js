@@ -454,9 +454,9 @@ class Escena0 extends Phaser.Scene {
             J1velY = jugadores[0].sprite.body.velocity.y;
         }
         
-        if(id_P != -1 && id_J1 != -1){
-        	Comprobar();
-        }
+        //if(id_P != -1 && id_J1 != -1){
+        	//Comprobar();
+        //}
         if(partida){
         	Actualizar();
         }else{
@@ -480,7 +480,7 @@ class Escena0 extends Phaser.Scene {
             jugadores[0].puntuacion = puntuacionJ1;
 
 
-            jugadores[0].sprite.setTint(0x9c9c9c);
+            jugadores[1].sprite.setTint(0x9c9c9c);
             var that = this;
             this.scene.pause();
             that.scene.pause();
@@ -489,7 +489,7 @@ class Escena0 extends Phaser.Scene {
             jugadores[1].puntuacion = puntuacionJ2;
 
 
-            jugadores[1].sprite.setTint(0x9c9c9c);
+            jugadores[0].sprite.setTint(0x9c9c9c);
             var that = this;
             this.scene.pause();
             that.scene.pause();
@@ -624,9 +624,9 @@ class resultados extends Phaser.Scene {
         J1velX = jugadores[0].sprite.body.velocity.x;
         J1velY = jugadores[0].sprite.body.velocity.y;
 
-        if(id_P != -1 && id_J1 != -1){
-        	Comprobar();
-        }
+        //if(id_P != -1 && id_J1 != -1){
+        	//Comprobar();
+        //}
         if(partida){
         	Actualizar();
         }else{
@@ -860,12 +860,6 @@ class bolita extends Phaser.Scene {
     }
 
     create() {
-    	
-    	
-    	
-    	
-    	
-    	
         musica.volume = 0.07;
         this.add.image(640, 360, 'fondo');
         this.add.image(640, 360, 'pausa').setScale(1).setTint(0x009688);
