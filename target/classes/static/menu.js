@@ -126,10 +126,10 @@ class Mainmenu extends Phaser.Scene {
         this.buttonCreditos.on('pointerover', () => this.changeSpriteCreditosPulsado());
         this.buttonCreditos.on('pointerup', () => this.changeSpriteCreditos());
 
-        var info = ["Usuarios Conectados: " + NusuariosAct];
+       /* var info = ["Usuarios Conectados: " + NusuariosAct];
         var info2 = ["Usuarios Jugando: " + NusuariosJug];
         texto = this.add.text(1000, 50, info, { font: '20px Courier', fill: '#ffffff' });
-        texto2 = this.add.text(1000, 100, info2, { font: '20px Courier', fill: '#ffffff' });
+        texto2 = this.add.text(1000, 100, info2, { font: '20px Courier', fill: '#ffffff' }); */
 
         var FKey = this.input.keyboard.addKey('F');
 
@@ -231,7 +231,7 @@ class Mainmenu extends Phaser.Scene {
     }
 
     update() {
-        usuarios();
+       /* usuarios();
         info = ["Usuarios Conectados: " + NusuariosAct];
         info2 = ["Usuarios Jugando: " + NusuariosJug];
 
@@ -239,7 +239,7 @@ class Mainmenu extends Phaser.Scene {
         //console.log(NusuariosJug);
 
         texto.setText(info);
-        texto2.setText(info2);
+        texto2.setText(info2); */
     }
 
 }
@@ -1683,6 +1683,7 @@ class SalaEspera extends Phaser.Scene {
         if (partida && !encontrada) {
             encontrada = true;
             this.buscando.setVisible(false);
+		this.buttonVolver.setVisible(false);
             this.scene.launch("ContadorSalaEspera");
         }
     }
