@@ -89,10 +89,13 @@ No ha sido posible exportar el jar del juego, por lo que se ha enviado en forma 
 
  
  #### Fases 4 y 5
- Estas fases han sido realizadas al mismo tiempo, puesto que mientras algunos desarrollaban el juego con websockets, otros hacían mejoras visuales y ampliación de contenido (añadir nuevos escenarios y nuevas skins).
- 
- #### Protocolo utilizado sobre websockets
- Todo api rest ha sido sustituido por websockets, es decri, el código actual no contiene nada de api rest, puesto que todas sus funcionalidades han sido relevadas al usar websockets. Esto no significa que hayan desaparecido dichas funcionalidades, lo único que cambia con respecto a las mismas es que son implementadas por websockets. Como resultado, la parte online del juego está formada completamente por websokets.
+ Las fases 4 y 5 han sido realizadas de forma prácticamente simultáneas, pues se empezó a desarrollar las mejoras y sugerencias de diseño casi a la vez, implementando estas a medida que Websockets avanzaba.
+
+Se comenzará detallando la fase 4, que parte de un punto esencial: se ha dejado de usar funcionalidad de comunicación mediante API REST, siendo absolutamente todo sustituido por Websockets. 
+
+Así, ahora hay intercambio de comunicación bidireccional no sólo para el apartado jugabilidad (es decir, cuándo un jugador se mueve, salta, mata a otro, actualiza puntuaciones, etc), sino también para temas que enlazan la conexión y las partidas. Es decir, se ha realizado una sala de espera funcional donde un jugador selecciona su personaje y espera que otro se conecte para poder jugar. A su vez, también todo lo relacionado con desconexión de un jugador y salir de partida ha sido llevado mediante el uso de Websockets. 
+
+Se ha decidido tomar esta decisión debido a que aligeraba y solucionaba gran número de problemáticas surgidas en un principio con API REST (entendimiento general de AJAX y Jquery, así como la facilidad para poder enlazar todo bajo un mismo tipo de código organizado), y ha sido un modo bastante más intuitivo de trabajar.
  
  #### Mejoras técnicas
  Para empezar, antes de jugar el juego te pregunta si quieres jugar online o local, para que se ejecute de una forma u otra. De esta forma se puede decir que realmente existen dos juegos, puesto que la jugabilidad del segundo jugador cambia (en local se habilita su movilidad en el mismo teclado que el jugador 1, y en online desaparece esa posibilidad de teclado compartido),
