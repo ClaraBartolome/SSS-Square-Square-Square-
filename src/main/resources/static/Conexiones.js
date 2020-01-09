@@ -27,7 +27,7 @@ socket.onopen = function(event) {
 	  console.log("WebSocket is open now.");
 	  let cmessage = {
 				message : "HELLO_WORLD",
-				text : "AH FILHO DE PUTA AGORA SEM ENTENDO"
+				text : "WebSocket is open now."
 			}
 
 	  socket.send(JSON.stringify(cmessage))
@@ -107,11 +107,25 @@ function Comprobar() {
         partida = o.Estado;
         //console.log(partida);
         J2 = o.Piel;
-
-
-
     }
 };
+
+function Comprobar_juego() {
+    let message = {
+        message: "COMPROBAR_JUEGO",
+        id_J1comp: id_J1,
+        id_Pcomp: id_P,
+
+    };
+    socket.send(JSON.stringify(message));
+    socket.onmessage = function (event) {
+        var o = JSON.parse(event.data);
+        //console.log(o);
+        partida = o.Estado;
+        //console.log(partida);
+    }
+};
+
 	
 function Morir_Websockets(M) {
     let message = {

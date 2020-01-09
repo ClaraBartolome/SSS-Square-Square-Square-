@@ -50,7 +50,7 @@ Pantalla de menú principal. Se muestra el logo del juego y tres botones. El bot
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Tutorial.png)
 Pantalla de cómo jugar. Se muestra como ejecutar el movimientos y qué hace cada elemento del juego. Asimismo, los jugadores pueden moverse en sus respectivos cuadrados. Pulsando en volver se vuelve al menú principal.
 
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/creditos.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Creditos.png)
 Pantalla de créditos. Pulsando en volver se vuelve al menú principal.
 
 
@@ -91,48 +91,11 @@ No ha sido posible exportar el jar del juego, por lo que se ha enviado en forma 
  #### Fases 4 y 5
  Estas fases han sido realizadas al mismo tiempo, puesto que mientras algunos desarrollaban el juego con websockets, otros hacían mejoras visuales y ampliación de contenido (añadir nuevos escenarios y nuevas skins).
  
- #### Protocolo utilizado sobre websockets
- Todo api rest ha sido sustituido por websockets, es decri, el código actual no contiene nada de api rest, puesto que todas sus funcionalidades han sido relevadas al usar websockets. Esto no significa que hayan desaparecido dichas funcionalidades, lo único que cambia con respecto a las mismas es que son implementadas por websockets. Como resultado, la parte online del juego está formada completamente por websokets.
- 
  #### Mejoras técnicas
- Para empezar, antes de jugar el juego te pregunta si quieres jugar online o local, para que se ejecute de una forma u otra. De esta forma se puede decir que realmente existen dos juegos, puesto que la jugabilidad del segundo jugador cambia (en local se habilita su movilidad en el mismo teclado que el jugador 1, y en online desaparece esa posibilidad de teclado compartido),
+ Para empezar, antes de jugar el jeugo te pregunta si quieres jugar online o local, para que se ejecute de una forma u otra. De esta forma se puede decir que realmente existen dos juegos, puesto que la jugabilidad del segundo jugador cambia (en local se habilita su movilidad en el mismo teclado que el jugador 1, y en online desaparece esa posibilidad de teclado compartido),
  
- Por otro lado, en el menú de selección de skins, ahora una skin ya no va ligada a otra, es decir, puedes seleccionar cualquier skin sin que la del juegador 2 sea otra ya definida a partir de la que escojas. Además, al escoger la skin, aparece una zona en la que puedes moverte con tu skin hasta que el otro jugador decida la suya.
+ Por otro lado, en el menú de selección de skins, ahora una skins ya no va ligada a otra, es decir, puedes seleccionar cualquier skin sin que la del juegador 2 sea otra ya definida a partir de la que escojas. Además, al escoger la skin, aparece una zona en la que puedes moverte con tu skin hasta que el otro jugador decida la suya.
  
- Antes del betatesting nos encontramos con los siguientes errores:
- 
- -	Lageo general del juego (mientras la pantalla de un jugador mostraba como este se movía, en la pantalla del otro jugador permanecía inmóvil o se movía a trozos).
--	El jugador desaparece en la pantalla del contrario, llegando en ocasiones hasta desaparecer los dos jugadores.
-
- ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/capturas/error1.png)
- 
--	Desincronización en la puntuación y los cambios de escenas (hay veces que un jugador gana cuando no debería ganar, y otras donde la muerte sólo se da en uno de los lados, dando lugar a un cambio de escena sólo en una de las pantallas y haciendo que los jugadores se queden flotando en la nada). Esto se produce por una pérdida al pasar las posiciones, puede ir con retraso, etc. Un jugador puede estar en una posición en una pantalla, pero en otra en la otra pantalla, aunque la diferencia no sea casi perceptible, una diferencia de unos píxeles puede cambiarlo todo.
-
- ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/capturas/error2.png)
-  ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/capturas/error3.png)
-
--	Problemas a la hora de que un jugador seleccione dos veces una skin, en vez de esperar a que se inicie partida (eso hace que se cree una sala con dos skins pero un sólo jugador jugando, así que una de ellas aparece inmóvil en el techo).
--	Problemas en colisiones entre jugadores, se atraviesan, puesto que en una de las pantallas no se había movido un jugador y no se detectaban colisiones.
-
-
-Realizando el betatesting, descubrimos el origen y solución de los anteriores fallos:
-
--	La desaparición se producía por enviar constantemente la skin del jugador, y si se perdía en algún momento provocaba que se dejase de ver el jugador. Esto se solucionó pasando la skin únicamente al principio de la partida, de forma que ahora será permanentemente visible a lo largo de toda la partida.
--	La desincronización de la puntuación y el cambio de escena se solucionó de la siguiente forma. Cada jugador envía continuamente al servidor si está muerto o no. Cuando el servidor detecta que alguien ha muerto, le da un punto al contrario y devuelve las nuevas puntuaciones. Cuando de forma local se detecta que la puntuación del servidor es distinta que la de la máquina, se iguala y se pasa a la siguiente ronda. De esta forma no habrá desincronización de niveles y ambos jugadores verán el mismo estado de partida.
--	Para solucionar el bug de seleccionar skins dos veces y que una se quedase atascada, se creó una sala de espera en la que cuando el jugador selecciona una skin, este jugador es movido a esa sala en la que se podrá mover en una zona mientras espera a que el segundo jugador elija su personaje, y, después de esto, saltará un contador indicando que la partida empezará en 3 segundos. De esta forma parece que el jugador podría equivocarse de skin y no podrá deseleccionarla, sin embargo, para elegir una skin es necesario pulsar sobre ella y luego dar en el botón de continuar, por lo que dar al usuario la posibilidad de tener que pulsar en dos lugares diferentes les dota de la oportunidad de elegir otra skin si se hubiese equivocado inicialmente.
--	Que los jugadores se atravesasen se solucionó pasando también la velocidad de estos, puesto que así también se tiene en cuenta ese factor y así actúan correctamente las físicas. Además, al pasar la velocidad, se nota un movimiento más fluido, puesto que la tiene en cuenta a la hora de actualizar posiciones en el caso de que no llegue la posición, haciendo que el lag general que teníamos anteriormente desapareciera también.
-
-Actualmente, contamos con dos bugs que han saltado a la vista en cuanto han sido planteados:
--	El primero se da cuando los dos jugadores eligen la misma skin para jugar. Dado que no hay un diferenciador o marcador que muestre la skin elegida por el otro jugador, puede darse la posibilidad de que ambos elijan la skin análoga. Esto, por supuesto, da lugar a una clara confusión dentro del juego, pues ninguno de los dos jugadores sabrá diferenciarse el uno del otro, dando lugar a situaciones de confusión que cortaría el flujo de juego.
-
--	El segundo bug, por otro lado, ocurre cuando se llega al tope de jugadores disponibles. Por problemas de hilos y concurrencia, hemos decidido colocar un tope de 10 jugadores para evitar saturar el servidor. Justo por esa razón, si ese tope llega a superarse, al jugador no se le notifica de absolutamente nada y puede pensar que el juego está roto o no funcional.
-
-Así, se llegó a las siguientes soluciones:
--	Para el primero de los problemas, en el momento en el que ambos jugadores eligen la misma skin, se coloca una de ellas con un tinte de color (simulando la selección de personajes en el Smash Bros) para que haya una diferenciación notoria entre ambos. 
-
--	En el segundo problema, hemos decidido notificar a los jugadores con una escena/pantalla propia. Es decir, si se da el caso de que alguien intenta entrar cuando el tope de jugadores posibles ya se ha dado, se le enviará a una pantalla que ponga “Parece que todas nuestras salas están llenas, prueba a entrar en un rato”.
-
-
  
  #### Nuevos niveles
  ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Nivel_5.png)

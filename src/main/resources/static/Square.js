@@ -43,8 +43,6 @@ var ronda = 0;
 var timedEvent;
 
 
-var partida = false;
-
 
 class Escena0 extends Phaser.Scene {
 
@@ -55,6 +53,9 @@ class Escena0 extends Phaser.Scene {
     preload() {
         this.load.image('sky', 'assets/sky.jpeg');
         this.load.image('ground2', 'assets/platform2N.png');
+        this.load.image('bolita_F', 'assets/f.png')
+        this.load.image('bolita_fondo', 'assets/fondo_juego_2.jpg');
+        this.load.image('bolita_gato', 'assets/bolita.jpg');
         this.load.image('caja', 'assets/caja.png');
         this.load.image('caja1', 'assets/caja1.png');
         this.load.image('finR', 'assets/findelaronda.png');
@@ -364,6 +365,11 @@ class Escena0 extends Phaser.Scene {
                 break;
         }
 
+        
+        if (J1 == J2) {
+            jugadores[1].sprite.setTint(0xa8fff9);
+        } 
+       
         cursors[0] = this.input.keyboard.addKeys(
             {
                 up: Phaser.Input.Keyboard.KeyCodes.W,
@@ -404,14 +410,7 @@ class Escena0 extends Phaser.Scene {
             }
         }, this);
 
-        var PKey = this.input.keyboard.addKey('P');
-        PKey.on('down', pause, this);
-
-        // And finally the method that handels the pause menu
-        function pause() {
-            this.scene.pause();
-            this.scene.launch('menuPausa');
-        };
+        
     }
 
     update() {
@@ -446,7 +445,6 @@ class Escena0 extends Phaser.Scene {
             if (cursors[0].up.isDown && jugadores[0].sprite.body.touching.down) {
                 jugadores[0].sprite.body.velocity.y = -600;
                 salto.play();
-                console.log(J1muerte + " " + J2muerte);
             }
 			J1posX = jugadores[0].sprite.body.x;
             J1posY = jugadores[0].sprite.body.y;
@@ -454,13 +452,12 @@ class Escena0 extends Phaser.Scene {
             J1velY = jugadores[0].sprite.body.velocity.y;
         }
         
-        //if(id_P != -1 && id_J1 != -1){
-        	//Comprobar();
-        //}
+        if(id_P != -1 && id_J1 != -1){
+        	Comprobar_juego();        }
         if(partida){
         	Actualizar();
         }else{
-        	if(jugadores[0].muerte == false){
+        	if(partida != undefined){
                 this.scene.pause();
                 this.scene.launch("bolita");
                 this.scene.start("bolita"); 
@@ -624,9 +621,9 @@ class resultados extends Phaser.Scene {
         J1velX = jugadores[0].sprite.body.velocity.x;
         J1velY = jugadores[0].sprite.body.velocity.y;
 
-        //if(id_P != -1 && id_J1 != -1){
-        	//Comprobar();
-        //}
+        if(id_P != -1 && id_J1 != -1){
+        	Comprobar_juego();
+        }
         if(partida){
         	Actualizar();
         }else{
@@ -693,50 +690,6 @@ class resultados extends Phaser.Scene {
 
 }
 
-class menuPausa extends Phaser.Scene {
-    constructor() {
-        super("menuPausa");
-    }
-
-    create() {
-        musica.volume = 0.07;
-        this.add.image(640, 360, 'pausa').setScale(1);
-        this.add.image(640, 360, 'pausaSprite').setScale(1);
-
-        var PKey = this.input.keyboard.addKey('P');
-        PKey.on('down', play, this);
-
-        var NKey = this.input.keyboard.addKey('N');
-        NKey.on('down', quit, this);
-
-        function play() {
-            musica.volume = 0.2;
-            this.scene.resume("Escena0");
-            this.scene.stop("menuPausa");
-        };
-
-        function quit() {
-            musica.stop();
-            estaSonando = false;
-            for (var i = 0; i < numJugadores; i++) {
-                jugadores[i].puntuacion = 0;
-                jugadores[i].muerte = false;
-            }
-
-            this.scene.stop("Escena0");
-
-            idEscenario = 0;
-            muertesTotales_on = 0;
-            cerrar();
-            this.scene.start("Mainmenu");
-        };
-    }
-}
-
-
-
-
-
 class sigRonda extends Phaser.Scene {
     constructor() {
         super("sigRonda");
@@ -756,7 +709,7 @@ class sigRonda extends Phaser.Scene {
         var P2 = jugadores[1].puntuacion;
 
         var info2 = [J1 + ":" + jugadores[0].puntuacion + " " + J2 + ":" + jugadores[1].puntuacion,];
-        console.log(J1);
+
         if (idEscenario == 7) {
         	this.add.image(640, 325, 'resultadosR').setScale(1);
         } else {
@@ -860,17 +813,23 @@ class bolita extends Phaser.Scene {
     }
 
     create() {
+    	
+    	
+    	
+    	
+    	
+    	
         musica.volume = 0.07;
-        this.add.image(640, 360, 'fondo');
-        this.add.image(640, 360, 'pausa').setScale(1).setTint(0x009688);
-        this.add.image(640, 360, 'pausaSprite').setScale(1);
+        this.add.image(640, 360, 'bolita_fondo');
+        this.add.image(640, 360, 'bolita_gato').setScale(1).setAlpha(0.05);
+        this.add.image(640, 240, 'bolita_F').setScale(1);
 
 
         var NKey = this.input.keyboard.addKey('N');
         NKey.on('down', quit, this);
 
       //BOTON VOLVER
-        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver = this.add.sprite(640, 500, 'volver').setScale(1).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
@@ -917,7 +876,7 @@ class bolita extends Phaser.Scene {
 
     changeSpriteVolverPulsado() {
         this.buttonVolver.destroy();
-        this.buttonVolver = this.add.sprite(250, 50, 'volver_pulsado').setScale(0.5).setInteractive();
+        this.buttonVolver = this.add.sprite(640, 500, 'volver_pulsado').setScale(1).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerdown', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
@@ -925,7 +884,7 @@ class bolita extends Phaser.Scene {
 
     changeSpriteVolver() {
         this.buttonVolver.destroy();
-        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver = this.add.sprite(640, 500, 'volver').setScale(1).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerup', () => this.changeSpriteVolver());
@@ -1002,7 +961,6 @@ function comprobacionPisacion(sprite, sprite2) {
 }
 
 function terminarRonda(that) {
-    console.log(J1muerte + " " + J2muerte);
 
     idEscenario++;
     if (puntuacionJ1 == 1 || puntuacionJ2 == 1) {

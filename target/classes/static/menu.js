@@ -33,6 +33,7 @@ class Mainmenu extends Phaser.Scene {
         this.load.image('ok_pul', 'assets/B_OK_pul.png')
         this.load.image('cancelar', 'assets/B_OK.png')
         this.load.image('cancelar_pul', 'assets/B_OK_pul.png')
+        
 
         this.load.image('J1_c', 'assets/Jugador_1.png')
         this.load.image('J2_c', 'assets/Jugador_2.png')
@@ -450,7 +451,7 @@ class local extends Phaser.Scene {
         this.buttonOK.on('pointerout', () => this.changeSpriteOK());
 
         //BOTON VOLVER
-        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver = this.add.sprite(250, 125, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
@@ -917,7 +918,7 @@ class local extends Phaser.Scene {
 
     changeSpriteVolverPulsado() {
         this.buttonVolver.destroy();
-        this.buttonVolver = this.add.sprite(250, 50, 'volver_pulsado').setScale(0.5).setInteractive();
+        this.buttonVolver = this.add.sprite(250, 125, 'volver_pulsado').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerdown', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
@@ -925,7 +926,7 @@ class local extends Phaser.Scene {
 
     changeSpriteVolver() {
         this.buttonVolver.destroy();
-        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver = this.add.sprite(250, 125, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerup', () => this.changeSpriteVolver());
@@ -1101,7 +1102,7 @@ class login extends Phaser.Scene {
         this.buttonOK.on('pointerout', () => this.changeSpriteOK());
 
         //BOTON VOLVER
-        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver = this.add.sprite(250, 125, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
@@ -1372,7 +1373,7 @@ class login extends Phaser.Scene {
 
     changeSpriteVolverPulsado() {
         this.buttonVolver.destroy();
-        this.buttonVolver = this.add.sprite(250, 50, 'volver_pulsado').setScale(0.5).setInteractive();
+        this.buttonVolver = this.add.sprite(250, 125, 'volver_pulsado').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerdown', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerout', () => this.changeSpriteVolver());
@@ -1380,7 +1381,7 @@ class login extends Phaser.Scene {
 
     changeSpriteVolver() {
         this.buttonVolver.destroy();
-        this.buttonVolver = this.add.sprite(250, 50, 'volver').setScale(0.5).setInteractive();
+        this.buttonVolver = this.add.sprite(250, 125, 'volver').setScale(0.5).setInteractive();
         this.buttonVolver.on('pointerdown', () => this.clickButtonVolver());
         this.buttonVolver.on('pointerover', () => this.changeSpriteVolverPulsado());
         this.buttonVolver.on('pointerup', () => this.changeSpriteVolver());

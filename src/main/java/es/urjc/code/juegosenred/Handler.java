@@ -179,6 +179,8 @@ public class Handler extends TextWebSocketHandler {
 					
 					Jugador J2 = partidas.get(idP).getJug(idJ2);
 					
+					boolean cambiar = false;
+					
 					if(J1.getM()) {
 						J2.setPuntuacion(J2.getPuntuacion() + 1);
 						J1.setM(false);
@@ -225,6 +227,24 @@ public class Handler extends TextWebSocketHandler {
 				} 
 				if(Jug != null) {
 					Jug.sendMessage(msg.toString());
+				}
+				
+				
+				break;	
+			case ("COMPROBAR_JUEGO"):
+				int id_par1 = node.get("id_Pcomp").asInt();
+				int id11 = node.get("id_J1comp").asInt();
+				
+				Jugador Jug1 = partidas.get(id_par1).getJug(id11);
+				
+				msg.put("Estado", partidas.get(id_par1).estado());
+				
+				if(partidas.get(id_par1).estado()) {
+					
+					int id2 = partidas.get(id_par1).getIdOtroJug(id11);			
+				} 
+				if(Jug1 != null) {
+					Jug1.sendMessage(msg.toString());
 				}
 				
 				
