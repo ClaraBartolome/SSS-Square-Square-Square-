@@ -107,11 +107,11 @@ En este apartado se tratará el análisis realizado durante la fase de Websocket
 Bugs recopilados durante la práctica de Websockets:
 - Lageo general del juego (mientras la pantalla de un jugador mostraba como este se movía, en la pantalla del otro jugador permanecía inmóvil o se movía a trozos).
 - El jugador desaparece en la pantalla del contrario, llegando en ocasiones hasta desaparecer los dos jugadores.
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/1.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/1.PNG)
 
 - Desincronización en la puntuación y los cambios de escenas (hay veces que un jugador gana cuando no debería ganar, y otras donde la muerte sólo se da en uno de los lados, dando lugar a un cambio de escena sólo en una de las pantallas y haciendo que los jugadores se queden flotando en la nada). Esto se produce por una pérdida al pasar las posiciones, puede ir con retraso, etc. Un jugador puede estar en una posición en una pantalla, pero en otra en la otra pantalla, aunque la diferencia no sea casi perceptible, una diferencia de unos píxeles puede cambiarlo todo.
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/2.png)
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/3.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/2.PNG)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/3.PNG)
 
 - Problemas a la hora de que un jugador seleccione dos veces una skin, en vez de esperar a que se inicie partida (eso hace que se cree una sala con dos skins, pero un sólo jugador jugando, así que una de ellas aparece inmóvil en el techo).
 - Problemas en colisiones entre jugadores, se atraviesan, puesto que en una de las pantallas no se había movido un jugador y no se detectaban colisiones.
@@ -131,8 +131,8 @@ Así, se llegó a las siguientes soluciones:
 Además de esto, durante todo el proceso de desarrollo empezado en Websockets, se plantearon ciertas mejoras para el juego. Estas son la inclusión de un mayor número de skins, la adición de nuevos niveles para aumentar la dificultad del juego, la posibilidad de colocar sprites animados para dotar de mayor fluidez al juego, así como el diseño y posterior implementación de nuevos elementos en los escenarios (como puertas, objetos rígidos, distintas plataformas, y power-ups).
 De todas estas opciones, se eligió implementar el aumento de skins y niveles, dando un nuevo giro de tuerca a la interfaz de selección de personaje y otorgando una faceta mucho más brillante.
 La inclusión de niveles se realizó bajo el pretexto de dota de mayor dinamismo a la partida, añadiendo cierta dificultad al juego y evitando que el jugador se aburra demasiado pronto.
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/4.png)
-![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/5.png)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/4.PNG)
+![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/5.PNG)
 
 Respecto a la ampliación concerniente al contenido de skins, cabe destacar que ahora el otro jugador no necesita tener por defecto una complementaria, y podrá elegir la skin que él desee con total libertad. Además, la mayoría de las nuevas skins están basadas en personajes de los juegos de otros grupos de clase, todas ellas siendo desarrolladas con el permiso de sus diseñadores originales.
 ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/cuadraruto.jpg)
