@@ -126,11 +126,6 @@ class Mainmenu extends Phaser.Scene {
         this.buttonCreditos.on('pointerover', () => this.changeSpriteCreditosPulsado());
         this.buttonCreditos.on('pointerup', () => this.changeSpriteCreditos());
 
-        var info = ["Usuarios Conectados: " + NusuariosAct];
-        var info2 = ["Usuarios Jugando: " + NusuariosJug];
-        texto = this.add.text(1000, 50, info, { font: '20px Courier', fill: '#ffffff' });
-        texto2 = this.add.text(1000, 100, info2, { font: '20px Courier', fill: '#ffffff' });
-
         var FKey = this.input.keyboard.addKey('F');
 
         FKey.on('down', function () {
@@ -229,19 +224,6 @@ class Mainmenu extends Phaser.Scene {
         this.buttonComoJugar.on('pointerup', () => this.changeSpriteJugar());
 
     }
-
-    update() {
-        usuarios();
-        info = ["Usuarios Conectados: " + NusuariosAct];
-        info2 = ["Usuarios Jugando: " + NusuariosJug];
-
-        // console.log(NusuariosAct);
-        //console.log(NusuariosJug);
-
-        texto.setText(info);
-        texto2.setText(info2);
-    }
-
 }
 
 var suelo1, suelo2;
@@ -1592,7 +1574,7 @@ class SalaEspera extends Phaser.Scene {
     }
     create() {
         encontrada = false; 
-
+        partida = false;
         salto = this.sound.add('salto');
         muerteSonido = this.sound.add('muerteSonido');
         salto.volume = 0.2;
@@ -1682,6 +1664,7 @@ class SalaEspera extends Phaser.Scene {
         }
         if (partida && !encontrada) {
             encontrada = true;
+            this.buttonVolver.destroy();
             this.buscando.setVisible(false);
             this.scene.launch("ContadorSalaEspera");
         }

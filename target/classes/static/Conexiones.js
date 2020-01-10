@@ -21,7 +21,7 @@ var puntuacionJ2 = 0;
 
 var socket; 
 
-socket = new WebSocket("ws://localhost:8080/SSS")
+socket = new WebSocket("ws://10.0.12.212:8080/SSS")
 
 socket.onopen = function(event) {
 	  console.log("WebSocket is open now.");
@@ -105,8 +105,10 @@ function Comprobar() {
         var o = JSON.parse(event.data);
         //console.log(o);
         partida = o.Estado;
-        //console.log(partida);
-        J2 = o.Piel;
+        if (o.Piel != undefined) {
+            //console.log(partida);
+            J2 = o.Piel;
+        }
     }
 };
 

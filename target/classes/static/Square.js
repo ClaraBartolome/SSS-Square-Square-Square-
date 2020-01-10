@@ -453,7 +453,7 @@ class Escena0 extends Phaser.Scene {
         }
         
         if(id_P != -1 && id_J1 != -1){
-        	Comprobar_juego();        }
+        	Comprobar();        }
         if(partida){
         	Actualizar();
         }else{
@@ -622,7 +622,7 @@ class resultados extends Phaser.Scene {
         J1velY = jugadores[0].sprite.body.velocity.y;
 
         if(id_P != -1 && id_J1 != -1){
-        	Comprobar_juego();
+        	Comprobar();
         }
         if(partida){
         	Actualizar();
