@@ -106,6 +106,10 @@ Se ha decidido tomar esta decisión debido a que aligeraba y solucionaba gran n�
  
  Por otro lado, en el menú de selección de skins, ahora una skin ya no va ligada a otra, es decir, puedes seleccionar cualquier skin sin que la del juegador 2 sea otra ya definida a partir de la que escojas. Además, al escoger la skin, aparece una zona en la que puedes moverte con tu skin hasta que el otro jugador decida la suya.
  
+ #### Diagrama de clases
+ 
+ ![alt text](https://github.com/ClaraMegalovania/SSS-Square-Square-Square-/blob/master/Arte/Diagrama_de_clases.png)
+ 
 #### Alfa testing
 En este apartado se tratará el análisis realizado durante la fase de Websockets, desglosando los principales bugs y soluciones encontradas para los mismos.
 Bugs recopilados durante la práctica de Websockets:
